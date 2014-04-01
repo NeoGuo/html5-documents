@@ -1,0 +1,226 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"publi",
+				"public-method	public_method_definition"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 87.0,
+		"selected_items":
+		[
+			[
+				"install",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)",
+			"import urllib2,os;pf='Package Control.sublime-package';ipp=sublime.installed_packages_path();os.makedirs(ipp) if not os.path.exists(ipp) else None;open(os.path.join(ipp,pf),'wb').write(urllib2.urlopen('http://sublime.wbond.net/'+pf.replace(' ','%20')).read())"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Volumes/OSX_DATA/SVN/html5-documents/test/test-ts.ts",
+		"/Volumes/OSX_DATA/SVN/html5-documents/test/index.html",
+		"/Users/shaorui/Downloads/bird-zip/src_ts/egret/display/Bitmap.ts",
+		"/Volumes/OSX_DATA/SVN/html5-documents/test/egret.sublime-project",
+		"/Volumes/OSX_DATA/SVN/egret/egret_file_list.js",
+		"/Volumes/OSX_DATA/SVN/egret/examples/index.html",
+		"/Volumes/OSX_DATA/SVN/egret/examples/TestBitmap.js",
+		"/Volumes/OSX_DATA/SVN/egret/examples/assets/240/armature/button_start_texture.json",
+		"/Volumes/OSX_DATA/SVN/egret/src/extension/gui/component/UIComponent.ts",
+		"/Volumes/OSX_DATA/SVN/egret/src/extension/gui/component/Button.ts",
+		"/Volumes/OSX_DATA/SVN/egret/examples/TestDisplayList.js",
+		"/Users/shaorui/Downloads/table.jsp",
+		"/Volumes/OSX_DATA/Projects/MingBoard/flex/flex/ane/flash/source/net/mingboard/ext/MobileUtil.as",
+		"/Users/shaorui/Downloads/Rope.as",
+		"/Volumes/OSX_DATA/Projects/MingBoard/flex/flex/ane/bin/build.sh",
+		"/Users/shaorui/Desktop/mdp_tree.xml",
+		"/Volumes/OSX_DATA/Projects/OfficeNav/source/flash/beacon-lib/zip-all-jar/build.xml",
+		"/Users/shaorui/Desktop/set-all-jar/build.xml",
+		"/Users/shaorui/Desktop/runbeacon.sh",
+		"/Volumes/OSX_DATA/Projects/TencentFunShow/front-end/flash/source/funshow-core-lib/source/com/funshow/core/service/FunShowService.as",
+		"/Users/shaorui/Desktop/log.txt",
+		"/Volumes/OSX_DATA/Projects/OfficeNav/source/flash/beacon-lib/ane/build.sh",
+		"/Volumes/OSX_DATA/Projects/OfficeNav/source/flash/beacon-lib/ane/extension.xml",
+		"/Volumes/OSX_DATA/Projects/OfficeNav/source/flash/beacon-lib/beacon-java/.project",
+		"/Volumes/OSX_DATA/Projects/OfficeNav/source/flash/beacon-lib/beacon-java/.classpath",
+		"/Volumes/OSX_DATA/Projects/OfficeNav/source/flash/beacon-lib/beacon-java/proguard-project.txt",
+		"/Volumes/OSX_DATA/Projects/OfficeNav/source/flash/beacon-lib/beacon-java/project.properties",
+		"/Volumes/OSX_DATA/SVN/MobileANE/ane/extension.xml",
+		"/Volumes/OSX_DATA/SVN/MobileANE/ane/MacOS-x86/catalog.xml",
+		"/Volumes/OSX_DATA/SVN/MobileANE/flash/src/com/techmx/ext/MobileUtil.as",
+		"/Volumes/OSX_DATA/SVN/MobileANE/ane/build.sh",
+		"/private/etc/paths",
+		"/Volumes/OSX_DATA/flex_sdk/AIR SDK Readme.txt",
+		"/Users/shaorui/Downloads/Tian zhu ding.srt",
+		"/Users/shaorui/Downloads/123",
+		"/Users/shaorui/Downloads/FightScene.xml.scene",
+		"/Volumes/OSX_DATA/SVN/cocos2d-x-2.2.2/README.mdown",
+		"/Volumes/OSX_DATA/SVN/actionscript-exif-reading-lib/README.md",
+		"/Users/shaorui/Downloads/source/Main.as",
+		"/Users/shaorui/Desktop/新模板后台数据结构.txt",
+		"/Volumes/OSX_DATA/Projects/TencentFunShow/front-end/flash/source/text-template/readme.txt",
+		"/Volumes/OSX_DATA/Projects/TencentFunShow/front-site/static/default/swf2013/make/config/config.xml",
+		"/Volumes/OSX_DATA/Projects/TencentFunShow/adminnew.funshow.qq.com/static/js/bin-release/config/config.xml",
+		"/Users/shaorui/Desktop/Starling JS加入Away Foundation",
+		"/Users/shaorui/Desktop/毛大批.txt",
+		"/Users/shaorui/Downloads/FLAC_Decoder_v0.5_beta1/COPYING",
+		"/Volumes/OSX_DATA/Workspace/Labs/funshow-main/.actionScriptProperties",
+		"/Volumes/OSX_DATA/Workspace/Tencent/little-finger-main/.actionScriptProperties",
+		"/Users/shaorui/Library/Preferences/com.apple.finder.plist",
+		"/Users/shaorui/Desktop/命令.txt",
+		"/Users/shaorui/Downloads/f42768c635f4bebb957bf7da4bd75232_material(1).jpg",
+		"/Users/shaorui/Downloads/f42768c635f4bebb957bf7da4bd75232_material.jpg",
+		"/Extra/org.chameleon.Boot.plist",
+		"/Users/shaorui/Library/Application Support/GoAgentX/goagent/proxy.ini",
+		"/Users/shaorui/Library/Application Support/GoAgentX/Profiles/418CB6ED-E7B9-4733-BE9E-ECA9707D29CF.json",
+		"/private/etc/hosts"
+	],
+	"find":
+	{
+		"height": 23.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"$}\n",
+			"Segment"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 100.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"project": "egret.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
