@@ -18,3 +18,10 @@ Egret框架很重要的一个特性就是，允许开发者使用[TypeScript](ht
 ####IDE
 * [WebStorm](http://www.jetbrains.com/webstorm/) (推荐)
 * SublimeText(可选)
+
+安装和配置:
+----------------------------
+
+关于Node.js，npm，TypeScript的安装参见[WIKI](https://github.com/egret-team/egret/wiki)，这一步非常关键，请遵循步骤正确完成安装。
+
+目前基于Egret框架的应用调试，必须基于一个HTTP服务器来进行，简言之，就是您需要在浏览器中用http://localhost/demo这样的形式来运行。
