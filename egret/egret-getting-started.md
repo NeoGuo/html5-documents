@@ -27,7 +27,7 @@ Egret框架很重要的一个特性就是，允许开发者使用[TypeScript](ht
 
 目前基于Egret框架的应用调试，必须基于一个HTTP服务器来进行，简言之，就是您需要在浏览器中用http://localhost/demo这样的形式来运行。如果您之前没有接触过本地Server调试，也不必太顾虑，配置过程相对还是简单的。不同的操作系统有不同的选择，如果您是Windows系统，可以用系统自带的IIS([配置教程](http://jingyan.baidu.com/article/b907e627e6abe646e7891c01.html))，或者在网上找一个Apache的集成安装包。如果您是Mac OS X系统，就更简单了，Mac OS X自带了Apache，可以参考[这篇教程](http://www.cnblogs.com/snandy/archive/2012/11/13/2765381.html)设置一下虚拟站点。
 
-至于IDE，您可以根据自己的系统和个人喜好自由选择，本文将使用WebStorm来完成演示，这个工具在前端开发界有很高的声誉。
+至于IDE，您可以根据自己的系统和个人喜好自由选择，本文将使用WebStorm 8.0来完成演示，这个工具在前端开发界有很高的声誉。
 
 运行HelloWorld:
 ----------------------------
@@ -68,4 +68,11 @@ $ egret b
 下面我们来改写一下HelloEgret项目，实现一个简单的位图动画。改写代码，我们需要一个IDE，这里使用WebStorm。打开WebStorm，创建一个项目，目录指向{egret_workspace} ，创建完成后，可以看到类似下面的结构：
 
 ![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret/images/workspace.png "WorkSpace")
+
+展开HelloEgret项目的src目录，您可以看见3个文件：game_file_list.js,GameApp.ts,GameUI.ts，3个文件的作用依次是：
+
+* game_file_list.js - 包含您为项目编写的TypeScript文件编译所得的js文件，对项目的类文件进行增删改时，记得更新这个文件。
+* GameApp.ts - 作为游戏的入口类，实现游戏逻辑
+* GameUI.ts - 实现Loading效果
+
 
