@@ -62,3 +62,10 @@ $ egret b
 
 ![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret/images/hello_egret.png "HelloEgret")
 
+使用位图增加简单动画:
+----------------------------
+
+下面我们来改写一下HelloEgret项目，实现一个简单的位图动画。改写代码，我们需要一个IDE，这里使用WebStorm。打开WebStorm，创建一个项目，目录指向{egret_workspace} ，创建完成后，可以看到类似下面的结构：
+
+![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret/images/workspace.png "WorkSpace")
+
