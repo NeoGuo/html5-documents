@@ -11,10 +11,10 @@ Egret框架很重要的一个特性就是，允许开发者使用[TypeScript](ht
 ----------------------------
 
 ####环境和工具
-* Node.js和npm
+* Node.js和npm ([下载安装](http://www.nodejs.org/))
 * TypeScript ([中文介绍](http://baike.baidu.com/view/9400999.htm))
 * 一个HTTP服务器(比如Apache)
 
 ####IDE
-* WebStorm(推荐)
+* [WebStorm](http://www.jetbrains.com/webstorm/) (推荐)
 * SublimeText(可选)
