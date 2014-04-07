@@ -221,3 +221,5 @@ $ egret b -g HelloEgret
 打开浏览器观看最终结果，可以看到一个简单的位图动画：
 
 ![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret/images/egret_animation.gif "EgretAnimation")
+
+(未完待续...)
