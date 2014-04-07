@@ -32,3 +32,33 @@ Egret框架很重要的一个特性就是，允许开发者使用[TypeScript](ht
 运行HelloWorld:
 ----------------------------
 
+程序员的习惯是，学习一个框架从HelloWorld开始。这里也不免俗，先带您运行Egret框架的HelloWorld。
+
+####下载和配置Egret
+
+Egret是一个开源框架，托管在GitHub上，地址是：[github.com/egret-team/egret](https://github.com/egret-team/egret)，您可以通过Git客户端Clone到本地，或者直接下载ZIP包到本地解压。请尽量将框架文件存放在磁盘易于寻找的位置，且路径中不要包含中文。请记下这个路径备用，为便于描述，以下将使用{egret_root}来表示这个路径。
+
+然后需要使用Egret框架内置的命令行工具来完成项目的创建和编译，这个工具叫做Egret Command Line Tools，简称Egret CLT。
+
+首先需要使用npm来安装Egret CLT，命令如下：
+```
+$ npm install {egret_root}/tools -g
+```
+> Mac OS用户请加上sudo来确保执行权限
+
+然后请把WebServer指向您的工作目录，确保此目录可以被您的WebServer访问到，以下将使用{egret_workspace}代指您的工作目录。然后执行下面的命令来创建您的第一个Egret项目：
+```
+$ cd {egret_workspace} 
+$ egret c HelloEgret -e {egret_root}
+```
+> 如果创建第二个或之后的项目，不需要"-e {egret_root}"这个参数。
+
+然后执行成功后，您可以看到工作目录下多了HelloEgret这个项目。然后敲入下面的命令来编译：
+```
+$ egret b
+```
+
+执行完毕后，就可以运行HelloEgret项目，打开浏览器，输入站点目录下的/output/HelloEgret/launcher/index.html路径即可，比如：http://localhost/output/HelloEgret/launcher/index.html。顺利的话，您将会看到如下的画面：
+
+![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret/images/hello_egret.png "HelloEgret")
+
