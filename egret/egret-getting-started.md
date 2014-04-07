@@ -9,3 +9,12 @@ Egret框架很重要的一个特性就是，允许开发者使用TypeScript来�
 
 环境和软件要求:
 ----------------------------
+
+####环境和工具
+* Node.js和npm
+* TypeScript
+* 一个HTTP服务器(比如Apache)
+
+####IDE
+* WebStorm(推荐)
+* SublimeText(可选)
