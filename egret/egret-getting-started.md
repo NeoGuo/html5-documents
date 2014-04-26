@@ -36,27 +36,31 @@ Egret框架很重要的一个特性就是，允许开发者使用[TypeScript](ht
 
 ####下载和配置Egret
 
-Egret是一个开源框架，托管在GitHub上，地址是：[github.com/egret-team/egret](https://github.com/egret-team/egret)，您可以通过Git客户端Clone到本地，或者直接下载ZIP包到本地解压。请尽量将框架文件存放在磁盘易于寻找的位置，且路径中不要包含中文。请记下这个路径备用，为便于描述，以下将使用{egret_root}来表示这个路径。
+Egret是一个开源框架，托管在GitHub上，地址是：[github.com/egret-team/egret](https://github.com/egret-team/egret)，您可以通过Git客户端Clone到本地，或者直接下载ZIP包到本地解压。
+
+然后请把WebServer指向您的工作目录，确保此目录可以被您的WebServer访问到，以下将使用{egret_workspace}代指您的工作目录。将刚才下载到的Egret源码放到{egret_workspace}下面，并确保文件夹名为egret(注意大小写)。
 
 然后需要使用Egret框架内置的命令行工具来完成项目的创建和编译，这个工具叫做Egret Command Line Tools，简称Egret CLT。
 
 首先需要使用npm来安装Egret CLT，命令如下：
 ```
-$ npm install {egret_root}/tools -g
+$ cd {egret_workspace}
+$ npm install egret/tools -g
 ```
 > Mac OS用户请加上sudo来确保执行权限
 
-然后请把WebServer指向您的工作目录，确保此目录可以被您的WebServer访问到，以下将使用{egret_workspace}代指您的工作目录。然后执行下面的命令来创建您的第一个Egret项目：
+然后执行下面的命令来创建您的第一个Egret项目：
 ```
 $ cd {egret_workspace} 
-$ egret c HelloEgret -e {egret_root}
+$ egret c HelloEgret
 ```
-> 如果创建第二个或之后的项目，不需要"-e {egret_root}"这个参数。
+> 工作目录下的所有项目将公用同一个egret库
 
 然后执行成功后，您可以看到工作目录下多了HelloEgret这个项目。然后敲入下面的命令来编译：
 ```
 $ egret b
 ```
+> 如果发现运行时缺少文件，请检查config.local，是否包含了所有的路径
 
 执行完毕后，就可以运行HelloEgret项目，打开浏览器，输入站点目录下的/output/HelloEgret/launcher/index.html路径即可，比如：http://localhost/output/HelloEgret/launcher/index.html。顺利的话，您将会看到如下的画面：
 
@@ -104,15 +108,6 @@ class MyGame {
         
     }
 }
-module utils {
-    export function createBitmap(url):ns_egret.Bitmap {
-        var result:ns_egret.Bitmap = new ns_egret.Bitmap();
-        var texture:ns_egret.Texture = ns_egret.TextureCache.getInstance().getTexture(url);
-        result.texture = texture;
-        return result;
-    }
-
-}
 //实例化入口类
 var app = new MyGame();
 ```
@@ -129,11 +124,14 @@ private sky:ns_egret.Bitmap;
 ```
 private onResourceLoadComplete():void {
     var stage = ns_egret.MainContext.instance.stage;
-    this.sky = utils.createBitmap("egret_icon.png");
+    this.sky = new ns_egret.Bitmap();
+    var texture:ns_egret.Texture = ns_egret.TextureCache.getInstance().getTexture("egret_icon.png");
+    this.sky.texture = texture;
     stage.addChild(this.sky);
 }
 ```
-> 注意this关键词不可以省略，这是和Flash不一样的地方，在Flash中我们允许省略this关键词
+> 注意egret_icon.png我们已经在startGame方法中预加载了，所以这里可以从TextureCache获取
+> 另外务必注意this关键词不可以省略，这是和Flash不一样的地方，在Flash中我们允许省略this关键词
 
 然后我们使用Tween来让sky这个位图做一些运动，并将运动实现封装在一个方法内部，代码如下：
 
@@ -179,7 +177,9 @@ class MyGame {
      */
     private onResourceLoadComplete():void {
         var stage = ns_egret.MainContext.instance.stage;
-        this.sky = utils.createBitmap("egret_icon.png");
+        this.sky = new ns_egret.Bitmap();
+        var texture:ns_egret.Texture = ns_egret.TextureCache.getInstance().getTexture("egret_icon.png");
+        this.sky.texture = texture;
         stage.addChild(this.sky);
         this.startAnimation();
     }
@@ -191,15 +191,6 @@ class MyGame {
         tw.to({x:280,y:0},500).to({x:280,y:300},500).to({x:0,y:300},500).to({x:0,y:0},500);
         tw.call(this.startAnimation, this);
     }
-}
-module utils {
-    export function createBitmap(url):ns_egret.Bitmap {
-        var result:ns_egret.Bitmap = new ns_egret.Bitmap();
-        var texture:ns_egret.Texture = ns_egret.TextureCache.getInstance().getTexture(url);
-        result.texture = texture;
-        return result;
-    }
-
 }
 //实例化入口类
 var app = new MyGame();
