@@ -47,20 +47,20 @@ Egret是一个开源框架，托管在GitHub上，地址是：[github.com/egret-
 $ cd {egret_workspace}
 $ npm install egret/tools -g
 ```
-> Mac OS用户请加上sudo来确保执行权限
+> Mac OS用户请加上sudo来确保执行权限。
 
 然后执行下面的命令来创建您的第一个Egret项目：
 ```
 $ cd {egret_workspace} 
 $ egret c HelloEgret
 ```
-> 工作目录下的所有项目将公用同一个egret库
+> 工作目录下的所有项目将公用同一个egret库。
 
 然后执行成功后，您可以看到工作目录下多了HelloEgret这个项目。然后敲入下面的命令来编译：
 ```
 $ egret b
 ```
-> 如果发现运行时缺少文件，请检查config.local，是否包含了所有的路径
+> 如果发现运行时缺少文件，请检查config.local，是否包含了所有的路径。
 
 执行完毕后，就可以运行HelloEgret项目，打开浏览器，输入站点目录下的/output/HelloEgret/launcher/index.html路径即可，比如：http://localhost/output/HelloEgret/launcher/index.html。顺利的话，您将会看到如下的画面：
 
@@ -131,7 +131,7 @@ private onResourceLoadComplete():void {
 }
 ```
 > 注意egret_icon.png我们已经在startGame方法中预加载了，所以这里可以从TextureCache获取。
-> 另外务必注意this关键词不可以省略，这是和Flash不一样的地方，在Flash中我们允许省略this关键词
+> 另外务必注意this关键词不可以省略，这是和Flash不一样的地方，在Flash中我们允许省略this关键词。
 
 然后我们使用Tween来让sky这个位图做一些运动，并将运动实现封装在一个方法内部，代码如下：
 
