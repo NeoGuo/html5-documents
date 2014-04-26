@@ -3,10 +3,10 @@ Egret框架入门第一步 - 纹理和位图
 
 在上一篇教程我们创建和运行了Hello World，下面我们以这个项目为基础做“深加工”，逐步了解Egret框架的各个组成部分。
 
-使用位图增加简单动画:
+使用位图:
 ----------------------------
 
-我们来改写一下HelloEgret项目，实现一个简单的位图动画。改写代码，我们需要一个IDE，这里使用WebStorm。打开WebStorm，创建一个项目，目录指向{egret_workspace} ，创建完成后，可以看到类似下面的结构：
+我们来改写一下HelloEgret项目，显示一个简单的位图。改写代码，我们需要一个IDE，这里使用WebStorm。打开WebStorm，创建一个项目，目录指向{egret_workspace} ，创建完成后，可以看到类似下面的结构：
 
 ![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret/images/workspace.png "WorkSpace")
 
@@ -69,6 +69,9 @@ private onResourceLoadComplete():void {
 ```
 > 注意egret_icon.png我们已经在startGame方法中预加载了，所以这里可以从TextureCache获取。
 > 另外务必注意this关键词不可以省略，这是和Flash不一样的地方，在Flash中我们允许省略this关键词。
+
+简单动画:
+----------------------------
 
 然后我们使用Tween来让sky这个位图做一些运动，并将运动实现封装在一个方法内部，代码如下：
 
