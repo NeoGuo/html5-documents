@@ -130,7 +130,7 @@ private onResourceLoadComplete():void {
     stage.addChild(this.sky);
 }
 ```
-> 注意egret_icon.png我们已经在startGame方法中预加载了，所以这里可以从TextureCache获取
+> 注意egret_icon.png我们已经在startGame方法中预加载了，所以这里可以从TextureCache获取。
 > 另外务必注意this关键词不可以省略，这是和Flash不一样的地方，在Flash中我们允许省略this关键词
 
 然后我们使用Tween来让sky这个位图做一些运动，并将运动实现封装在一个方法内部，代码如下：
