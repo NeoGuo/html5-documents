@@ -153,5 +153,7 @@ $ egret b -g HelloEgret
 
 ![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret/images/egret_animation.gif "EgretAnimation")
 
+- - -
+
 [上一篇:Hello World](https://github.com/NeoGuo/html5-documents/blob/master/egret/01-hello-world.md)
-| [下一篇:xxx](https://github.com/NeoGuo/html5-documents/blob/master/egret/03-xxx.md)
+| [下一篇:电影剪辑](https://github.com/NeoGuo/html5-documents/blob/master/egret/03-movieclip.md)
