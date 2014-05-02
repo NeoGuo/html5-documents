@@ -66,4 +66,6 @@ $ egret b
 
 ![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret/images/hello_egret.png "HelloEgret")
 
+- - -
+
 [下一篇:纹理和位图](https://github.com/NeoGuo/html5-documents/blob/master/egret/02-bitmap.md)
