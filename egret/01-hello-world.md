@@ -70,6 +70,12 @@ $ egret b
 
 ![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret/images/hello_egret.png "HelloEgret")
 
+另外output目录下还附带了很多实例，您可以输入站点目录下的/output/examples/，来浏览这些例子的实际效果和源码展示。
+
+![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret/images/egret_samples.png "Egret")
+
+![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret/images/egret_fps.png "Egret")
+
 - - -
 
 [下一篇:纹理和位图](https://github.com/NeoGuo/html5-documents/blob/master/egret/02-bitmap.md)
