@@ -18,7 +18,7 @@ Egret框架很重要的一个特性就是，允许开发者使用[TypeScript](ht
 ####IDE
 * [WebStorm](http://www.jetbrains.com/webstorm/) (推荐) - 跨平台
 * SublimeText(可选) - 跨平台
-* VS2012 - 只支持Windows
+* VS2012(或更高版本) - 只支持Windows
 
 安装和配置:
 ----------------------------
@@ -36,20 +36,24 @@ Egret框架很重要的一个特性就是，允许开发者使用[TypeScript](ht
 
 ####下载和配置Egret
 
-Egret是一个开源框架，托管在GitHub上，地址是：[github.com/egret-team/egret](https://github.com/egret-team/egret)，您可以通过Git客户端Clone到本地，或者直接下载ZIP包到本地解压。
-
-然后请把WebServer指向您的工作目录，确保此目录可以被您的WebServer访问到，以下将使用{egret_workspace}代指您的工作目录。将刚才下载到的Egret源码放到{egret_workspace}下面，并确保文件夹名为egret(注意大小写)。
-
-然后需要使用Egret框架内置的命令行工具来完成项目的创建和编译，这个工具叫做Egret Command Line Tools，简称Egret CLT。
-
-首先需要使用npm来安装Egret CLT，命令如下：
+Egret是一个开源框架，托管在GitHub上，地址是：[github.com/egret-team/egret](https://github.com/egret-team/egret)，您可以通过Git客户端Clone到本地，或者直接下载ZIP包到本地解压。然后请记住当前egret所在的目录路径，比如：/Volumes/egret，需要把这个路径配置到环境变量中，变量名称为EGRET_PATH。示意：
 ```
-$ cd {egret_workspace}
-$ npm install egret/tools -g
+export EGRET_PATH=/Volumes/egret
 ```
-> Mac OS用户请加上sudo来确保执行权限。
 
-然后执行下面的命令来创建您的第一个Egret项目：
+操作系统不同，配置方式也不一样，您可以参考[这篇说明](https://github.com/egret-team/egret/wiki/Setting-environment-variables)。
+
+然后需要安装Egret框架内置的命令行工具(用于完成项目的创建和编译)，这个工具叫做Egret Command Line Tools，简称Egret CLT。
+
+请使用npm来安装Egret CLT，命令如下：
+```
+$ npm install ${EGRET_PATH}/tools -g
+```
+> Mac OS用户请加上sudo来确保执行权限。安装完毕后，可以输入"egret"进行验证，如果看到帮助信息，就说明安装成功了，否则请根据提示，找到失败原因并修复。
+
+然后请把WebServer指向您的工作目录，确保此目录可以被您的WebServer访问到，以下将使用{egret_workspace}代指您的工作目录。
+
+执行下面的命令来创建您的第一个Egret项目：
 ```
 $ cd {egret_workspace} 
 $ egret c HelloEgret
