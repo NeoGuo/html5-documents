@@ -33,7 +33,7 @@ var app = new Demo2();
 
 使用命令行编译项目：
 ```
-$ egret b -g HelloEgret
+$ egret b HelloEgret
 ```
 
 浏览器观察最终结果，当然页面上什么都没有，只是咣当弹出一个"hello!"而已，这就证明我们的修改起作用了。
@@ -121,7 +121,7 @@ private startAnimation():void {
 
 最后使用命令行编译项目，再复习一下：
 ```
-$ egret b -g HelloEgret
+$ egret b HelloEgret
 ```
 
 打开浏览器观看最终结果，可以看到一个简单的位图动画：
