@@ -127,6 +127,7 @@ $ egret b HelloEgret
 打开浏览器观看最终结果，可以看到一个简单的位图动画：
 
 ![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret/images/egret_animation.gif "EgretAnimation")
+> 本图效果仅供参考，实际效果是很流畅的，这里为了方便展示，转成了GIF并作了降帧处理
 
 - - -
 
