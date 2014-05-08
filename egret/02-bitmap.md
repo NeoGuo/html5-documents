@@ -51,7 +51,7 @@ private logo:ns_egret.Bitmap;
 使用LoadingController来加载外部资源：
 
 ```
-var loader = new ns_egret.LoadingController();//使用LoadingController来加载和管理资源
+var loader:ns_egret.LoadingController = new ns_egret.LoadingController();//使用LoadingController来加载和管理资源
 loader.addResource("egret_icon.png", ns_egret.ResourceLoader.DATA_TYPE_IMAGE);//传入资源地址和类型
 loader.addEventListener(ns_egret.ResourceLoader.LOAD_COMPLETE, this.onResourceLoadComplete, this);//事件侦听加载完成
 loader.load();//执行加载
@@ -83,7 +83,7 @@ class Demo2 {
     /**加载所需资源*/
     public loadResource():void {
         //跟在Flash中类似，您要用位图，就要先加载进来
-        var loader = new ns_egret.LoadingController();//使用LoadingController来加载和管理资源
+        var loader:ns_egret.LoadingController = new ns_egret.LoadingController();//使用LoadingController来加载和管理资源
         loader.addResource("egret_icon.png", ns_egret.ResourceLoader.DATA_TYPE_IMAGE);//传入资源地址和类型，注意默认资源根目录是assets/480
         loader.addEventListener(ns_egret.ResourceLoader.LOAD_COMPLETE, this.onResourceLoadComplete, this);//事件侦听加载完成
         loader.load();//执行加载
@@ -137,6 +137,8 @@ this.logo.width = this.logo.height = 10;//设置尺寸
 this.logo.scaleX = this.logo.scaleY = 0.5;//设置缩放
 this.logo.rotation = 45;//旋转
 this.logo.skewX = 45;//斜切
+this.logo.anchorPointX = this.logo.width/2;//设置中心点的位置，实现围绕中心旋转
+this.logo.anchorPointY = this.logo.height/2;//同上
 ```
 
 - - -
