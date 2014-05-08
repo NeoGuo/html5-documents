@@ -141,6 +141,50 @@ this.logo.anchorPointX = this.logo.width/2;//设置中心点的位置，实现�
 this.logo.anchorPointY = this.logo.height/2;//同上
 ```
 
+精灵表单:
+----------------------------
+
+说到位图，还有一种很常用的情况就是利用“精灵表单”，即spritesheet，这种方式可以让我们把若干张小图集合到一张大图上，这样对资源加载，控制，减少请求数等方面都很有益处。制作spritesheet的工具也有很多，比如知名度很高的TexturePacker，Flash CS6也增加了对spritesheet的支持，工具上萝卜青菜，各有所爱，您可以选择适合自己的工具。在Egret框架中当然也可以使用spritesheet，让我们来看一下使用方式：
+
+首先拷贝/egret/examples/assets/480目录下的两个文件：icons.json和icons.png，将这两个文件复制到HelloEgret项目的assets/480目录下面。
+
+打开icons.json，可以看到对内部图片分割的描述：
+```
+{"frames":{"activity_1.png":{"x":158,"y":313,"w":75,"h":75,"offX":0,"offY":0} ...
+```
+
+这样我们就可以根据这个描述文件，获取整张图的一个小块作为某个位图的纹理。首先要做的还是加载：
+
+```
+/**加载精灵表*/
+private loadSpriteSheet():void {
+    var loader:ns_egret.LoadingController = new ns_egret.LoadingController();
+    loader.addResource("icons.json", ns_egret.ResourceLoader.DATA_TYPE_BINARY);//加载描述文件
+    loader.addResource("icons.png", ns_egret.ResourceLoader.DATA_TYPE_IMAGE);//加载图片
+    loader.addEventListener(ns_egret.ResourceLoader.LOAD_COMPLETE, this.onSpriteSheetLoadComplete, this);//事件侦听加载完成
+    loader.load();//执行加载
+}
+```
+
+然后使用SpriteSheet类来实现显示图上的某个区域：
+
+```
+ /**精灵表加载完毕后即可使用*/
+private onSpriteSheetLoadComplete():void {
+    var data = ns_egret.ResourceLoader.create("icons.json").data;//获取描述
+    data = eval('('+data+')');//将JSON字符串转换为Object
+    var texture = ns_egret.TextureCache.getInstance().getTexture("icons.png");//获取大图
+    var spriteSheet = new ns_egret.SpriteSheet(data);//创建精灵表
+    var bitmap = new ns_egret.Bitmap();
+    bitmap.texture = texture;
+    bitmap.spriteFrame = spriteSheet.getFrame("activity_10.png");//从精灵表中获取某一项
+    var stage = ns_egret.MainContext.instance.stage;//获取Stage引用
+    stage.addChild(bitmap);
+}
+```
+
+重新编译项目，检查效果吧。
+
 - - -
 
 [上一篇:Hello World](https://github.com/NeoGuo/html5-documents/blob/master/egret/01-hello-world.md)
