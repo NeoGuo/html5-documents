@@ -74,7 +74,7 @@ var app = new Demo3();
 
 将Demo3作为入口类，重新编译项目，即可看到一只猴子的动画：
 
-![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret/images/movieclip_monkey.jpg "monkey")
+![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret/images/movieclip_monkey.png "monkey")
 
 电影剪辑的常用方法：
 
