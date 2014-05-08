@@ -129,6 +129,16 @@ $ egret b HelloEgret
 ![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret/images/egret_animation.gif "EgretAnimation")
 > 本图效果仅供参考，实际效果是很流畅的，这里为了方便展示，转成了GIF并作了降帧处理
 
+您还可以尝试修改位图的几个属性，来了解主要特性和用法：
+
+```
+this.logo.touchEnabled = true;//可点击
+this.logo.width = this.logo.height = 10;//设置尺寸
+this.logo.scaleX = this.logo.scaleY = 0.5;//设置缩放
+this.logo.rotation = 45;//旋转
+this.logo.skewX = 45;//斜切
+```
+
 - - -
 
 [上一篇:Hello World](https://github.com/NeoGuo/html5-documents/blob/master/egret/01-hello-world.md)
