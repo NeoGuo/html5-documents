@@ -172,7 +172,7 @@ private loadSpriteSheet():void {
  /**精灵表加载完毕后即可使用*/
 private onSpriteSheetLoadComplete():void {
     var data = ns_egret.ResourceLoader.create("icons.json").data;//获取描述
-    data = eval('('+data+')');//将JSON字符串转换为Object
+    data = JSON.parse(data);//将JSON字符串转换为Object
     var texture = ns_egret.TextureCache.getInstance().getTexture("icons.png");//获取大图
     var spriteSheet = new ns_egret.SpriteSheet(data);//创建精灵表
     var bitmap = new ns_egret.Bitmap();
