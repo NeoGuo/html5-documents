@@ -74,12 +74,31 @@ private initBitmapText():void {
 
 改写Demo4的代码，加入上述的语句，编译查看效果：
 
-![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret/images/egret_bitmapfont.png "textfield")
+![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret/images/egret_bitmapfont.png "bitmapfont")
 
 > 注意：位图字体只适合英文，数字，符号这些内容，用于中文不太现实
 
 文本输入
 ----------------------------
+
+目前Egret的文本输入，需要借助平台原生的元素支持，对应到HTML5平台，就是input标签了。您需要使用的类是TextInput，这个类的工作模式是：当自身被添加到显示列表，则通知所在的上下文容器（这里是浏览器），创建一个HTML的input标签，放到对应的位置上显示出来(在Canvas容器之外)；当自身从显示列表删除的时候，则同时去除刚才创建的input标签。这个可以算得上是障眼法，不过基于平台限制，这也是不得已而为之。
+
+用法：
+
+```
+var input:ns_egret.TextInput = new ns_egret.TextInput();
+input.x = 120;
+input.y = 210;
+input.width = 400;
+input.height = 200;
+var stage = ns_egret.MainContext.instance.stage;//获取Stage引用
+stage.addChild(input);
+input.setText("输入点文字吧");
+```
+
+效果：
+
+![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret/images/egret_textinput.png "input")
 
 - - -
 

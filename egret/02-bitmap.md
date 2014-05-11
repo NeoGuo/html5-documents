@@ -48,7 +48,7 @@ $ egret b HelloEgret
 private logo:ns_egret.Bitmap;
 ```
 
-使用LoadingController来加载外部资源：
+使用LoadingController来加载外部资源（对于单个资源可以使用ResourceLoader类，而LoadingController则可以处理批量的素材加载，使用更方便）：
 
 ```
 var loader:ns_egret.LoadingController = new ns_egret.LoadingController();//使用LoadingController来加载和管理资源
@@ -185,6 +185,15 @@ private onSpriteSheetLoadComplete():void {
 ```
 
 重新编译项目，检查效果吧。
+
+另外，如果觉得先加载，后使用的代码显得繁琐，可以使用一个简化类：DynamicBitmap。这个类允许您在创建位图的时候，直接传入图片的地址，然后加载完毕后自动显示。示意：
+
+```
+var bitmap:ns_egret.DynamicBitmap = ns_egret.DynamicBitmap.create("egret_icon.png");
+stage.addChild(bitmap);
+```
+
+如果位图需要使用9宫格方式，可以使用Scale9Bitmap类，使用方式可以参考API文档，这里不再详述。
 
 - - -
 
