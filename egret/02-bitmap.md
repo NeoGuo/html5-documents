@@ -56,7 +56,8 @@ loader.addResource("egret_icon.png", ns_egret.ResourceLoader.DATA_TYPE_IMAGE);//
 loader.addEventListener(ns_egret.ResourceLoader.LOAD_COMPLETE, this.onResourceLoadComplete, this);//事件侦听加载完成
 loader.load();//执行加载
 ```
-> 注意默认资源根目录是assets/480。
+> 注意默认资源根目录是assets/480。您可以修改egret_loader.js来制定默认资源目录：
+> ns_egret.ResourceLoader.prefix = "assets/480/"
 > 另外务必注意this关键词不可以省略，这是和Flash不一样的地方，在Flash中我们允许省略this关键词。
 > 真实项目中可能有很多资源，我们可以在游戏启动之前先做加载，加载完毕后再进行游戏的初始化
 
