@@ -14,8 +14,7 @@ Egret框架入门第一步
 6. [声音](https://github.com/NeoGuo/html5-documents/blob/master/egret/06-sound.md)
 7. [容器](https://github.com/NeoGuo/html5-documents/blob/master/egret/07-container.md)
 8. [事件](https://github.com/NeoGuo/html5-documents/blob/master/egret/08-event.md)
-9. [资源管理](https://github.com/NeoGuo/html5-documents/blob/master/egret/09-resource.md)
-10. [屏幕适配](https://github.com/NeoGuo/html5-documents/blob/master/egret/10-screen.md)
+9. [资源管理和屏幕适配](https://github.com/NeoGuo/html5-documents/blob/master/egret/09-resource.md)
 
 GUI教程：
 ----------------------------
