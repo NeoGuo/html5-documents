@@ -3,6 +3,9 @@ Egret框架入门第一步
 
 目录：
 
+基本使用：
+----------------------------
+
 1. [Hello World](https://github.com/NeoGuo/html5-documents/blob/master/egret/01-hello-world.md)
 2. [纹理和位图](https://github.com/NeoGuo/html5-documents/blob/master/egret/02-bitmap.md)
 3. [电影剪辑](https://github.com/NeoGuo/html5-documents/blob/master/egret/03-movieclip.md)
@@ -13,3 +16,8 @@ Egret框架入门第一步
 8. [事件](https://github.com/NeoGuo/html5-documents/blob/master/egret/08-event.md)
 9. [资源管理](https://github.com/NeoGuo/html5-documents/blob/master/egret/09-resource.md)
 10. [屏幕适配](https://github.com/NeoGuo/html5-documents/blob/master/egret/10-screen.md)
+
+GUI教程：
+----------------------------
+
+敬请期待
