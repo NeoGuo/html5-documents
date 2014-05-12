@@ -16,6 +16,8 @@ Egret框架入门第一步
 8. [事件](https://github.com/NeoGuo/html5-documents/blob/master/egret/08-event.md)
 9. [资源管理和屏幕适配](https://github.com/NeoGuo/html5-documents/blob/master/egret/09-resource.md)
 
+> 这里可以查看教程的配套源码：[HelloEgret](https://github.com/NeoGuo/html5-documents/tree/master/egret/demo/HelloEgret/src)
+
 GUI教程：
 ----------------------------
 
