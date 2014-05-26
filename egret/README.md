@@ -18,7 +18,7 @@ Egret框架入门第一步
 
 > 这里可以查看教程的配套源码：[HelloEgret](https://github.com/NeoGuo/html5-documents/tree/master/egret/demo/HelloEgret/src)
 
-GUI教程：
+实例分析：
 ----------------------------
 
 敬请期待
