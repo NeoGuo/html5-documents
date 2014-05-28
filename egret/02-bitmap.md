@@ -10,11 +10,22 @@ Egret框架入门第一步 - 纹理和位图
 
 ![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret/images/workspace.png "WorkSpace")
 
-展开HelloEgret项目的src目录，您可以看见3个文件：game_file_list.js,GameApp.ts,GameUI.ts，3个文件的作用依次是：
+项目遵循一个特定的结构，结构简单说明如下：
 
-* game_file_list.js - 包含您为项目编写的TypeScript文件编译所得的js文件，对项目的类文件进行增删改时，记得更新这个文件。
-* GameApp.ts - 作为游戏的入口类，实现游戏逻辑
-* GameUI.ts - 实现Loading效果
+```
+workspace    // 您的工作目录
+  |-- your_project  // 您的项目
+        |-- src // 源码放在这里
+             |--egret.d.ts // egret库的描述文件
+             |--game_file_list.js // 包含您为项目编写的TypeScript文件编译所得的js文件，对项目的类文件进行增删改时，记得更新这个文件。
+             |--GameApp.ts // 作为游戏的入口类，实现游戏逻辑
+             |--LoadingUI.ts // 实现Loading效果
+        |-- resources // 这里放资源，比如图片声音之类的
+        |-- launcher // 入口
+              |-- index.html 启动文件
+        |-- bin-debug // 编译后的代码目录
+
+```
 
 然后我们创建一个TypeScript类文件，命名为Demo2.ts，然后把下面的代码粘贴进去：
 
@@ -29,11 +40,11 @@ class Demo2 {
 var app = new Demo2();
 ```
 
-然后打开game_file_list.js，将"GameApp.js"修改为"Demo2.js"，这样就可以将我们自己的类作为入口类。
+然后打开game_file_list.js，将"GameApp.js"修改为"Demo2.js"，并注释掉GameApp.ts中的最后一行：```var app = new GameApp();```;这样就可以将我们自己的类作为入口类。
 
 使用命令行编译项目：
 ```
-$ egret b HelloEgret
+egret build HelloEgret
 ```
 
 浏览器观察最终结果，当然页面上什么都没有，只是咣当弹出一个"hello!"而已，这就证明我们的修改起作用了。
