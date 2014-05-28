@@ -55,14 +55,14 @@ egret
 
 执行下面的命令来创建您的第一个Egret项目：
 ```
-$ cd {egret_workspace} 
-$ egret create HelloEgret
+cd {egret_workspace} 
+egret create HelloEgret
 ```
 > 创建大约耗时十几秒，请耐心等候。
 
 然后执行成功后，您可以看到工作目录下多了HelloEgret这个项目。然后敲入下面的命令来编译：
 ```
-$ egret build HelloEgret
+egret build HelloEgret
 ```
 > 如果发现运行时缺少文件，请检查config.local，是否包含了所有的路径。
 
