@@ -38,41 +38,39 @@ Egret可以兼容多数现代浏览器，不过为了调试方便，建议大家
 
 ####下载和配置Egret
 
-Egret是一个开源框架，托管在GitHub上，地址是：[github.com/egret-team/egret](https://github.com/egret-team/egret)，您可以通过Git客户端Clone到本地，或者直接下载ZIP包到本地解压。然后请记住当前egret所在的目录路径，比如：/Volumes/egret，需要把这个路径配置到环境变量中，变量名称为EGRET_PATH。示意：
+Egret是一个开源框架，托管在GitHub上，地址是：[github.com/egret-team/egret](https://github.com/egret-team/egret)，您可以通过Git客户端Clone到本地，或者直接下载ZIP包到本地解压。然后使用命令行进入egret所在的目录，执行：
 ```
-export EGRET_PATH=/Volumes/egret
+npm install -g
 ```
 
-操作系统不同，配置方式也不一样，您可以参考[这篇说明](https://github.com/egret-team/egret/wiki/Setting-environment-variables)。
+执行这个语句的目的是安装Egret框架内置的命令行工具(用于完成项目的创建和编译)，工具的名称是Egret Command Line Tools，简称Egret CLT。
 
-然后需要安装Egret框架内置的命令行工具(用于完成项目的创建和编译)，这个工具叫做Egret Command Line Tools，简称Egret CLT。
-
-请使用npm来安装Egret CLT，命令如下：
+等候安装成功，然后输入下面的命令，可以查看Egret工具的帮助信息：
 ```
-$ npm install ${EGRET_PATH}/tools -g
+egret
 ```
-> Mac OS用户请加上sudo来确保执行权限。安装完毕后，可以输入"egret"进行验证，如果看到帮助信息，就说明安装成功了，否则请根据提示，找到失败原因并修复。
+> Mac OS用户请加上sudo来确保执行权限。如果安装失败，请根据提示，找到失败原因并重新安装。
 
-然后请把WebServer指向您的工作目录，确保此目录可以被您的WebServer访问到，以下将使用{egret_workspace}代指您的工作目录。
+对于开发人员来说，一个好的习惯是，将特定的一组项目放在一起，这个目录可以称作工作目录(wordspace)。当然本质上，就是您磁盘上的一个文件夹。如果您使用自己的HTTP服务器（而不是Egret内置的），请把服务器指向您的工作目录，确保此目录可以被您的服务器访问到，为了便于描述，以下将使用{egret_workspace}代指您的工作目录。
 
 执行下面的命令来创建您的第一个Egret项目：
 ```
 $ cd {egret_workspace} 
-$ egret c HelloEgret
+$ egret create HelloEgret
 ```
-> 工作目录下的所有项目将公用同一个egret库。
+> 创建大约耗时十几秒，请耐心等候。
 
 然后执行成功后，您可以看到工作目录下多了HelloEgret这个项目。然后敲入下面的命令来编译：
 ```
-$ egret b
+$ egret build HelloEgret
 ```
 > 如果发现运行时缺少文件，请检查config.local，是否包含了所有的路径。
 
-执行完毕后，就可以运行HelloEgret项目，打开浏览器，输入站点目录下的/output/HelloEgret/launcher/index.html路径即可，比如：http://localhost/output/HelloEgret/launcher/index.html。顺利的话，您将会看到如下的画面：
+编译完毕后，就可以运行HelloEgret项目，这时您有两个选择：如果希望使用Egret内置的HTTP服务器，则执行命令```egret startserver HelloEgret```，这个命令会使用默认浏览器自动运行当前项目；如果您使用自己的HTTP服务器，请打开浏览器输入站点目录下的/HelloEgret/launcher/路径即可，比如：http://localhost/HelloEgret/launcher/。顺利的话，您将会看到如下的画面：
 
 ![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret/images/hello_egret.png "HelloEgret")
 
-另外output目录下还附带了很多实例，您可以输入站点目录下的/output/examples/，来浏览这些例子的实际效果和源码展示。
+另外官网还提供了很多实例，您可以从[这里](https://github.com/egret-team/egret-examples)下载，根据说明来安装和编译，并浏览这些例子的实际效果和源码展示。
 
 ![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret/images/egret_samples.png "Egret")
 
