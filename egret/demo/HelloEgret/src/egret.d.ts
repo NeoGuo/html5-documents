@@ -1,4 +1,5 @@
 /// <reference path="../../../../../usr/local/lib/node_modules/egret/src/jslib/DEBUG.d.ts" />
+/// <reference path="../../../../../usr/local/lib/node_modules/egret/src/egret/context/NativeContext.d.ts" />
 /// <reference path="../../../../../usr/local/lib/node_modules/egret/src/jslib/Utils.d.ts" />
 /**
 * Copyright (c) 2014,Egret-Labs.org
@@ -1432,14 +1433,6 @@ declare module egret {
         * @param w {any}
         */
         public clip(x: any, y: any, w: any, h: any): void;
-        /**
-        * @param x
-        * @param y
-        * @param w
-        * @param h
-        * @param color
-        * @stable D 这个API是个临时添加的，会被尽快删除
-        */
         public strokeRect(x: any, y: any, w: any, h: any, color: any): void;
     }
     /**
@@ -1822,6 +1815,10 @@ declare module egret {
         * @method egret.egret#clearDrawArea
         */
         public clearDrawArea(): void;
+        /**
+        * 绘制平铺位图
+        */
+        public drawRepeatImage(renderContext: RendererContext, data: RenderData, destWidth: number, destHeight: number): void;
         /**
         * 绘制九宫格位图
         */
@@ -2216,6 +2213,7 @@ declare module egret {
         static _renderCallBackList: any[];
         public addEventListener(type: string, listener: Function, thisObject: any, useCapture?: boolean, priority?: number): void;
         public removeEventListener(type: string, listener: Function, thisObject: any, useCapture?: boolean): void;
+        private _dispatchEventList;
         public dispatchEvent(event: Event): boolean;
         public willTrigger(type: string): boolean;
         public cacheAsBitmap(bool: boolean): void;
@@ -2667,6 +2665,7 @@ declare module egret {
     */
     function getDefinitionByName(name: string): any;
 }
+declare var __global: any;
 declare module egret {
     /**
     * 检查指定的应用程序域之内是否存在一个公共定义。该定义可以是一个类、一个命名空间或一个函数的定义。
@@ -2929,6 +2928,51 @@ declare module egret {
         static getInstance(clazz: any, named?: string): any;
     }
 }
+/**
+* Copyright (c) 2014,Egret-Labs.org
+* All rights reserved.
+* Redistribution and use in source and binary forms, with or without
+* modification, are permitted provided that the following conditions are met:
+*
+*     * Redistributions of source code must retain the above copyright
+*       notice, this list of conditions and the following disclaimer.
+*     * Redistributions in binary form must reproduce the above copyright
+*       notice, this list of conditions and the following disclaimer in the
+*       documentation and/or other materials provided with the distribution.
+*     * Neither the name of the Egret-Labs.org nor the
+*       names of its contributors may be used to endorse or promote products
+*       derived from this software without specific prior written permission.
+*
+* THIS SOFTWARE IS PROVIDED BY EGRET-LABS.ORG AND CONTRIBUTORS "AS IS" AND ANY
+* EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+* WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+* DISCLAIMED. IN NO EVENT SHALL EGRET-LABS.ORG AND CONTRIBUTORS BE LIABLE FOR ANY
+* DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+* (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+* LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+* ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+* (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+declare module egret {
+    /**
+    * @class egret.BitmapFillMode
+    * @classdesc
+    * BitmapFillMode 类定义Bitmap的图像填充方式。
+    */
+    class BitmapFillMode {
+        /**
+        * 位图将重复以填充区域
+        * @constant {string} egret.BitmapFillMode.REPEAT
+        */
+        static REPEAT: string;
+        /**
+        * 位图将拉伸以填充区域
+        * @constant {string} egret.BitmapFillMode.SCALE
+        */
+        static SCALE: string;
+    }
+}
 declare module egret {
     /**
     * @class SpriteSheet是一张由多个子位图拼接而成的集合位图，它包含多个Texture对象。
@@ -3037,11 +3081,19 @@ declare module egret {
         */
         public texture: Texture;
         /**
-        * 矩形区域，它定义位图对象的九个缩放区域
+        * 矩形区域，它定义位图对象的九个缩放区域。此属性仅当fillMode为BitmapFillMode.SCALE时有效。
         * @member {egret.Texture} egret.Bitmap#scale9Grid
         */
         public scale9Grid: Rectangle;
+        /**
+        * 确定位图填充尺寸的方式。默认值：BitmapFillMode.SCALE。
+        * 设置为 BitmapFillMode.REPEAT时，位图将重复以填充区域。
+        * 设置为 BitmapFillMode.SCALE时，位图将拉伸以填充区域。
+        * @member {egret.Texture} egret.Bitmap#fillMode
+        */
+        public fillMode: string;
         public _render(renderContext: RendererContext): void;
+        static _drawBitmap(renderContext: RendererContext, destW: number, destH: number, thisObject: any): void;
         /**
         * @see egret.DisplayObject.measureBounds
         * @returns {egret.Rectangle}
@@ -3082,10 +3134,10 @@ declare module egret {
 }
 declare module egret {
     class Graphics {
-        private renderContext;
         private canvasContext;
         private commandQueue;
-        constructor(renderContext: RendererContext);
+        private renderContext;
+        constructor();
         public beginFill(color: number, alpha?: number): void;
         private _setStyle(colorStr);
         public drawRect(x: number, y: number, width: number, height: number): void;
@@ -3113,6 +3165,14 @@ declare module egret {
 }
 declare module egret {
     class Shape extends DisplayObject {
+        constructor();
+        private _graphics;
+        public graphics : Graphics;
+        public _render(renderContext: RendererContext): void;
+    }
+}
+declare module egret {
+    class Sprite extends DisplayObjectContainer {
         constructor();
         private _graphics;
         public graphics : Graphics;
@@ -3267,8 +3327,8 @@ declare module egret {
     */
     class MovieClip extends DisplayObjectContainer {
         public data: any;
-        public texture: Texture;
         private _frameData;
+        private _spriteSheet;
         private _resPool;
         private _currentFrameIndex;
         private _currentFrameName;
@@ -3761,6 +3821,488 @@ declare module egret {
         public propertiesForGID(value: any): any;
         public getProperty(propertyName: any): any;
         public setMoveX(x: number): void;
+    }
+}
+/**
+* Copyright (c) Egret-Labs.org. Permission is hereby granted, free of charge,
+* to any person obtaining a copy of this software and associated documentation
+* files (the "Software"), to deal in the Software without restriction, including
+* without limitation the rights to use, copy, modify, merge, publish, distribute,
+* sublicense, and/or sell copies of the Software, and to permit persons to whom
+* the Software is furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included
+* in all copies or substantial portions of the Software.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+* INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+* PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
+* FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+* ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+declare module RES {
+    class ResourceItem {
+        /**
+        * XML文件
+        */ 
+        static TYPE_XML: string;
+        /**
+        * 图片文件
+        */ 
+        static TYPE_IMG: string;
+        /**
+        * 二进制流文件
+        */ 
+        static TYPE_BIN: string;
+        /**
+        * 文本文件(解析为字符串)
+        */ 
+        static TYPE_TXT: string;
+        /**
+        * JSON文件
+        */
+        static TYPE_JSON: string;
+        /**
+        * SpriteSheet文件
+        */
+        static TYPE_SHEET: string;
+        /**
+        * BitmapTextSpriteSheet文件
+        */
+        static TYPE_FONT: string;
+        /**
+        * 构造函数
+        * @param name 加载项名称
+        * @param url 要加载的文件地址
+        * @param type 加载项文件类型
+        */
+        constructor(name: string, url: string, type: string);
+        /**
+        * 加载项名称
+        */
+        public name: string;
+        /**
+        * 要加载的文件地址
+        */
+        public url: string;
+        /**
+        * 加载项文件类型
+        */
+        public type: string;
+        /**
+        * 所属组名
+        */
+        public groupName: string;
+        /**
+        * 被引用的原始数据对象
+        */ 
+        public data: any;
+        private _loaded;
+        /**
+        * 加载完成的标志
+        */
+        public loaded : boolean;
+        public toString(): string;
+    }
+}
+declare module RES {
+    class ResourceEvent extends egret.Event {
+        /**
+        * 一个加载项加载失败事件。
+        */
+        static ITEM_LOAD_ERROR: string;
+        /**
+        * 配置文件加载并解析完成事件
+        */ 
+        static CONFIG_COMPLETE: string;
+        /**
+        * 延迟加载组资源加载进度事件
+        */ 
+        static GROUP_PROGRESS: string;
+        /**
+        * 延迟加载组资源加载完成事件
+        */ 
+        static GROUP_COMPLETE: string;
+        /**
+        * 构造函数
+        */ 
+        constructor(type: string, bubbles?: boolean, cancelable?: boolean);
+        /**
+        * 已经加载的文件数
+        */
+        public itemsLoaded: number;
+        /**
+        * 要加载的总文件数
+        */
+        public itemsTotal: number;
+        /**
+        * 资源组名
+        */ 
+        public groupName: string;
+        /**
+        * 一次加载项加载结束的项信息对象
+        */ 
+        public resItem: ResourceItem;
+        /**
+        * 使用指定的EventDispatcher对象来抛出事件对象。抛出的对象将会缓存在对象池上，供下次循环复用。
+        * @method egret.ResourceEvent.dispatchResourceEvent
+        */
+        static dispatchResourceEvent(target: egret.IEventDispatcher, type: string, groupName?: string, resItem?: ResourceItem, itemsLoaded?: number, itemsTotal?: number): void;
+    }
+}
+declare module RES {
+    class AnalyzerBase extends egret.HashObject {
+        constructor();
+        /**
+        * 加载一个资源文件
+        * @param resItem 加载项信息
+        * @param compFunc 加载完成回调函数,示例:compFunc(resItem:ResourceItem):void;
+        * @param thisObject 加载完成回调函数的this引用
+        */
+        public loadFile(resItem: ResourceItem, compFunc: Function, thisObject: any): void;
+        /**
+        * 同步方式获取解析完成的数据
+        * @param name 对应配置文件里的name属性。
+        */
+        public getRes(name: string): any;
+        /**
+        * 销毁某个资源文件的二进制数据,返回是否删除成功。
+        * @param name 配置文件中加载项的name属性
+        */
+        public destroyRes(name: string): boolean;
+        /**
+        * 读取一个字符串里第一个点之前的内容。
+        * @param name {string} 要读取的字符串
+        */
+        static getStringPrefix(name: string): string;
+        /**
+        * 读取一个字符串里第一个点之后的内容。
+        * @param name {string} 要读取的字符串
+        */
+        static getStringTail(name: string): string;
+    }
+}
+declare module RES {
+    class BinAnalyzer extends AnalyzerBase {
+        /**
+        * 构造函数
+        */ 
+        constructor();
+        /**
+        * 字节流数据缓存字典
+        */ 
+        public fileDic: any;
+        /**
+        * 加载项字典
+        */ 
+        public resItemDic: any[];
+        /**
+        * @inheritDoc
+        */
+        public loadFile(resItem: ResourceItem, compFunc: Function, thisObject: any): void;
+        public _dataFormat: string;
+        /**
+        * URLLoader对象池
+        */ 
+        public recycler: egret.Recycler;
+        /**
+        * 获取一个URLLoader对象
+        */ 
+        private getLoader();
+        /**
+        * 一项加载结束
+        */ 
+        public onLoadFinish(event: egret.Event): void;
+        /**
+        * 解析并缓存加载成功的数据
+        */
+        public analyzeData(resItem: ResourceItem, data: any): void;
+        /**
+        * @inheritDoc
+        */
+        public getRes(name: string): any;
+        /**
+        * @inheritDoc
+        */
+        public hasRes(name: string): boolean;
+        /**
+        * @inheritDoc
+        */
+        public destroyRes(name: string): boolean;
+    }
+}
+declare module RES {
+    class ImgAnalyzer extends BinAnalyzer {
+        constructor();
+        /**
+        * 解析并缓存加载成功的数据
+        */
+        public analyzeData(resItem: ResourceItem, data: any): void;
+    }
+}
+declare module RES {
+    class JsonAnalyzer extends BinAnalyzer {
+        constructor();
+        /**
+        * 解析并缓存加载成功的数据
+        */
+        public analyzeData(resItem: ResourceItem, data: any): void;
+    }
+}
+declare module RES {
+    class TxtAnalyzer extends BinAnalyzer {
+        constructor();
+    }
+}
+declare module RES {
+    class ResourceLoader extends egret.EventDispatcher {
+        /**
+        * 构造函数
+        */
+        constructor();
+        /**
+        * 一项加载结束回调函数。无论加载成功或者出错都将执行回调函数。示例：callBack(resItem:ResourceItem):void;
+        */
+        public callBack: Function;
+        /**
+        * RES单例的引用
+        */
+        public resInstance: any;
+        /**
+        * 当前组加载的项总个数,key为groupName
+        */ 
+        private groupTotalDic;
+        /**
+        * 已经加载的项个数,key为groupName
+        */ 
+        private numLoadedDic;
+        /**
+        * 正在加载的组列表,key为groupName
+        */ 
+        private itemListDic;
+        /**
+        * 优先级队列,key为priority，value为groupName列表
+        */ 
+        private priorityQueue;
+        /**
+        * 检查指定的组是否正在加载中
+        */ 
+        public isGroupInLoading(groupName: string): boolean;
+        /**
+        * 开始加载一组文件
+        * @param list 加载项列表
+        * @param groupName 组名
+        * @param priority 加载优先级
+        */ 
+        public loadGroup(list: ResourceItem[], groupName: string, priority?: number): void;
+        /**
+        * 延迟加载队列
+        */ 
+        private lazyLoadList;
+        /**
+        * 加载一个文件
+        * @param resItem 要加载的项
+        */ 
+        public loadItem(resItem: ResourceItem): void;
+        /**
+        * 资源解析库字典类
+        */ 
+        private analyzerDic;
+        /**
+        * 加载下一项
+        */ 
+        private next();
+        /**
+        * 当前应该加载同优先级队列的第几列
+        */ 
+        private queueIndex;
+        /**
+        * 获取下一个待加载项
+        */ 
+        private getOneResourceItem();
+        /**
+        * 加载结束
+        */ 
+        private onItemComplete(resItem);
+        /**
+        * 从优先级队列中移除指定的组名
+        */ 
+        private removeGroupName(groupName);
+    }
+}
+declare module RES {
+    /**
+    * 加载配置文件并解析
+    * @param url 配置文件路径(resource.json的路径)
+    * @param resourceRoot 资源根路径。配置中的所有url都是这个路径的相对值。
+    */
+    function loadConfig(url: string, resourceRoot?: string): void;
+    /**
+    * 根据组名加载一组资源
+    * @param name 要加载资源组的组名
+    * @param priority 加载优先级,可以为负数,默认值为0。
+    * 低优先级的组必须等待高优先级组完全加载结束才能开始，同一优先级的组会同时加载。
+    */
+    function loadGroup(name: string, priority?: number): void;
+    /**
+    * 检查某个资源组是否已经加载完成
+    * @param groupName 组名
+    */
+    function isGroupLoaded(name: string): boolean;
+    /**
+    * 根据组名获取组加载项列表
+    * @param name 组名
+    */
+    function getGroupByName(name: string): ResourceItem[];
+    /**
+    * 创建自定义的加载资源组,注意：此方法仅在资源配置文件加载完成后执行才有效。
+    * 可以监听ResourceEvent.CONFIG_COMPLETE事件来确认配置加载完成。
+    * @param name 要创建的加载资源组的组名
+    * @param keys 要包含的键名列表，key对应配置文件里的name属性或sbuKeys属性的一项。
+    * @param override 是否覆盖已经存在的同名资源组,默认false。
+    * @return 是否创建成功，如果传入的keys为空，或keys全部无效，则创建失败。
+    */
+    function createGroup(name: string, keys: string[], override?: boolean): boolean;
+    /**
+    * 检查配置文件里是否含有指定的资源
+    * @param name 对应配置文件里的name属性。
+    */
+    function hasRes(name: string): boolean;
+    /**
+    * 同步方式获取缓存的已经加载成功的资源。<br/>
+    * @param name 对应配置文件里的name属性。
+    */
+    function getRes(name: string): any;
+    /**
+    * 异步方式获取配置里的资源。只要是配置文件里存在的资源，都可以通过异步方式获取。
+    * @param name 对应配置文件里的name属性。
+    * @param compFunc 回调函数。示例：compFunc(data):void,若设置了other参数则为:compFunc(data,other):void。
+    * @param thisObject 回调函数的this引用
+    */
+    function getResAsync(name: string, compFunc: Function, thisObject: any): void;
+    /**
+    * 通过完整URL方式获取外部资源。
+    * @param url 要加载文件的外部路径。
+    * @param compFunc 回调函数。示例：compFunc(data):void,若设置了other参数则为:compFunc(data,other):void。
+    * @param thisObject 回调函数的this引用
+    * @param type 文件类型(可选)。请使用ResourceItem类中定义的静态常量。若不设置将根据文件扩展名生成。
+    */
+    function getResByUrl(url: string, compFunc: Function, thisObject: any, type?: string): void;
+    /**
+    * 销毁某个资源文件的缓存数据,返回是否删除成功。
+    * @param name 配置文件中加载项的name属性
+    */
+    function destroyRes(name: string): boolean;
+    /**
+    * 添加事件侦听器,参考ResourceEvent定义的常量。
+    * @param type {string} 事件的类型。
+    * @param listener {Function} 处理事件的侦听器函数。此函数必须接受 Event 对象作为其唯一的参数，并且不能返回任何结果，
+    * 如下面的示例所示： function(evt:Event):void 函数可以有任何名称。
+    * @param thisObject {any} 侦听函数绑定的this对象
+    * @param useCapture {boolean} 确定侦听器是运行于捕获阶段还是运行于目标和冒泡阶段。如果将 useCapture 设置为 true，
+    * 则侦听器只在捕获阶段处理事件，而不在目标或冒泡阶段处理事件。如果 useCapture 为 false，则侦听器只在目标或冒泡阶段处理事件。
+    * 要在所有三个阶段都侦听事件，请调用 addEventListener 两次：一次将 useCapture 设置为 true，一次将 useCapture 设置为 false。
+    * @param  priority {number} 事件侦听器的优先级。优先级由一个带符号的 32 位整数指定。数字越大，优先级越高。优先级为 n 的所有侦听器会在
+    * 优先级为 n -1 的侦听器之前得到处理。如果两个或更多个侦听器共享相同的优先级，则按照它们的添加顺序进行处理。默认优先级为 0。
+    */
+    function addEventListener(type: string, listener: Function, thisObject: any, useCapture?: boolean, priority?: number): void;
+    /**
+    * 移除事件侦听器,参考ResourceEvent定义的常量。
+    * @method egret.EventDispatcher#removeEventListener
+    * @param type {string} 事件名
+    * @param listener {Function} 侦听函数
+    * @param thisObject {any} 侦听函数绑定的this对象
+    * @param useCapture {boolean} 是否使用捕获，这个属性只在显示列表中生效。
+    */
+    function removeEventListener(type: string, listener: Function, thisObject: any, useCapture?: boolean): void;
+}
+declare module RES {
+    class ResourceConfig {
+        /**
+        * 构造函数
+        */
+        constructor();
+        /**
+        * 根据组名获取组加载项列表
+        * @param name 组名
+        */
+        public getGroupByName(name: string): ResourceItem[];
+        /**
+        * 创建自定义的加载资源组,注意：此方法仅在资源配置文件加载完成后执行才有效。
+        * 可以监听ResourceEvent.CONFIG_COMPLETE事件来确认配置加载完成。
+        * @param name 要创建的加载资源组的组名
+        * @param keys 要包含的键名列表，key对应配置文件里的name属性或sbuKeys属性的一项。
+        * @param override 是否覆盖已经存在的同名资源组,默认false。
+        * @return 是否创建成功，如果传入的keys为空，或keys全部无效，则创建失败。
+        */
+        public createGroup(name: string, keys: string[], override?: boolean): boolean;
+        /**
+        * 一级键名字典
+        */
+        private keyMap;
+        /**
+        * 加载组字典
+        */
+        private groupDic;
+        /**
+        * 解析一个配置文件
+        * @param data 配置文件数据
+        * @param folder 加载项的路径前缀。
+        */
+        public parseConfig(data: any, folder: string): void;
+        /**
+        * 获取加载项类型。
+        * @param name 对应配置文件里的name属性。
+        */
+        public getType(name: string): string;
+        /**
+        * 获取加载项信息对象
+        * @param name 对应配置文件里的name属性。
+        */
+        public getResourceItem(name: string): ResourceItem;
+        /**
+        * 转换Object数据为ResourceItem对象
+        */
+        private parseResourceItem(data);
+        /**
+        * 去掉字符串两端所有连续的不可见字符。
+        * 注意：若目标字符串为null或不含有任何可见字符,将输出空字符串""。
+        * @param str 要格式化的字符串
+        */
+        private trim(str);
+    }
+}
+declare module RES {
+    /**
+    * SpriteSheet解析器
+    */
+    class SheetAnalyzer extends BinAnalyzer {
+        constructor();
+        /**
+        * @inheritDoc
+        */
+        public getRes(name: string): any;
+        /**
+        * 一项加载结束
+        */
+        public onLoadFinish(event: egret.Event): void;
+        public sheetMap: any;
+        /**
+        * 解析并缓存加载成功的数据
+        */
+        public analyzeData(resItem: ResourceItem, data: any): void;
+        private getRelativePath(url, file);
+        private parseSpriteSheet(texture, data);
+    }
+}
+declare module RES {
+    class FontAnalyzer extends SheetAnalyzer {
+        constructor();
+        /**
+        * 解析并缓存加载成功的数据
+        */
+        public analyzeData(resItem: ResourceItem, data: any): void;
+        private getTexturePath(url, fntText);
     }
 }
 declare module egret {
@@ -6511,10 +7053,19 @@ declare module egret {
         */
         constructor();
         /**
-        * 矩形区域，它定义素材对象的九个缩放区域
+        * 矩形区域，它定义素材对象的九个缩放区域。
+        * 注意:此属性仅在source的解析结果为Texture并且fileMode为BitmapFillMode.SCALE时有效。
         * @member {egret.Texture} egret.UIAsset#scale9Grid
         */
         public scale9Grid: Rectangle;
+        /**
+        * 确定位图填充尺寸的方式。默认值：BitmapFillMode.SCALE。
+        * 设置为 BitmapFillMode.REPEAT时，位图将重复以填充区域。
+        * 设置为 BitmapFillMode.SCALE时，位图将拉伸以填充区域。
+        * 注意:此属性仅在source的解析结果为Texture时有效
+        * @member {egret.Texture} egret.Bitmap#fillMode
+        */
+        public fillMode: string;
         private sourceChanged;
         public _source: any;
         /**
@@ -8206,7 +8757,7 @@ declare module egret {
         /**
         * 构造函数
         * @method egret.Rect#constructor
-        */ 
+        */
         constructor();
         private _graphics;
         public graphics : Graphics;
@@ -13622,8 +14173,11 @@ declare module egret {
 declare module egret {
     class HTML5TouchContext extends TouchContext {
         private canvas;
+        private _isTouchDown;
         constructor(canvas: HTMLCanvasElement);
         public run(): void;
+        private inOutOfCanvas(event);
+        private dispatchLeaveStageEvent();
         private _onTouchBegin(event);
         private _onTouchMove(event);
         private _onTouchEnd(event);

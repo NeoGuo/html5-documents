@@ -1,10 +1,15 @@
 /**
  * 位图Demo
  */
-class Demo2 {
+class Demo2 extends egret.DisplayObjectContainer {
 
     /**测试用的位图*/
     private logo:egret.Bitmap;
+
+    public constructor() {
+        super();
+        this.addEventListener(egret.Event.ADDED_TO_STAGE,this.startGame,this);
+    }
 
     /**游戏启动后，会自动执行此方法*/
     public startGame():void {
@@ -19,10 +24,9 @@ class Demo2 {
     }
     /**加载完毕后即可使用*/
     private onResourceLoadComplete(event:RES.ResourceEvent):void {
-        var stage = egret.MainContext.instance.stage;//获取Stage引用
         this.logo = new egret.Bitmap();//创建位图
         this.logo.texture = RES.getRes("egretIcon");//设置纹理
-        stage.addChild(this.logo);//添加到显示列表
+        this.addChild(this.logo);//添加到显示列表
         this.startAnimation();//动画
         this.startSpriteSheet();
     }
@@ -46,9 +50,6 @@ class Demo2 {
         bitmap.texture = RES.getRes("icons.activity_10");//从精灵表中获取某一项
         bitmap.x = 100;
         bitmap.y = 100;
-        var stage = egret.MainContext.instance.stage;//获取Stage引用
-        stage.addChild(bitmap);
+        this.addChild(bitmap);
     }
 }
-//create app
-var app = new Demo2();

@@ -43,8 +43,7 @@ RES.loadGroup("demo3");
 var data = RES.getRes("monkey_json");//获取描述
 var texture = RES.getRes("monkey_png");//获取大图
 var monkey = new egret.MovieClip(data, texture);//创建电影剪辑
-var stage = egret.MainContext.instance.stage;//获取Stage引用
-stage.addChild(monkey);//添加到显示列表
+this.addChild(monkey);//添加到显示列表
 monkey.setInterval(1);//设置动画每帧的时间间隔，单位是毫秒，数值越小，动作越快
 monkey.gotoAndPlay("stand");
 ```
@@ -53,7 +52,12 @@ monkey.gotoAndPlay("stand");
 完整代码：
 
 ```
-class Demo3 {
+class Demo3 extends egret.DisplayObjectContainer {
+
+    public constructor() {
+        super();
+        this.addEventListener(egret.Event.ADDED_TO_STAGE,this.startGame,this);
+    }
 
     /**游戏启动后，会自动执行此方法*/
     public startGame():void {
@@ -71,15 +75,11 @@ class Demo3 {
         var data = RES.getRes("monkey_json");//获取描述
         var texture = RES.getRes("monkey_png");//获取大图
         var monkey = new egret.MovieClip(data, texture);//创建电影剪辑
-        var stage = egret.MainContext.instance.stage;//获取Stage引用
-        stage.addChild(monkey);//添加到显示列表
+        this.addChild(monkey);//添加到显示列表
         monkey.setInterval(1);//设置动画每帧的时间间隔，单位是毫秒，数值越小，动作越快
         monkey.gotoAndPlay("stand");
     }
 }
-
-//create app
-var app = new Demo3();
 ```
 
 将Demo3作为入口类，重新编译项目，即可看到一只猴子的动画：

@@ -69,12 +69,17 @@ egret.StageDelegate.getInstance().setDesignSize(480, 800, policy);
 一个典型的设置了屏幕策略的程序可能是如下的完整实例：
 
 ```
-class Demo9 {
+class Demo9 extends egret.DisplayObjectContainer{
 
     /**加载进度界面*/
     private loadingView:LoadingUI;
     /**测试用的位图*/
     private logo:egret.Bitmap;
+
+    public constructor() {
+        super();
+        this.addEventListener(egret.Event.ADDED_TO_STAGE,this.startGame,this);
+    }
 
     /**游戏启动后，会自动执行此方法*/
     public startGame():void {
@@ -101,25 +106,21 @@ class Demo9 {
 
         //-------------------设置加载进度界面
         this.loadingView  = new LoadingUI();
-        this.loadingView.addToStage();
+        this.stage.addChild(this.loadingView);
     }
     /**preload资源组加载进度*/
     private onResourceProgress(event:RES.ResourceEvent):void {
-        this.loadingView.onProgress(event.itemsLoaded,event.itemsTotal);
+        this.loadingView.setProgress(event.itemsLoaded,event.itemsTotal);
     }
     /**显示*/
     private onResourceLoadComplete():void {
-        this.loadingView.removeFromStage();
-        var stage = egret.MainContext.instance.stage;//获取Stage引用
+        this.stage.removeChild(this.loadingView);
         this.logo = new egret.Bitmap();//创建位图
         this.logo.texture = RES.getRes("egretIcon");//设置纹理
-        stage.addChild(this.logo);//添加到显示列表
+        this.addChild(this.logo);//添加到显示列表
     }
 
 }
-
-//create app
-var app = new Demo9();
 ```
 
 - - -

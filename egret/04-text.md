@@ -26,8 +26,7 @@ label1.y = 100;
 //支持旋转和斜切
 label1.rotation = 30;
 label1.skewX = 30;
-var stage = egret.MainContext.instance.stage;//获取Stage引用
-stage.addChild(label1);//添加到显示列表
+this.addChild(label1);//添加到显示列表
 ```
 > 和所有基于WEB的应用一样，中文字体是个大问题，目前请尽量使用默认字体
 
@@ -74,8 +73,7 @@ var spriteSheet:egret.BitmapTextSpriteSheet = RES.getRes("bitmapFont");
 var bitmap1 = new egret.BitmapText();
 bitmap1.spriteSheet = spriteSheet;
 bitmap1.text = "HelloWorld";
-var stage = egret.MainContext.instance.stage;//获取Stage引用
-stage.addChild(bitmap1);
+this.addChild(bitmap1);
 ```
 
 改写Demo4的代码，加入上述的语句，编译查看效果：
@@ -97,8 +95,7 @@ input.x = 120;
 input.y = 210;
 input.width = 400;
 input.height = 200;
-var stage = egret.MainContext.instance.stage;//获取Stage引用
-stage.addChild(input);
+this.addChild(input);
 input.setText("输入点文字吧");
 ```
 

@@ -1,8 +1,12 @@
 /**
  * 文字Demo
  */
-class Demo4 {
+class Demo4 extends egret.DisplayObjectContainer {
 
+    public constructor() {
+        super();
+        this.addEventListener(egret.Event.ADDED_TO_STAGE,this.startGame,this);
+    }
     /**游戏启动后，会自动执行此方法*/
     public startGame():void {
         this.loadResource();
@@ -37,8 +41,7 @@ class Demo4 {
         //支持旋转和斜切
         label1.rotation = 30;
         label1.skewX = 30;
-        var stage = egret.MainContext.instance.stage;//获取Stage引用
-        stage.addChild(label1);//添加到显示列表
+        this.addChild(label1);//添加到显示列表
     }
     /**显示位图文本*/
     private initBitmapText():void {
@@ -46,8 +49,7 @@ class Demo4 {
         var bitmap1 = new egret.BitmapText();
         bitmap1.spriteSheet = spriteSheet;
         bitmap1.text = "HelloWorld";
-        var stage = egret.MainContext.instance.stage;//获取Stage引用
-        stage.addChild(bitmap1);
+        this.addChild(bitmap1);
     }
     /**显示文本输入*/
     private initTextInput():void {
@@ -56,11 +58,7 @@ class Demo4 {
         input.y = 210;
         input.width = 400;
         input.height = 200;
-        var stage = egret.MainContext.instance.stage;//获取Stage引用
-        stage.addChild(input);
+        this.addChild(input);
         input.setText("输入点文字吧");
     }
 }
-
-//create app
-var app = new Demo4();

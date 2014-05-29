@@ -1,7 +1,12 @@
 /**
  * Sound Demo
  */
-class Demo6 {
+class Demo6 extends egret.DisplayObjectContainer{
+
+    public constructor() {
+        super();
+        this.addEventListener(egret.Event.ADDED_TO_STAGE,this.startGame,this);
+    }
 
     /**游戏启动后，会自动执行此方法*/
     public startGame():void {
@@ -13,8 +18,7 @@ class Demo6 {
         var label1 = new egret.TextField();
         label1.textColor = 0xffffff;
         label1.text = "演示声音如何播放";
-        var stage = egret.MainContext.instance.stage;
-        stage.addChild(label1);
+        this.addChild(label1);
     }
     /**播放声音*/
     private initSound():void {
@@ -54,6 +58,3 @@ class Demo6 {
         return false;
     }
 }
-
-//create app
-var app = new Demo6();

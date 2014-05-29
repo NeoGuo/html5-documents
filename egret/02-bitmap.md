@@ -30,17 +30,28 @@ workspace    // 您的工作目录
 然后我们创建一个TypeScript类文件，命名为Demo2.ts，然后把下面的代码粘贴进去：
 
 ```
-class Demo2 {
+class Demo2 extends egret.DisplayObjectContainer {
+    /**构造函数*/
+    public constructor() {
+        super();
+        this.addEventListener(egret.Event.ADDED_TO_STAGE,this.startGame,this);
+    }
     /**游戏启动后，会自动执行此方法*/
     public startGame():void {
         alert("hello!");
     }
 }
-//create app
-var app = new Demo2();
 ```
 
-然后打开game_file_list.js，将"GameApp.js"修改为"Demo2.js"，并注释掉GameApp.ts中的最后一行：```var app = new GameApp();```;这样就可以将我们自己的类作为入口类。
+然后打开game_file_list.js，将"GameApp"修改为"Demo2"，并修改"GameApp.js"为"Demo2.js";这样就可以将我们自己的类作为入口类。
+
+```
+var game_file_list = [
+    "Demo2.js",
+    "LoadingUI.js"
+]
+var document_class = "Demo2";
+```
 
 使用命令行编译项目：
 ```
@@ -59,7 +70,7 @@ egret build HelloEgret
 private logo:egret.Bitmap;
 ```
 
-要使用外部资源，就要引入加载机制。想想我们在Flash里是怎么做的？没错，用Loader或URLLoader。Egret中也提供了Loader的类似实现，即：RES.ResourceLoader。(注意ResourceLoader的命名空间是RES，而不是egret，这是因为Egret团队将资源管理从核心库中剥离出来单独作为一个库来维护)。但Egret的封装更“上层”一些，您甚至都无需直接接触ResourceLoader这个类，而是直接使用Egret提供的，结合外部配置文件的资源管理和加载方式。
+要使用外部资源，就要引入加载机制。想想我们在Flash里是怎么做的？没错，用Loader或URLLoader。Egret中也提供了Loader的类似实现，即：RES.ResourceLoader。(注意ResourceLoader的命名空间是RES，而不是egret)。但Egret的封装更“上层”一些，您甚至都无需直接接触ResourceLoader这个类，而是直接使用Egret提供的，结合外部配置文件的资源管理和加载方式。
 
 首先打开项目目录下的resources/resource.json文件，这个您可以认为就是资源的配置文件，里面定义了resources目录下资源的名称和对应的url，甚至可以把资源划分成若干个group，这样来实现分批加载。
 
@@ -108,32 +119,34 @@ stage.addChild(this.logo);//添加到显示列表
 完整代码：
 
 ```
-class Demo2 {
+class Demo2 extends egret.DisplayObjectContainer {
 
     /**测试用的位图*/
     private logo:egret.Bitmap;
+
+    public constructor() {
+        super();
+        this.addEventListener(egret.Event.ADDED_TO_STAGE,this.startGame,this);
+    }
 
     /**游戏启动后，会自动执行此方法*/
     public startGame():void {
         this.loadResource();
     }
     /**加载所需资源*/
-    public loadResource():void {
+    private loadResource():void {
         //使用资源管理器加载资源
         RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE,this.onResourceLoadComplete,this);
         RES.loadConfig("resources/resource.json","resources/");
         RES.loadGroup("demo2");
     }
     /**加载完毕后即可使用*/
-    private onResourceLoadComplete():void {
-        var stage = egret.MainContext.instance.stage;//获取Stage引用
+    private onResourceLoadComplete(event:RES.ResourceEvent):void {
         this.logo = new egret.Bitmap();//创建位图
         this.logo.texture = RES.getRes("egretIcon");//设置纹理
-        stage.addChild(this.logo);//添加到显示列表
+        this.addChild(this.logo);//添加到显示列表
     }
 }
-//create app
-var app = new Demo2();
 ```
 
 编译项目，顺利的话，您就能看到一个Egret的LOGO显示在屏幕上。
@@ -213,8 +226,7 @@ var bitmap = new egret.Bitmap();
 bitmap.texture = RES.getRes("icons.activity_10");//从精灵表中获取某一项
 bitmap.x = 100;
 bitmap.y = 100;
-var stage = egret.MainContext.instance.stage;//获取Stage引用
-stage.addChild(bitmap);
+this.addChild(bitmap);
 ```
 
 重新编译项目，检查效果吧。

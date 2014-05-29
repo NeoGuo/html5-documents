@@ -17,7 +17,6 @@ public constructor(type:string, bubbles:boolean = false, cancelable:boolean = fa
 ```
 /**显示*/
 private onResourceLoadComplete():void {
-    var stage = egret.MainContext.instance.stage;
     var container = new egret.DisplayObjectContainer();
     container.touchChildren = true;//等同于Flash的mouseChildren
     container.touchEnabled = true;//设置容器是否响应Touch交互
@@ -27,7 +26,7 @@ private onResourceLoadComplete():void {
     container.addChild(bitmap1);
     container.name = "myContainer";
     container.x = container.y = 100;
-    stage.addChild(container);
+    this.addChild(container);
     container.addEventListener(egret.TouchEvent.TOUCH_TAP,this.touchHandler,container);
 }
 /**事件侦听处理*/
