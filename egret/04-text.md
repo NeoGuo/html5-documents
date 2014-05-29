@@ -40,36 +40,42 @@ stage.addChild(label1);//添加到显示列表
 
 如果希望文字在所有平台保持显示一致，可以使用位图字体。这种方式在很多平台或框架中都得到了应用，比如cocos2d-x等。所谓位图字体，就是将所需的字符全都集中到一张或多张位图上，然后根据描述文件来知道某个字符在位图上的对应区域。当设置文本的时候，就可以逐个字符判断，将获取到的字符图片数据整合显示，来达到显示文本的效果。
 
-Egret中也有对位图字体的支持，我们还是用官方实例中的素材来展示如何使用位图字体。拷贝/egret/examples/assets/480目录下的两个文件：font.egf和font.png，将这两个文件复制到HelloEgret项目的assets/480目录下面。打开font.egf看一下，里面其实就是对每个字符在位图对应关系的描述：
+Egret中也有对位图字体的支持，我们还是用官方实例中的素材来展示如何使用位图字体。拷贝官网实例资源目录下的两个文件：font.fnt和font.png，将这两个文件复制到HelloEgret项目的resources/assets目录下面。打开font.fnt看一下，里面其实就是对每个字符在位图对应关系的描述：
 
 ```
-var data ={"@":{"x":2,"y":2,"w":63,"h":65,"offX":3,"offY":9} ...
+info face="ArialMT" size=64 bold=0 italic=0 charset="" unicode=0 stretchH=100 smooth=1 aa=1 padding=0,0,0,0 spacing=2,2
+common lineHeight=73 base=58 scaleW=512 scaleH=512 pages=1 packed=0
+page id=0 file="font.png"
+chars count=95
+char id=64 x=2 y=2 width=63 height=65 xoffset=3 yoffset=9 xadvance=65 page=0 chnl=0 letter="@"
 ```
 
-然后还是使用LoadingController来加载资源：
+然后还是修改资源配置文件：
 
 ```
-var loader:egret.LoadingController = new egret.LoadingController();
-loader.addResource("font.egf", egret.ResourceLoader.DATA_TYPE_TEXT);//加载描述文件
-loader.addResource("font.png", egret.ResourceLoader.DATA_TYPE_IMAGE);//加载图片
-loader.addEventListener(egret.ResourceLoader.LOAD_COMPLETE, this.initBitmapText, this);//事件侦听加载完成
-loader.load();//执行加载
+{
+"resources":
+	[
+        {"name":"bitmapFont","type":"font","url":"assets/font.fnt"}
+	],
+
+"groups":
+	[
+        {"name":"demo4","keys":"bitmapFont"}
+	]
+}
 ```
 
 创建使用位图字体的文本对象：
 
 ```
 /**显示位图文本*/
-private initBitmapText():void {
-    var data = egret.ResourceLoader.create("font.egf").data;//获取描述
-    eval(data);//将描述转换为变量
-    var bitmap1 = new egret.BitmapText();//创建位图字体
-    bitmap1.texture = egret.TextureCache.getInstance().getTexture("font.png");//设置纹理
-    bitmap1.bitmapFontData = data;//设置描述信息
-    bitmap1.text = "HelloWorld";//设置文本
-    var stage = egret.MainContext.instance.stage;//获取Stage引用
-    stage.addChild(bitmap1);
-}
+var spriteSheet:egret.BitmapTextSpriteSheet = RES.getRes("bitmapFont");
+var bitmap1 = new egret.BitmapText();
+bitmap1.spriteSheet = spriteSheet;
+bitmap1.text = "HelloWorld";
+var stage = egret.MainContext.instance.stage;//获取Stage引用
+stage.addChild(bitmap1);
 ```
 
 改写Demo4的代码，加入上述的语句，编译查看效果：
