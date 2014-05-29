@@ -15,10 +15,9 @@ var container = new egret.DisplayObjectContainer();
 container.scaleX = 0.2;
 container.scaleY = 0.2;
 //和Flash一样，用addChild方法把一个显示对象添加到显示列表
-//相似的方法还包括：addChildAt, removeChild, removeChildAt, setChildIndex, getChildAt等等
 stage.addChild(container);
 //位图是显示对象，纹理不是
-var bitmap1 = egret.Bitmap.initWithTexture(egret.TextureCache.getInstance().getTexture("egret_icon.png"));
+var bitmap1 = new egret.Bitmap(RES.getRes("egretIcon"));
 container.addChild(bitmap1);
 //显示对象的位置和尺寸，相对于stage来说，也受到父容器的影响，也就是说每个显示对象容器，拥有自己的坐标系
 bitmap1.x = bitmap1.y = 50;

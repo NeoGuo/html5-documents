@@ -16,12 +16,12 @@ public constructor(type:string, bubbles:boolean = false, cancelable:boolean = fa
 
 ```
 /**显示*/
-private initDefaultView():void {
+private onResourceLoadComplete():void {
     var stage = egret.MainContext.instance.stage;
     var container = new egret.DisplayObjectContainer();
     container.touchChildren = true;//等同于Flash的mouseChildren
     container.touchEnabled = true;//设置容器是否响应Touch交互
-    var bitmap1 = egret.Bitmap.initWithTexture(egret.TextureCache.getInstance().getTexture("egret_icon.png"));
+    var bitmap1 = new egret.Bitmap(RES.getRes("egretIcon"));
     bitmap1.name = "myBitmap";
     bitmap1.touchEnabled = true;
     container.addChild(bitmap1);
