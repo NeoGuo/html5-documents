@@ -59,25 +59,49 @@ egret build HelloEgret
 private logo:ns_egret.Bitmap;
 ```
 
-使用LoadingController来加载外部资源（对于单个资源可以使用ResourceLoader类，而LoadingController则可以处理批量的素材加载，使用更方便）：
+要使用外部资源，就要引入加载机制。想想我们在Flash里是怎么做的？没错，用Loader或URLLoader。Egret中也提供了Loader的类似实现，即：RES.ResourceLoader。(注意ResourceLoader的命名空间是RES，而不是ns_egret，这是因为Egret团队将资源管理从核心库中剥离出来单独作为一个库来维护)。但Egret的封装更“上层”一些，您甚至都无需直接接触ResourceLoader这个类，而是直接使用Egret提供的，结合外部配置文件的资源管理和加载方式。
+
+首先打开项目目录下的resources/resource.json文件，这个您可以认为就是资源的配置文件，里面定义了resources目录下资源的名称和对应的url，甚至可以把资源划分成若干个group，这样来实现分批加载。
 
 ```
-var loader:ns_egret.LoadingController = new ns_egret.LoadingController();//使用LoadingController来加载和管理资源
-loader.addResource("egret_icon.png", ns_egret.ResourceLoader.DATA_TYPE_IMAGE);//传入资源地址和类型
-loader.addEventListener(ns_egret.ResourceLoader.LOAD_COMPLETE, this.onResourceLoadComplete, this);//事件侦听加载完成
-loader.load();//执行加载
+{
+"resources":
+    [
+        {"name":"bgImage","type":"img","url":"assets/bg.jpg"},
+        {"name":"egretIcon","type":"img","url":"assets/egret_icon.png"},
+    ],
+
+"groups":
+    [
+        {"name":"preload","keys":"bgImage,egretIcon"},
+    ]
+}
 ```
-> 注意默认资源根目录是assets/480。您可以修改egret_loader.js来制定默认资源目录：
-> ns_egret.ResourceLoader.prefix = "assets/480/"
+
+我们来创建一个"demo2"的group，把egretIcon配置进来：
+
+```
+{"name":"demo2","keys":"egretIcon"},
+```
+
+然后回到Demo2中，我们使用RES模块，加载配置文件和对应的一组资源：
+
+```
+//使用资源管理器加载资源
+RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE,this.onResourceLoadComplete,this);
+RES.loadConfig("resources/resource.json","resources/");
+RES.loadGroup("demo2");
+```
+> loadConfig的第二个参数用于指定资源根目录。
 > 另外务必注意this关键词不可以省略，这是和Flash不一样的地方，在Flash中我们允许省略this关键词。
-> 真实项目中可能有很多资源，我们可以在游戏启动之前先做加载，加载完毕后再进行游戏的初始化
+> 真实项目中可能有很多资源，我们可以在游戏启动之前先做加载，加载完毕后再进行游戏的初始化。
 
-然后我们在onResourceLoadComplete方法里，完成位图的创建和显示。代码如下：
+在onResourceLoadComplete方法里，我们完成位图的创建和显示。代码如下：
 
 ```
 var stage = ns_egret.MainContext.instance.stage;//获取Stage引用
 this.logo = new ns_egret.Bitmap();//创建位图
-this.logo.texture = ns_egret.TextureCache.getInstance().getTexture("egret_icon.png");//设置纹理
+this.logo.texture = RES.getRes("egretIcon");//设置纹理
 stage.addChild(this.logo);//添加到显示列表
 ```
 
@@ -95,17 +119,16 @@ class Demo2 {
     }
     /**加载所需资源*/
     public loadResource():void {
-        //跟在Flash中类似，您要用位图，就要先加载进来
-        var loader:ns_egret.LoadingController = new ns_egret.LoadingController();//使用LoadingController来加载和管理资源
-        loader.addResource("egret_icon.png", ns_egret.ResourceLoader.DATA_TYPE_IMAGE);//传入资源地址和类型，注意默认资源根目录是assets/480
-        loader.addEventListener(ns_egret.ResourceLoader.LOAD_COMPLETE, this.onResourceLoadComplete, this);//事件侦听加载完成
-        loader.load();//执行加载
+        //使用资源管理器加载资源
+        RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE,this.onResourceLoadComplete,this);
+        RES.loadConfig("resources/resource.json","resources/");
+        RES.loadGroup("demo2");
     }
     /**加载完毕后即可使用*/
     private onResourceLoadComplete():void {
         var stage = ns_egret.MainContext.instance.stage;//获取Stage引用
         this.logo = new ns_egret.Bitmap();//创建位图
-        this.logo.texture = ns_egret.TextureCache.getInstance().getTexture("egret_icon.png");//设置纹理
+        this.logo.texture = RES.getRes("egretIcon");//设置纹理
         stage.addChild(this.logo);//添加到显示列表
     }
 }
@@ -134,7 +157,7 @@ private startAnimation():void {
 
 最后使用命令行编译项目，再复习一下：
 ```
-$ egret b HelloEgret
+egret build HelloEgret
 ```
 
 打开浏览器观看最终结果，可以看到一个简单的位图动画：
@@ -150,8 +173,8 @@ this.logo.width = this.logo.height = 10;//设置尺寸
 this.logo.scaleX = this.logo.scaleY = 0.5;//设置缩放
 this.logo.rotation = 45;//旋转
 this.logo.skewX = 45;//斜切
-this.logo.anchorPointX = this.logo.width/2;//设置中心点的位置，实现围绕中心旋转
-this.logo.anchorPointY = this.logo.height/2;//同上
+this.logo.anchorX = 0.5;//设置中心点的位置，实现围绕中心旋转
+this.logo.anchorY = 0.5;//同上
 ```
 
 精灵表单:
@@ -159,50 +182,47 @@ this.logo.anchorPointY = this.logo.height/2;//同上
 
 说到位图，还有一种很常用的情况就是利用“精灵表单”，即spritesheet，这种方式可以让我们把若干张小图集合到一张大图上，这样对资源加载，控制，减少请求数等方面都很有益处。制作spritesheet的工具也有很多，比如知名度很高的TexturePacker，Flash CS6也增加了对spritesheet的支持，工具上萝卜青菜，各有所爱，您可以选择适合自己的工具。在Egret框架中当然也可以使用spritesheet，让我们来看一下使用方式：
 
-首先拷贝/egret/examples/assets/480目录下的两个文件：icons.json和icons.png，将这两个文件复制到HelloEgret项目的assets/480目录下面。
+首先拷贝[官网实例资源目录](https://github.com/egret-team/egret-examples/tree/master/CoreExample/resources/assets/480)下的两个文件：icons.json和icons.png，将这两个文件复制到HelloEgret项目的resources/assets目录下面。
 
 打开icons.json，可以看到对内部图片分割的描述：
 ```
-{"frames":{"activity_1.png":{"x":158,"y":313,"w":75,"h":75,"offX":0,"offY":0} ...
+{"file":"icons.png","frames":{"activity_1":{"x":158,"y":313,"w":75,"h":75} ...
 ```
 
-这样我们就可以根据这个描述文件，获取整张图的一个小块作为某个位图的纹理。首先要做的还是加载：
+这样我们就可以根据这个描述文件，获取整张图的一个小块作为某个位图的纹理。首先要做的还是配置资源文件：
 
 ```
-/**加载精灵表*/
-private loadSpriteSheet():void {
-    var loader:ns_egret.LoadingController = new ns_egret.LoadingController();
-    loader.addResource("icons.json", ns_egret.ResourceLoader.DATA_TYPE_BINARY);//加载描述文件
-    loader.addResource("icons.png", ns_egret.ResourceLoader.DATA_TYPE_IMAGE);//加载图片
-    loader.addEventListener(ns_egret.ResourceLoader.LOAD_COMPLETE, this.onSpriteSheetLoadComplete, this);//事件侦听加载完成
-    loader.load();//执行加载
+{
+"resources":
+    [
+        {"name":"egretIcon","type":"img","url":"assets/egret_icon.png"},
+        {"name":"icons","type":"sheet","url":"assets/icons.json"}
+    ],
+
+"groups":
+    [
+        {"name":"demo2","keys":"egretIcon,icons"}
+    ]
 }
 ```
 
-然后使用SpriteSheet类来实现显示图上的某个区域：
+然后使用"点"语法，根据名称获取SpriteSheet的一个元素：
 
 ```
- /**精灵表加载完毕后即可使用*/
-private onSpriteSheetLoadComplete():void {
-    var data = ns_egret.ResourceLoader.create("icons.json").data;//获取描述
-    data = JSON.parse(data);//将JSON字符串转换为Object
-    var texture = ns_egret.TextureCache.getInstance().getTexture("icons.png");//获取大图
-    var spriteSheet = new ns_egret.SpriteSheet(data);//创建精灵表
-    var bitmap = new ns_egret.Bitmap();
-    bitmap.texture = texture;
-    bitmap.spriteFrame = spriteSheet.getFrame("activity_10.png");//从精灵表中获取某一项
-    var stage = ns_egret.MainContext.instance.stage;//获取Stage引用
-    stage.addChild(bitmap);
-}
+var bitmap = new ns_egret.Bitmap();
+bitmap.texture = RES.getRes("icons.activity_10");//从精灵表中获取某一项
+bitmap.x = 100;
+bitmap.y = 100;
+var stage = ns_egret.MainContext.instance.stage;//获取Stage引用
+stage.addChild(bitmap);
 ```
 
 重新编译项目，检查效果吧。
 
-另外，如果觉得先加载，后使用的代码显得繁琐，可以使用一个简化类：DynamicBitmap。这个类允许您在创建位图的时候，直接传入图片的地址，然后加载完毕后自动显示。示意：
+另外，如果觉得先加载，后使用的代码显得繁琐，可以使用：RES.getResAsync()。这个方法允许您异步加载一个资源，然后在回调函数中处理。示意：
 
 ```
-var bitmap:ns_egret.DynamicBitmap = ns_egret.DynamicBitmap.create("egret_icon.png");
-stage.addChild(bitmap);
+RES.getResAsync("icons",this.iconsLoadedComplete,this)
 ```
 
 如果位图需要使用9宫格方式，可以使用Scale9Bitmap类，使用方式可以参考API文档，这里不再详述。
