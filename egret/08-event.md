@@ -17,21 +17,21 @@ public constructor(type:string, bubbles:boolean = false, cancelable:boolean = fa
 ```
 /**显示*/
 private initDefaultView():void {
-    var stage = ns_egret.MainContext.instance.stage;
-    var container = new ns_egret.DisplayObjectContainer();
+    var stage = egret.MainContext.instance.stage;
+    var container = new egret.DisplayObjectContainer();
     container.touchChildren = true;//等同于Flash的mouseChildren
     container.touchEnabled = true;//设置容器是否响应Touch交互
-    var bitmap1 = ns_egret.Bitmap.initWithTexture(ns_egret.TextureCache.getInstance().getTexture("egret_icon.png"));
+    var bitmap1 = egret.Bitmap.initWithTexture(egret.TextureCache.getInstance().getTexture("egret_icon.png"));
     bitmap1.name = "myBitmap";
     bitmap1.touchEnabled = true;
     container.addChild(bitmap1);
     container.name = "myContainer";
     container.x = container.y = 100;
     stage.addChild(container);
-    container.addEventListener(ns_egret.TouchEvent.TOUCH_TAP,this.touchHandler,container);
+    container.addEventListener(egret.TouchEvent.TOUCH_TAP,this.touchHandler,container);
 }
 /**事件侦听处理*/
-private touchHandler(event:ns_egret.TouchEvent):void {
+private touchHandler(event:egret.TouchEvent):void {
     var msg:string = event.type;
     msg += "\n"+event.stageX+","+event.stageY;
     msg += "\n"+event.localX+","+event.localY;

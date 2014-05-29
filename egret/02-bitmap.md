@@ -56,10 +56,10 @@ egret build HelloEgret
 
 ```
 /**测试用位图*/
-private logo:ns_egret.Bitmap;
+private logo:egret.Bitmap;
 ```
 
-要使用外部资源，就要引入加载机制。想想我们在Flash里是怎么做的？没错，用Loader或URLLoader。Egret中也提供了Loader的类似实现，即：RES.ResourceLoader。(注意ResourceLoader的命名空间是RES，而不是ns_egret，这是因为Egret团队将资源管理从核心库中剥离出来单独作为一个库来维护)。但Egret的封装更“上层”一些，您甚至都无需直接接触ResourceLoader这个类，而是直接使用Egret提供的，结合外部配置文件的资源管理和加载方式。
+要使用外部资源，就要引入加载机制。想想我们在Flash里是怎么做的？没错，用Loader或URLLoader。Egret中也提供了Loader的类似实现，即：RES.ResourceLoader。(注意ResourceLoader的命名空间是RES，而不是egret，这是因为Egret团队将资源管理从核心库中剥离出来单独作为一个库来维护)。但Egret的封装更“上层”一些，您甚至都无需直接接触ResourceLoader这个类，而是直接使用Egret提供的，结合外部配置文件的资源管理和加载方式。
 
 首先打开项目目录下的resources/resource.json文件，这个您可以认为就是资源的配置文件，里面定义了resources目录下资源的名称和对应的url，甚至可以把资源划分成若干个group，这样来实现分批加载。
 
@@ -99,8 +99,8 @@ RES.loadGroup("demo2");
 在onResourceLoadComplete方法里，我们完成位图的创建和显示。代码如下：
 
 ```
-var stage = ns_egret.MainContext.instance.stage;//获取Stage引用
-this.logo = new ns_egret.Bitmap();//创建位图
+var stage = egret.MainContext.instance.stage;//获取Stage引用
+this.logo = new egret.Bitmap();//创建位图
 this.logo.texture = RES.getRes("egretIcon");//设置纹理
 stage.addChild(this.logo);//添加到显示列表
 ```
@@ -111,7 +111,7 @@ stage.addChild(this.logo);//添加到显示列表
 class Demo2 {
 
     /**测试用的位图*/
-    private logo:ns_egret.Bitmap;
+    private logo:egret.Bitmap;
 
     /**游戏启动后，会自动执行此方法*/
     public startGame():void {
@@ -126,8 +126,8 @@ class Demo2 {
     }
     /**加载完毕后即可使用*/
     private onResourceLoadComplete():void {
-        var stage = ns_egret.MainContext.instance.stage;//获取Stage引用
-        this.logo = new ns_egret.Bitmap();//创建位图
+        var stage = egret.MainContext.instance.stage;//获取Stage引用
+        this.logo = new egret.Bitmap();//创建位图
         this.logo.texture = RES.getRes("egretIcon");//设置纹理
         stage.addChild(this.logo);//添加到显示列表
     }
@@ -145,7 +145,7 @@ var app = new Demo2();
 
 ```
 private startAnimation():void {
-    var tw = ns_egret.Tween.get(this.logo);
+    var tw = egret.Tween.get(this.logo);
     tw.to({x:280,y:0},500).to({x:280,y:300},500).to({x:0,y:300},500).to({x:0,y:0},500);
     tw.call(this.startAnimation, this);
 }
@@ -209,11 +209,11 @@ this.logo.anchorY = 0.5;//同上
 然后使用"点"语法，根据名称获取SpriteSheet的一个元素：
 
 ```
-var bitmap = new ns_egret.Bitmap();
+var bitmap = new egret.Bitmap();
 bitmap.texture = RES.getRes("icons.activity_10");//从精灵表中获取某一项
 bitmap.x = 100;
 bitmap.y = 100;
-var stage = ns_egret.MainContext.instance.stage;//获取Stage引用
+var stage = egret.MainContext.instance.stage;//获取Stage引用
 stage.addChild(bitmap);
 ```
 

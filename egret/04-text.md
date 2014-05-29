@@ -11,7 +11,7 @@ Egret框架入门第一步 - 文本
 在Egret负责文本渲染的类是TextField，示意代码：
 
 ```
-var label1 = new ns_egret.TextField();//创建TextField实例
+var label1 = new egret.TextField();//创建TextField实例
 //label1.fontFamily = "Impact";//设置字体，中文慎用，受系统和浏览器限制，表现可能不一致
 label1.textColor = 0xffffff;//设置颜色，和Flash一样，设置16进制的数值
 label1.textAlign = "left";//设置文本对齐，可选:left,center,right
@@ -26,7 +26,7 @@ label1.y = 100;
 //支持旋转和斜切
 label1.rotation = 30;
 label1.skewX = 30;
-var stage = ns_egret.MainContext.instance.stage;//获取Stage引用
+var stage = egret.MainContext.instance.stage;//获取Stage引用
 stage.addChild(label1);//添加到显示列表
 ```
 > 和所有基于WEB的应用一样，中文字体是个大问题，目前请尽量使用默认字体
@@ -49,10 +49,10 @@ var data ={"@":{"x":2,"y":2,"w":63,"h":65,"offX":3,"offY":9} ...
 然后还是使用LoadingController来加载资源：
 
 ```
-var loader:ns_egret.LoadingController = new ns_egret.LoadingController();
-loader.addResource("font.egf", ns_egret.ResourceLoader.DATA_TYPE_TEXT);//加载描述文件
-loader.addResource("font.png", ns_egret.ResourceLoader.DATA_TYPE_IMAGE);//加载图片
-loader.addEventListener(ns_egret.ResourceLoader.LOAD_COMPLETE, this.initBitmapText, this);//事件侦听加载完成
+var loader:egret.LoadingController = new egret.LoadingController();
+loader.addResource("font.egf", egret.ResourceLoader.DATA_TYPE_TEXT);//加载描述文件
+loader.addResource("font.png", egret.ResourceLoader.DATA_TYPE_IMAGE);//加载图片
+loader.addEventListener(egret.ResourceLoader.LOAD_COMPLETE, this.initBitmapText, this);//事件侦听加载完成
 loader.load();//执行加载
 ```
 
@@ -61,13 +61,13 @@ loader.load();//执行加载
 ```
 /**显示位图文本*/
 private initBitmapText():void {
-    var data = ns_egret.ResourceLoader.create("font.egf").data;//获取描述
+    var data = egret.ResourceLoader.create("font.egf").data;//获取描述
     eval(data);//将描述转换为变量
-    var bitmap1 = new ns_egret.BitmapText();//创建位图字体
-    bitmap1.texture = ns_egret.TextureCache.getInstance().getTexture("font.png");//设置纹理
+    var bitmap1 = new egret.BitmapText();//创建位图字体
+    bitmap1.texture = egret.TextureCache.getInstance().getTexture("font.png");//设置纹理
     bitmap1.bitmapFontData = data;//设置描述信息
     bitmap1.text = "HelloWorld";//设置文本
-    var stage = ns_egret.MainContext.instance.stage;//获取Stage引用
+    var stage = egret.MainContext.instance.stage;//获取Stage引用
     stage.addChild(bitmap1);
 }
 ```
@@ -86,12 +86,12 @@ private initBitmapText():void {
 用法：
 
 ```
-var input:ns_egret.TextInput = new ns_egret.TextInput();
+var input:egret.TextInput = new egret.TextInput();
 input.x = 120;
 input.y = 210;
 input.width = 400;
 input.height = 200;
-var stage = ns_egret.MainContext.instance.stage;//获取Stage引用
+var stage = egret.MainContext.instance.stage;//获取Stage引用
 stage.addChild(input);
 input.setText("输入点文字吧");
 ```

@@ -37,7 +37,7 @@ private checkSoundCanPlay(format:String):boolean {
 然后使用如下的语句即可播放声音：
 
 ```
-var soundContext:ns_egret.SoundContext = ns_egret.SoundContext.getInstance();//Egret中处理声音的是SoundContext
+var soundContext:egret.SoundContext = egret.SoundContext.getInstance();//Egret中处理声音的是SoundContext
 //soundContext.preloadSound("sfx_die.ogg");//可以预加载声音，以便需要的时候立刻播放
 var soundPath:string = "sfx_die";//声音的前缀
 if(this.checkSoundCanPlay("ogg"))//根据支持情况设置声音的后缀
@@ -47,7 +47,7 @@ else if(this.checkSoundCanPlay("mp3"))
 else
     soundPath += ".wav";
 soundContext.playMusic(soundPath,true);//播放声音，第二个参数决定是否重复
-ns_egret.Ticker.getInstance().callLater(function (){
+egret.Ticker.getInstance().callLater(function (){
     soundContext.stopMusic(true);//停止播放
 },this,3000);//延迟3秒调用
 ```

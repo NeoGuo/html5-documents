@@ -8,9 +8,9 @@ Egret的显示列表机制，和原生Flash的显示列表机制是非常相似�
 ```
 //和Flash机制类似，stage是所有显示对象的'根'，stage下面是一个树状的显示列表
 //同时Egret的显示列表相对于原生Flash也做了一些简化
-var stage = ns_egret.MainContext.instance.stage;
+var stage = egret.MainContext.instance.stage;
 //显示对象容器，使用DisplayObjectContainer
-var container = new ns_egret.DisplayObjectContainer();
+var container = new egret.DisplayObjectContainer();
 //容器的缩放，旋转，位移将影响到它下面的子节点(即包含的显示对象)
 container.scaleX = 0.2;
 container.scaleY = 0.2;
@@ -18,7 +18,7 @@ container.scaleY = 0.2;
 //相似的方法还包括：addChildAt, removeChild, removeChildAt, setChildIndex, getChildAt等等
 stage.addChild(container);
 //位图是显示对象，纹理不是
-var bitmap1 = ns_egret.Bitmap.initWithTexture(ns_egret.TextureCache.getInstance().getTexture("egret_icon.png"));
+var bitmap1 = egret.Bitmap.initWithTexture(egret.TextureCache.getInstance().getTexture("egret_icon.png"));
 container.addChild(bitmap1);
 //显示对象的位置和尺寸，相对于stage来说，也受到父容器的影响，也就是说每个显示对象容器，拥有自己的坐标系
 bitmap1.x = bitmap1.y = 50;
