@@ -5,19 +5,40 @@ Egret框架入门第一步 - 资源管理和屏幕适配
 
 先来看资源加载方面需要注意的一些事情，游戏开发之前您需要设计一下素材的目录结构，如果存在多套不同分辨率的资源，您可以使用assets/480/,assets/640/这样的方式来设计素材目录结构加以区分，如果只有一套资源，也可以不遵守assets/480/这样的规则，将prefix指向您自己的素材目录即可。
 
-```
-egret.ResourceLoader.prefix = "assets/480/";
-```
-
-加载的实现，推荐使用LoadingController:
+加载的实现，推荐使用RES模块:
 
 ```
-var loadingController = new egret.LoadingController();
+//使用RES模块，侦听GROUP_COMPLETE事件和GROUP_PROGRESS事件，可以同步显示加载进度，并继续执行加载完成后的逻辑
+RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE,this.onResourceLoadComplete,this);
+RES.addEventListener(RES.ResourceEvent.GROUP_PROGRESS,this.onResourceProgress,this);
+RES.loadConfig("resources/resource.json","resources/");//加载资源配置文件
+RES.loadGroup("preload");//加载某个资源group
 ```
 
-加载某个资源，将根据设定的ResourceLoader.prefix来获取，您不用重复传入完整路径，只需传入相对于资源根目录的路径。
+然后将您需要加载的资源，都配置在resource.json中即可，注意路径是相对RES.loadConfig中传递的第二个参数而言的。
 ```
-loadingController.addResource("egret_icon.png", egret.ResourceLoader.DATA_TYPE_IMAGE);
+{
+"resources":
+    [
+        {"name":"bgImage","type":"img","url":"assets/bg.jpg"},
+        {"name":"egretIcon","type":"img","url":"assets/egret_icon.png"},
+        {"name":"description","type":"json","url":"config/description.json"},
+        {"name":"icons","type":"sheet","url":"assets/icons.json"},
+        {"name":"monkey_png","type":"img","url":"assets/monkey.png"},
+        {"name":"monkey_json","type":"json","url":"assets/monkey.json"},
+        {"name":"bitmapFont","type":"font","url":"assets/font.fnt"}
+    ],
+
+"groups":
+    [
+        {"name":"preload","keys":"bgImage,egretIcon"},
+        {"name":"demo2","keys":"egretIcon,icons"},
+        {"name":"demo3","keys":"monkey_png,monkey_json"},
+        {"name":"demo4","keys":"bitmapFont"},
+        {"name":"demo7","keys":"egretIcon"},
+        {"name":"demo8","keys":"egretIcon"}
+    ]
+}
 ```
 
 然后来看一下如何设置屏幕适配的策略，首先，先获取所在环境的容器：
@@ -50,6 +71,8 @@ egret.StageDelegate.getInstance().setDesignSize(480, 800, policy);
 ```
 class Demo9 {
 
+    /**加载进度界面*/
+    private loadingView:LoadingUI;
     /**测试用的位图*/
     private logo:egret.Bitmap;
 
@@ -69,22 +92,27 @@ class Demo9 {
         egret.StageDelegate.getInstance().setDesignSize(480, 800, policy);
 
         //--------------------资源加载
-        //设置素材的根目录，如果存在多套不同分辨率的资源，您可以使用assets/480/,assets/640/这样的方式来设计素材目录结构加以区分，
-        //如果只有一套资源，也可以不遵守assets/480/这样的规则，将prefix指向您自己的素材目录即可
-        egret.ResourceLoader.prefix = "assets/480/";
-        var loadingController = new egret.LoadingController();
-        //资源加载，将根据设定的ResourceLoader.prefix来获取，您不用重复传入完整路径，只需传入相对于资源根目录的路径
-        loadingController.addResource("egret_icon.png", egret.ResourceLoader.DATA_TYPE_IMAGE);
-        //设置加载显示
-        loadingController.setLoadingView(new LoadingUI());
-        loadingController.addEventListener(egret.ResourceLoader.LOAD_COMPLETE, this.onResourceLoadComplete, this);
-        loadingController.load();
+        //使用RES模块，侦听GROUP_COMPLETE事件和GROUP_PROGRESS事件，可以同步显示加载进度，并继续执行加载完成后的逻辑
+        RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE,this.onResourceLoadComplete,this);
+        RES.addEventListener(RES.ResourceEvent.GROUP_PROGRESS,this.onResourceProgress,this);
+        //如果存在多套不同分辨率的资源，您可以使用assets/480/,assets/640/这样的方式来设计素材目录结构加以区分，
+        RES.loadConfig("resources/resource.json","resources/");//加载资源配置文件
+        RES.loadGroup("preload");//加载某个资源group
+
+        //-------------------设置加载进度界面
+        this.loadingView  = new LoadingUI();
+        this.loadingView.addToStage();
+    }
+    /**preload资源组加载进度*/
+    private onResourceProgress(event:RES.ResourceEvent):void {
+        this.loadingView.onProgress(event.itemsLoaded,event.itemsTotal);
     }
     /**显示*/
     private onResourceLoadComplete():void {
+        this.loadingView.removeFromStage();
         var stage = egret.MainContext.instance.stage;//获取Stage引用
         this.logo = new egret.Bitmap();//创建位图
-        this.logo.texture = egret.TextureCache.getInstance().getTexture("egret_icon.png");//设置纹理
+        this.logo.texture = RES.getRes("egretIcon");//设置纹理
         stage.addChild(this.logo);//添加到显示列表
     }
 

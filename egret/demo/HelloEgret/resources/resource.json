@@ -1,0 +1,22 @@
+{
+"resources":
+	[
+		{"name":"bgImage","type":"img","url":"assets/bg.jpg"},
+		{"name":"egretIcon","type":"img","url":"assets/egret_icon.png"},
+        {"name":"description","type":"json","url":"config/description.json"},
+        {"name":"icons","type":"sheet","url":"assets/icons.json"},
+        {"name":"monkey_png","type":"img","url":"assets/monkey.png"},
+        {"name":"monkey_json","type":"json","url":"assets/monkey.json"},
+        {"name":"bitmapFont","type":"font","url":"assets/font.fnt"}
+	],
+
+"groups":
+	[
+        {"name":"preload","keys":"bgImage,egretIcon"},
+        {"name":"demo2","keys":"egretIcon,icons"},
+        {"name":"demo3","keys":"monkey_png,monkey_json"},
+        {"name":"demo4","keys":"bitmapFont"},
+        {"name":"demo7","keys":"egretIcon"},
+        {"name":"demo8","keys":"egretIcon"}
+	]
+}

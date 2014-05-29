@@ -10,15 +10,15 @@ class Demo6 {
     }
     /**显示文本*/
     private initDefaultText():void {
-        var label1 = new ns_egret.TextField();
+        var label1 = new egret.TextField();
         label1.textColor = 0xffffff;
         label1.text = "演示声音如何播放";
-        var stage = ns_egret.MainContext.instance.stage;
+        var stage = egret.MainContext.instance.stage;
         stage.addChild(label1);
     }
     /**播放声音*/
     private initSound():void {
-        var soundContext:ns_egret.SoundContext = ns_egret.SoundContext.getInstance();//Egret中处理声音的是SoundContext
+        var soundContext:egret.SoundContext = egret.SoundContext.getInstance();//Egret中处理声音的是SoundContext
         //soundContext.preloadSound("sfx_die.ogg");//可以预加载声音，以便需要的时候立刻播放
         var soundPath:string = "sfx_die";//声音的前缀
         if(this.checkSoundCanPlay("ogg"))//根据支持情况设置声音的后缀
@@ -28,10 +28,10 @@ class Demo6 {
         else
             soundPath += ".wav";
         soundContext.playMusic(soundPath,true);//播放声音，第二个参数决定是否重复
-        ns_egret.Ticker.getInstance().callLater(function (){
+        egret.Ticker.getInstance().setTimeout(function (){
             soundContext.stopMusic(true);//停止播放
         },this,3000);
-        console.info("music is playing",soundContext instanceof ns_egret.HTML5SoundContext);
+        console.info("music is playing",soundContext instanceof egret.HTML5SoundContext);
     }
     /**判断格式是否支持,format可以传递：ogg,mp3,wav*/
     private checkSoundCanPlay(format:String):boolean {
