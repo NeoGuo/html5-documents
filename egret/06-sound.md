@@ -47,7 +47,7 @@ else if(this.checkSoundCanPlay("mp3"))
 else
     soundPath += ".wav";
 soundContext.playMusic(soundPath,true);//播放声音，第二个参数决定是否重复
-egret.Ticker.getInstance().callLater(function (){
+egret.Ticker.getInstance().setTimeout(function (){
     soundContext.stopMusic(true);//停止播放
 },this,3000);//延迟3秒调用
 ```
