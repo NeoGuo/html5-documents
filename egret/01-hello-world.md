@@ -60,15 +60,16 @@ egret create HelloEgret
 ```
 > 创建大约耗时十几秒，请耐心等候。
 
-然后执行成功后，您可以看到工作目录下多了HelloEgret这个项目。然后敲入下面的命令来编译：
+然后执行成功后，您可以看到工作目录下多了HelloEgret这个项目。
+
+现在就可以运行HelloEgret项目，这时您有两个选择：如果希望使用Egret内置的HTTP服务器，则执行命令```egret startserver HelloEgret```，这个命令会使用默认浏览器自动运行当前项目；如果您使用自己的HTTP服务器，请打开浏览器输入站点目录下的/HelloEgret/launcher/路径即可，比如：http://localhost/HelloEgret/launcher/。顺利的话，您将会看到如下的画面：
+
+![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret/images/hello_egret.png "HelloEgret")
+
+如果您有任何的ts代码修改，请敲入下面的命令编译后再运行项目：
 ```
 egret build HelloEgret
 ```
-> 如果发现运行时缺少文件，请检查config.local，是否包含了所有的路径。
-
-编译完毕后，就可以运行HelloEgret项目，这时您有两个选择：如果希望使用Egret内置的HTTP服务器，则执行命令```egret startserver HelloEgret```，这个命令会使用默认浏览器自动运行当前项目；如果您使用自己的HTTP服务器，请打开浏览器输入站点目录下的/HelloEgret/launcher/路径即可，比如：http://localhost/HelloEgret/launcher/。顺利的话，您将会看到如下的画面：
-
-![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret/images/hello_egret.png "HelloEgret")
 
 另外官网还提供了很多实例，您可以从[这里](https://github.com/egret-team/egret-examples)下载，根据说明来安装和编译，并浏览这些例子的实际效果和源码展示。
 
