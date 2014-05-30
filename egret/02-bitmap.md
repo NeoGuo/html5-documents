@@ -58,6 +58,12 @@ var document_class = "Demo2";
 egret build HelloEgret
 ```
 
+当然您也可以进入到项目中，再使用命令行编译项目：
+```
+cd HelloEgret
+egret build
+```
+
 浏览器观察最终结果，当然页面上什么都没有，只是咣当弹出一个"hello!"而已，这就证明我们的修改起作用了。
 
 使用纹理和位图:
