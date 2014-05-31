@@ -1,18 +1,19 @@
 /**
  * Sound Demo
  */
-class Demo6 extends egret.DisplayObjectContainer{
+class Demo6 extends egret.DisplayObjectContainer {
 
     public constructor() {
         super();
-        this.addEventListener(egret.Event.ADDED_TO_STAGE,this.startGame,this);
+        this.addEventListener(egret.Event.ADDED_TO_STAGE, this.startGame, this);
     }
 
     /**游戏启动后，会自动执行此方法*/
     public startGame():void {
         this.initDefaultText();
-        this.initSound();
+        this.loadResource();
     }
+
     /**显示文本*/
     private initDefaultText():void {
         var label1 = new egret.TextField();
@@ -20,41 +21,25 @@ class Demo6 extends egret.DisplayObjectContainer{
         label1.text = "演示声音如何播放";
         this.addChild(label1);
     }
-    /**播放声音*/
-    private initSound():void {
-        var soundContext:egret.SoundContext = egret.SoundContext.getInstance();//Egret中处理声音的是SoundContext
-        //soundContext.preloadSound("sfx_die.ogg");//可以预加载声音，以便需要的时候立刻播放
-        var soundPath:string = "sfx_die";//声音的前缀
-        if(this.checkSoundCanPlay("ogg"))//根据支持情况设置声音的后缀
-            soundPath += ".ogg";
-        else if(this.checkSoundCanPlay("mp3"))
-            soundPath += ".mp3";
-        else
-            soundPath += ".wav";
-        soundContext.playMusic(soundPath,true);//播放声音，第二个参数决定是否重复
-        egret.Ticker.getInstance().setTimeout(function (){
-            soundContext.stopMusic(true);//停止播放
-        },this,3000);
-        console.info("music is playing",soundContext instanceof egret.HTML5SoundContext);
+
+    /**加载所需资源*/
+    public loadResource():void {
+        //使用资源管理器加载资源
+        RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceLoadComplete, this);
+        RES.loadConfig("resources/resource.json", "resources/");
+        RES.loadGroup("demo6");
     }
-    /**判断格式是否支持,format可以传递：ogg,mp3,wav*/
-    private checkSoundCanPlay(format:String):boolean {
-        var au = document.createElement('audio');
-        var _check = function (typeStr) {
-            var result = au.canPlayType(typeStr);
-            return result != "no" && result != "";
-        };
-        if (au.canPlayType) {
-            if(format=="mp3") {
-                return _check("audio/mpeg");
-            } else if(format=="ogg") {
-                return _check('audio/ogg; codecs="vorbis"');
-            } else if(format=="wav") {
-                return _check('audio/wav; codecs="1"');
-            } else {
-                return false;
-            }
-        }
-        return false;
+
+    /**播放声音*/
+    private onResourceLoadComplete():void {
+        //获取音乐文件
+        var sound:egret.Sound = RES.getRes("sfx_die");
+        //播放音乐文件
+        sound.play();
+        //3秒后音乐播放结束
+        egret.Ticker.getInstance().setTimeout(function () {
+            //音乐播放结束
+            sound.stop();
+        }, this, 3000);
     }
 }

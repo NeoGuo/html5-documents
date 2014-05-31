@@ -7,7 +7,8 @@
         {"name":"icons","type":"sheet","url":"assets/icons.json"},
         {"name":"monkey_png","type":"img","url":"assets/monkey.png"},
         {"name":"monkey_json","type":"json","url":"assets/monkey.json"},
-        {"name":"bitmapFont","type":"font","url":"assets/font.fnt"}
+        {"name":"bitmapFont","type":"font","url":"assets/font.fnt"},
+        {"name":"sfx_die","type":"sound","url":"assets/sfx_die.mp3"}
 	],
 
 "groups":
@@ -16,6 +17,7 @@
         {"name":"demo2","keys":"egretIcon,icons"},
         {"name":"demo3","keys":"monkey_png,monkey_json"},
         {"name":"demo4","keys":"bitmapFont"},
+        {"name":"demo6","keys":"sfx_die"},
         {"name":"demo7","keys":"egretIcon"},
         {"name":"demo8","keys":"egretIcon"}
 	]
