@@ -45,9 +45,8 @@ class Demo4 extends egret.DisplayObjectContainer {
     }
     /**显示位图文本*/
     private initBitmapText():void {
-        var spriteSheet:egret.BitmapTextSpriteSheet = RES.getRes("bitmapFont");
         var bitmap1 = new egret.BitmapText();
-        bitmap1.spriteSheet = spriteSheet;
+        bitmap1.spriteSheet = RES.getRes("bitmapFont");
         bitmap1.text = "HelloWorld";
         this.addChild(bitmap1);
     }
