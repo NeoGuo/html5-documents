@@ -69,9 +69,8 @@ char id=64 x=2 y=2 width=63 height=65 xoffset=3 yoffset=9 xadvance=65 page=0 chn
 
 ```
 /**显示位图文本*/
-var spriteSheet:egret.BitmapTextSpriteSheet = RES.getRes("bitmapFont");
 var bitmap1 = new egret.BitmapText();
-bitmap1.spriteSheet = spriteSheet;
+bitmap1.spriteSheet = RES.getRes("bitmapFont");
 bitmap1.text = "HelloWorld";
 this.addChild(bitmap1);
 ```
