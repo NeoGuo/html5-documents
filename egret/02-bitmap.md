@@ -248,4 +248,4 @@ RES.getResAsync("icons",this.iconsLoadedComplete,this)
 - - -
 
 [上一篇:Hello World](https://github.com/NeoGuo/html5-documents/blob/master/egret/01-hello-world.md)
-| [下一篇:电影剪辑](https://github.com/NeoGuo/html5-documents/blob/master/egret/03-movieclip.md)
+| [下一篇:影片剪辑](https://github.com/NeoGuo/html5-documents/blob/master/egret/03-movieclip.md)
