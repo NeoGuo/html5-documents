@@ -18,7 +18,7 @@ Egret框架入门第一步 - 影片剪辑
 {
 "resources":
     [
-        {"name":"monkey_png","type":"img","url":"assets/monkey.png"},
+        {"name":"monkey_png","type":"image","url":"assets/monkey.png"},
         {"name":"monkey_json","type":"json","url":"assets/monkey.json"}
     ],
 

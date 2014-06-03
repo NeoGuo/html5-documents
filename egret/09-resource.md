@@ -20,11 +20,11 @@ RES.loadGroup("preload");//加载某个资源group
 {
 "resources":
     [
-        {"name":"bgImage","type":"img","url":"assets/bg.jpg"},
-        {"name":"egretIcon","type":"img","url":"assets/egret_icon.png"},
+        {"name":"bgImage","type":"image","url":"assets/bg.jpg"},
+        {"name":"egretIcon","type":"image","url":"assets/egret_icon.png"},
         {"name":"description","type":"json","url":"config/description.json"},
         {"name":"icons","type":"sheet","url":"assets/icons.json"},
-        {"name":"monkey_png","type":"img","url":"assets/monkey.png"},
+        {"name":"monkey_png","type":"image","url":"assets/monkey.png"},
         {"name":"monkey_json","type":"json","url":"assets/monkey.json"},
         {"name":"bitmapFont","type":"font","url":"assets/font.fnt"}
     ],

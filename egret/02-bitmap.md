@@ -84,8 +84,8 @@ private logo:egret.Bitmap;
 {
 "resources":
     [
-        {"name":"bgImage","type":"img","url":"assets/bg.jpg"},
-        {"name":"egretIcon","type":"img","url":"assets/egret_icon.png"},
+        {"name":"bgImage","type":"image","url":"assets/bg.jpg"},
+        {"name":"egretIcon","type":"image","url":"assets/egret_icon.png"},
     ],
 
 "groups":
@@ -214,7 +214,7 @@ this.logo.anchorY = 0.5;//同上
 {
 "resources":
     [
-        {"name":"egretIcon","type":"img","url":"assets/egret_icon.png"},
+        {"name":"egretIcon","type":"image","url":"assets/egret_icon.png"},
         {"name":"icons","type":"sheet","url":"assets/icons.json"}
     ],
 
