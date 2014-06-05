@@ -1,7 +1,7 @@
 Egret框架入门第一步 - 影片剪辑
 ===============
 
-影片剪辑(MovieClip)是Flash程序员非常熟悉的东西了，历史悠久，虽然Flash历经多次版本变更，但影片剪辑迄今为止一直被广泛的使用着。Egret框架也支持MovieClip，您可以用Flash Pro软件去制作MovieClip，然后使用Egret的扩展工具([介绍](#) | [下载](#))，导出Egret可识别的格式（类似spritesheet，包括图片和描述文件）。
+影片剪辑(MovieClip)是Flash程序员非常熟悉的东西了，历史悠久，虽然Flash历经多次版本变更，但影片剪辑迄今为止一直被广泛的使用着。Egret框架也支持MovieClip，在未来，您可以用Flash Pro软件去制作MovieClip，然后使用Egret的扩展工具，导出Egret可识别的格式（类似spritesheet，包括图片和描述文件）。但目前这个工具还未放出，您可以结合TexturePacker和手写描述文件的方式来使用MovieClip。
 
 这里我们还是先使用samples里自带的资源，拷贝资源目录下的两个文件：monkey.json和monkey.png，将这两个文件复制到HelloEgret项目的resources/assets目录下面。
 
