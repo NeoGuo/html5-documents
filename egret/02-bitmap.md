@@ -243,7 +243,27 @@ this.addChild(bitmap);
 RES.getResAsync("icons",this.iconsLoadedComplete,this)
 ```
 
-如果位图需要使用9宫格方式，可以使用Scale9Bitmap类，使用方式可以参考API文档，这里不再详述。
+九宫格:
+----------------------------
+
+在处理UI的时候，您应该用过九宫格吧？比如做一个有圆角按钮，我们只提供一种背景图片，但按钮在不同的场景下会有不同的尺寸，假如我们不加优化，那可能会得到下面的结果：
+
+![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret/images/scale9_1.png "Scale9")
+
+而九宫格则可以解决这个问题。九宫格并不神秘，它是使用网格将图像划分为9个区域，如下图所示，我用数字1-9标出了对应的区域，其中标红色的区域是不需要缩放的，而标蓝色的区域则是需要缩放的区域。
+
+![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret/images/scale9_2.png "Scale9")
+
+在Egret中，我们只需要用egret.Rectangle定义出蓝色区域的位置即可，示意代码：
+
+```
+var texture = RES.getRes("button_png");
+var scale9Grid = new egret.Rectangle(7, 7, 46, 46);
+var scaleBitmap = new egret.Bitmap(texture);
+scaleBitmap.scale9Grid = scale9Grid;
+```
+
+这样妈妈再也不用担心我的图片失真了:)
 
 - - -
 
