@@ -1,0 +1,16 @@
+{
+"resources":
+	[
+		{"name":"bgImage","type":"image","url":"assets/bg.jpg"},
+		{"name":"btnStart","type":"image","url":"assets/btn_start.png"},
+		{"name":"f1","type":"image","url":"assets/f1.png"},
+		{"name":"f2","type":"image","url":"assets/f2.png"},
+		{"name":"b1","type":"image","url":"assets/b1.png"},
+		{"name":"b2","type":"image","url":"assets/b2.png"}
+	],
+
+"groups":
+	[
+        {"name":"preload","keys":"bgImage,btnStart,f1,f2,b1,b2"}
+	]
+}

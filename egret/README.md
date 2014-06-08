@@ -21,4 +21,4 @@ Egret框架入门第一步
 实例分析：
 ----------------------------
 
-敬请期待
+1. [使用Egret创建一个打飞机的游戏](https://github.com/NeoGuo/html5-documents/blob/master/egret/sample-1.md)
