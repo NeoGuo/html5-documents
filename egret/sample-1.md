@@ -7,6 +7,8 @@ Egret框架入门教程 - 使用Egret创建一个打飞机的游戏
 
 ![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret/images/fighter_01.jpg "打飞机")
 
+[点击这里查看演示(未做压缩，加载较慢，请耐心等候)](http://www.tech-mx.com/egret/fighter/launcher/)
+
 - - -
 
 [本教程的源码下载](https://github.com/NeoGuo/html5-documents/tree/master/egret/demo/Fighter/)
