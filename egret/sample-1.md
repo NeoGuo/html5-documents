@@ -213,7 +213,79 @@ private gameStart():void{
 创建飞机:
 ----------------------------
 
-编写中...
+然后来分析一下如何创建飞机。飞机分两种：我的飞机和敌人的飞机，但基本属性是一致的，只是纹理和运动轨迹等方面有区别。我们来飞机创建一个类：Airplane.ts。
+
+```
+module fighter
+{
+    
+    export class Airplane extends egret.DisplayObjectContainer
+    {
+        /**飞机位图*/
+        private bmp:egret.Bitmap;
+        /**创建子弹的时间间隔*/
+        private fireDelay:number;
+        /**定时射*/
+        private fireTimer:egret.Timer;
+        /**飞机生命值*/
+        public blood:number = 10;
+
+        public constructor(texture:egret.Texture,fireDelay:number) {
+            super();
+            this.fireDelay = fireDelay;
+            this.bmp = new egret.Bitmap(texture);
+            this.addChild(this.bmp);
+            this.fireTimer = new egret.Timer(fireDelay);
+            this.fireTimer.addEventListener(egret.TimerEvent.TIMER,this.createBullet,this);
+        }
+        /**开火*/
+        public fire():void {
+            this.fireTimer.start();
+        }
+        /**停火*/
+        public stopFire():void {
+            this.fireTimer.stop();
+        }
+        /**创建子弹*/
+        private createBullet(evt:egret.TimerEvent):void {
+            this.dispatchEventWith("createBullet");
+        }
+    }
+}
+```
+> 注意上面的代码中，外部调用开火方法，即.fire()后，飞机实例将根据Timer的间隔来不断创建子弹，但创建子弹以及控制子弹运动等具体工作并不由飞机实现，飞机只是派发事件给外面的容器，由容器统一管理。
+
+另外分析游戏，通过游戏的不断运行，不断有新的飞机被创建，以及被子弹击中的飞机需删除。为了有效控制对象数量，我们需要为飞机类加入工厂方法和对象池机制，做法如下：
+
+```
+private static cacheDict:Object = {};
+/**生产*/
+public static produce(textureName:string,fireDelay:number):fighter.Airplane
+{
+    if(fighter.Airplane.cacheDict[textureName]==null)
+        fighter.Airplane.cacheDict[textureName] = [];
+    var dict:fighter.Airplane[] = fighter.Airplane.cacheDict[textureName];
+    var theFighter:fighter.Airplane;
+    if(dict.length>0) {
+        theFighter = dict.pop();
+    } else {
+        theFighter = new fighter.Airplane(RES.getRes(textureName),fireDelay);
+    }
+    theFighter.blood = 10;
+    return theFighter;
+}
+/**回收*/
+public static reclaim(theFighter:fighter.Airplane,textureName:string):void
+{
+    if(fighter.Airplane.cacheDict[textureName]==null)
+        fighter.Airplane.cacheDict[textureName] = [];
+    var dict:fighter.Airplane[] = fighter.Airplane.cacheDict[textureName];
+    if(dict.indexOf(theFighter)==-1)
+        dict.push(theFighter);
+}
+```
+
+需要创建飞机的时候，调用produce方法，不需要的飞机实例通过reclaim方法回收，这样可以保持对象数量在一个稳定的水平。
 
 创建子弹:
 ----------------------------
