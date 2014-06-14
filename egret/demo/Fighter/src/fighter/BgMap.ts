@@ -18,6 +18,8 @@ module fighter
         private stageH:number;
         /**纹理本身的高度*/
         private textureHeight:number;
+        /**控制滚动速度*/
+        private speed:number = 2;
 
         public constructor() {
             super();
@@ -29,9 +31,10 @@ module fighter
             this.stageW = this.stage.stageWidth;
             this.stageH = this.stage.stageHeight;
             var texture:egret.Texture = RES.getRes("bgImage");
-            this.textureHeight = texture.textureHeight;
-            this.rowCount = Math.ceil(this.stageH/this.textureHeight)+1;
+            this.textureHeight = texture.textureHeight;//保留原始纹理的高度，用于后续的计算
+            this.rowCount = Math.ceil(this.stageH/this.textureHeight)+1;//计算在当前屏幕中，需要的图片数量
             this.bmpArr = [];
+            //创建这些图片，并设置y坐标，让它们连接起来
             for(var i:number=0;i<this.rowCount;i++)
             {
                 var bgBmp:egret.Bitmap = fighter.createBitmapByName("bgImage");
@@ -50,7 +53,8 @@ module fighter
             for(var i:number=0;i<this.rowCount;i++)
             {
                 var bgBmp:egret.Bitmap = this.bmpArr[i];
-                bgBmp.y+=2;
+                bgBmp.y+=this.speed;
+                //判断超出屏幕后，回到队首，这样来实现循环反复
                 if(bgBmp.y > this.stageH) {
                     bgBmp.y = this.bmpArr[0].y-this.textureHeight;
                     this.bmpArr.pop();

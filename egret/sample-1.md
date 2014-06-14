@@ -501,15 +501,179 @@ private touchHandler(evt:egret.TouchEvent):void{
 
 ```
 
-现在运行项目，可以看见满天飞的飞机和子弹了，是不是有点小激动了？
+现在运行项目，可以看见满天飞的飞机和子弹了，是不是有点小激动了？但现在您的子弹对敌机是视而不见的，下面我们来增加碰撞检测的代码： 
 
 检测碰撞:
 ----------------------------
 
-编写中...
+我们创建一个方法gameHitTest，来集中处理各个对象的碰撞。这个方法在gameViewUpdate中调用，以便实时地检测到碰撞：
+
+```
+/**游戏碰撞检测*/
+private gameHitTest():void {
+    var i:number,j:number;
+    var bullet:fighter.Bullet;
+    var theFighter:fighter.Airplane;
+    var myBulletsCount:number = this.myBullets.length;
+    var enemyFighterCount:number = this.enemyFighters.length;
+    var enemyBulletsCount:number = this.enemyBullets.length;
+    //将需消失的子弹和飞机记录
+    var delBullets:fighter.Bullet[] = [];
+    var delFighters:fighter.Airplane[] = [];
+    //我的子弹可以消灭敌机
+    for(i=0;i<myBulletsCount;i++) {
+        bullet = this.myBullets[i];
+        for(j=0;j<enemyFighterCount;j++) {
+            theFighter = this.enemyFighters[j];
+            if(fighter.GameUtil.hitTest(theFighter,bullet)) {
+                theFighter.blood -= 2;
+                if(delBullets.indexOf(bullet)==-1)
+                    delBullets.push(bullet);
+                if(theFighter.blood<=0 && delFighters.indexOf(theFighter)==-1)
+                    delFighters.push(theFighter);
+            }
+        }
+    }
+    //敌人的子弹可以减我血
+    for(i=0;i<enemyBulletsCount;i++) {
+        bullet = this.enemyBullets[i];
+        if(fighter.GameUtil.hitTest(this.myFighter,bullet)) {
+            this.myFighter.blood -= 1;
+            if(delBullets.indexOf(bullet)==-1)
+                delBullets.push(bullet);
+        }
+    }
+    //敌机的撞击可以消灭我
+    for(i=0;i<enemyFighterCount;i++) {
+        theFighter = this.enemyFighters[i];
+        if(fighter.GameUtil.hitTest(this.myFighter,theFighter)) {
+            this.myFighter.blood -= 10;
+        }
+    }
+    if(this.myFighter.blood<=0) {
+        this.gameStop();
+    } else {
+        while(delBullets.length>0) {
+            bullet = delBullets.pop();
+            this.removeChild(bullet);
+            if(bullet.textureName=="b1")
+                this.myBullets.splice(this.myBullets.indexOf(bullet),1);
+            else
+                this.enemyBullets.splice(this.enemyBullets.indexOf(bullet),1);
+            fighter.Bullet.reclaim(bullet,bullet.textureName);
+        }
+        this.myScore += delFighters.length;
+        while(delFighters.length>0) {
+            theFighter = delFighters.pop();
+            theFighter.stopFire();
+            theFighter.removeEventListener("createBullet",this.createBulletHandler,this);
+            this.removeChild(theFighter);
+            this.enemyFighters.splice(this.enemyFighters.indexOf(theFighter),1);
+            fighter.Airplane.reclaim(theFighter,"f2");
+        }
+    }
+}
+```
+
+在gameStop方法中，结束游戏：
+
+```
+/**游戏结束*/
+private gameStop():void{
+    this.addChild(this.btnStart);
+    this.bg.pause();
+    this.removeEventListener(egret.Event.ENTER_FRAME,this.gameViewUpdate,this);
+    this.removeEventListener(egret.TouchEvent.TOUCH_MOVE,this.touchHandler,this);
+    this.myFighter.stopFire();
+    this.myFighter.removeEventListener("createBullet",this.createBulletHandler,this);
+    this.enemyFightersTimer.removeEventListener(egret.TimerEvent.TIMER,this.createEnemyFighter,this);
+    this.enemyFightersTimer.stop();
+    //清理子弹
+    var i:number = 0;
+    var bullet:fighter.Bullet;
+    while(this.myBullets.length>0) {
+        bullet = this.myBullets.pop();
+        this.removeChild(bullet);
+        fighter.Bullet.reclaim(bullet,"b1");
+    }
+    while(this.enemyBullets.length>0) {
+        bullet = this.enemyBullets.pop();
+        this.removeChild(bullet);
+        fighter.Bullet.reclaim(bullet,"b2");
+    }
+    //清理飞机
+    var theFighter:fighter.Airplane;
+    while(this.enemyFighters.length>0) {
+        theFighter = this.enemyFighters.pop();
+        theFighter.stopFire();
+        theFighter.removeEventListener("createBullet",this.createBulletHandler,this);
+        this.removeChild(theFighter);
+        fighter.Airplane.reclaim(theFighter,"f2");
+    }
+}
+```
+
+这时运行项目，您就可以体验消灭敌机的乐趣了。
+
+成绩展示:
+----------------------------
+
+现在我们增加成绩显示。新增类ScorePanel.ts，用文本显示成绩数值：
+
+```
+module fighter
+{
+    /**
+     * 成绩显示
+     */
+    export class ScorePanel extends egret.Sprite
+    {
+        private txt:egret.TextField;
+
+        public constructor() {
+            super();
+            var g:egret.Graphics = this.graphics;
+            g.beginFill(0x000000,0.8);
+            g.drawRect(0,0,400,200);
+            g.endFill();
+            this.txt = new egret.TextField();
+            this.txt.width = 400;
+            this.txt.height = 200;
+            this.txt.textAlign = "center";
+            this.txt.textColor = 0xFFFFFF;
+            this.txt.size = 24;
+            this.txt.y = 60;
+            this.addChild(this.txt);
+        }
+
+        public showScore(value:number):void {
+            var msg:string = "您的成绩是:\n"+value+"\n再来一次吧";
+            this.txt.text = msg;
+        }
+    }
+}
+```
+
+在gameStop方法中，增加显示成绩的代码：
+
+```
+//显示成绩
+this.scorePanel.showScore(this.myScore);
+this.scorePanel.x = (this.stageW-this.scorePanel.width)/2;
+this.scorePanel.y = 100;
+this.addChild(this.scorePanel);
+```
 
 发布和压缩:
 ----------------------------
+
+如果只是测试，用build命令就可以，但如果发布就要用publish命令了，即：
+
+```
+egret publish Fighter
+```
+
+publish的好处是，将使用Google压缩工具，将Egret框架和您自身项目分散的js文件集中编译到一个game_min.js中，而且是做了压缩混淆的。这样一方面可以大大加快游戏启动速度，一方面让代码失去了可读性，有利于版权的保护。如果您的游戏要上线，记得使用这个命令哦。
 
 - - -
 

@@ -18,7 +18,7 @@ module fighter
         private bg:fighter.BgMap;
         /**我的飞机*/
         private myFighter:fighter.Airplane;
-        /**我射的*/
+        /**我的子弹*/
         private myBullets:fighter.Bullet[] = [];
         /**敌人的飞机*/
         private enemyFighters:fighter.Airplane[] = [];

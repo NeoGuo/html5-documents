@@ -61,7 +61,6 @@ module fighter
         }
         /**创建子弹*/
         private createBullet(evt:egret.TimerEvent):void {
-            //this.dispatchEvent(new egret.Event("createBullet"));
             this.dispatchEventWith("createBullet");
         }
     }
