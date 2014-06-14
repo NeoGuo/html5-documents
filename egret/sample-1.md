@@ -287,15 +287,221 @@ public static reclaim(theFighter:fighter.Airplane,textureName:string):void
 
 需要创建飞机的时候，调用produce方法，不需要的飞机实例通过reclaim方法回收，这样可以保持对象数量在一个稳定的水平。
 
+回到GameContainer类，来创建飞机实例：
+
+```
+/**我的飞机*/
+private myFighter:fighter.Airplane;
+/**敌人的飞机*/
+private enemyFighters:fighter.Airplane[] = [];
+/**触发创建敌机的间隔*/
+private enemyFightersTimer:egret.Timer = new egret.Timer(1000);
+```
+> 我的飞机就1个，所以是一个实例，但敌机是N个，我们创建数组来包含敌机；Timer用于控制创建敌机的时间间隔，间隔越小，敌机越多。
+
+修改createGameScene方法，增加创建我的飞机的代码：
+
+```
+//我的飞机
+this.myFighter = new fighter.Airplane(RES.getRes("f1"),100);
+this.myFighter.y = this.stageH-this.myFighter.height-50;
+this.addChild(this.myFighter);
+```
+
+然后在gameStart方法中，增加创建敌机的机制：
+
+```
+this.myFighter.fire();//我的飞机开火
+this.enemyFightersTimer.addEventListener(egret.TimerEvent.TIMER,this.createEnemyFighter,this);
+this.enemyFightersTimer.start();
+```
+创建敌机的方法是createEnemyFighter：
+
+```
+/**创建敌机*/
+private createEnemyFighter(evt:egret.TimerEvent):void{
+    var enemyFighter:fighter.Airplane = fighter.Airplane.produce("f2",1000);
+    enemyFighter.x = Math.random()*(this.stageW-enemyFighter.width);//随机坐标
+    enemyFighter.y = -enemyFighter.height-Math.random()*300;//随机坐标
+    enemyFighter.fire();
+    this.addChildAt(enemyFighter,this.numChildren-1);
+    this.enemyFighters.push(enemyFighter);
+}
+```
+
 创建子弹:
 ----------------------------
 
-编写中...
+首先创建子弹类Bullet.ts，同飞机类似，也采用对象池机制：
+
+```
+module fighter
+{
+    
+    export class Bullet extends egret.Bitmap
+    {
+        private static cacheDict:Object = {};
+        /**生产*/
+        public static produce(textureName:string):fighter.Bullet
+        {
+            if(fighter.Bullet.cacheDict[textureName]==null)
+                fighter.Bullet.cacheDict[textureName] = [];
+            var dict:fighter.Bullet[] = fighter.Bullet.cacheDict[textureName];
+            var bullet:fighter.Bullet;
+            if(dict.length>0) {
+                bullet = dict.pop();
+            } else {
+                bullet = new fighter.Bullet(RES.getRes(textureName));
+            }
+            bullet.textureName = textureName;
+            return bullet;
+        }
+        /**回收*/
+        public static reclaim(bullet:fighter.Bullet,textureName:string):void
+        {
+            if(fighter.Bullet.cacheDict[textureName]==null)
+                fighter.Bullet.cacheDict[textureName] = [];
+            var dict:fighter.Bullet[] = fighter.Bullet.cacheDict[textureName];
+            if(dict.indexOf(bullet)==-1)
+                dict.push(bullet);
+        }
+
+        public textureName:string;
+
+        public constructor(texture:egret.Texture) {
+            super(texture);
+        }
+    }
+}
+```
+
+子弹的创建是由侦听"createBullet"事件来驱动的，所以为我的飞机以及敌机都添加事件侦听：
+
+```
+this.myFighter.addEventListener("createBullet",this.createBulletHandler,this);
+enemyFighter.addEventListener("createBullet",this.createBulletHandler,this);//在createEnemyFighter方法中修改
+```
+
+创建的子弹分两种，即我的子弹和敌人的子弹，放在两个数组中：
+
+```
+/**我的子弹*/
+private myBullets:fighter.Bullet[] = [];
+/**敌人的子弹*/
+private enemyBullets:fighter.Bullet[] = [];
+```
+
+在方法createBulletHandler中实现创建子弹的过程：
+
+```
+/**创建子弹(包括我的子弹和敌机的子弹)*/
+private createBulletHandler(evt:egret.Event):void{
+    var bullet:fighter.Bullet;
+    if(evt.target==this.myFighter) {
+        for(var i:number=0;i<2;i++) {
+            bullet = fighter.Bullet.produce("b1");
+            bullet.x = i==0?(this.myFighter.x+10):(this.myFighter.x+this.myFighter.width-22);
+            bullet.y = this.myFighter.y+30;
+            this.addChildAt(bullet,this.numChildren-1-this.enemyFighters.length);
+            this.myBullets.push(bullet);
+        }
+    } else {
+        var theFighter:fighter.Airplane = evt.target;
+        bullet = fighter.Bullet.produce("b2");
+        bullet.x = theFighter.x+28;
+        bullet.y = theFighter.y+10;
+        this.addChildAt(bullet,this.numChildren-1-this.enemyFighters.length);
+        this.enemyBullets.push(bullet);
+    }
+}
+```
 
 让飞机和子弹运动起来:
 ----------------------------
 
-编写中...
+到目前为止，飞机和子弹都可以创建了，但还无法运动，我们侦听enterFrame事件，集中处理对象的运动。在gameStart方法中增加：
+
+```
+this.addEventListener(egret.Event.ENTER_FRAME,this.gameViewUpdate,this);
+```
+
+gameViewUpdate方法，负责处理飞机和子弹的运动：
+
+```
+/**游戏画面更新*/
+private gameViewUpdate(evt:egret.Event):void{
+    //我的子弹运动
+    var i:number = 0;
+    var bullet:fighter.Bullet;
+    var myBulletsCount:number = this.myBullets.length;
+    var delArr:any[] = [];
+    for(;i<myBulletsCount;i++) {
+        bullet = this.myBullets[i];
+        bullet.y -= 12;
+        if(bullet.y<-bullet.height)
+            delArr.push(bullet);
+    }
+    for(i=0;i<delArr.length;i++) {//回收不显示的子弹
+        bullet = delArr[i];
+        this.removeChild(bullet);
+        fighter.Bullet.reclaim(bullet,"b1");
+        this.myBullets.splice(this.myBullets.indexOf(bullet),1);
+    }
+    delArr = [];
+    //敌人飞机运动
+    var theFighter:fighter.Airplane;
+    var enemyFighterCount:number = this.enemyFighters.length;
+    for(i=0;i<enemyFighterCount;i++) {
+        theFighter = this.enemyFighters[i];
+        theFighter.y += 4;
+        if(theFighter.y>this.stageH)
+            delArr.push(theFighter);
+    }
+    for(i=0;i<delArr.length;i++) {//回收不显示的飞机
+        theFighter = delArr[i];
+        this.removeChild(theFighter);
+        fighter.Airplane.reclaim(theFighter,"f2");
+        theFighter.removeEventListener("createBullet",this.createBulletHandler,this);
+        theFighter.stopFire();
+        this.enemyFighters.splice(this.enemyFighters.indexOf(theFighter),1);
+    }
+    delArr = [];
+    //敌人子弹运动
+    var enemyBulletsCount:number = this.enemyBullets.length;
+    for(i=0;i<enemyBulletsCount;i++) {
+        bullet = this.enemyBullets[i];
+        bullet.y += 8;
+        if(bullet.y>this.stageH)
+            delArr.push(bullet);
+    }
+    for(i=0;i<delArr.length;i++) {//回收不显示的子弹
+        bullet = delArr[i];
+        this.removeChild(bullet);
+        fighter.Bullet.reclaim(bullet,"b2");
+        this.enemyBullets.splice(this.enemyBullets.indexOf(bullet),1);
+    }
+}
+```
+
+敌人的飞机的位置，是系统确定的，但我的飞机的位置，则是您手指的位置确定的，所以需要侦听touch事件，及时更新我的飞机的坐标。
+
+```
+this.touchEnabled=true;
+this.addEventListener(egret.TouchEvent.TOUCH_MOVE,this.touchHandler,this);
+/**响应Touch*/
+private touchHandler(evt:egret.TouchEvent):void{
+    if(evt.type==egret.TouchEvent.TOUCH_MOVE)
+    {
+        var tx:number = evt.localX;
+        tx = Math.max(0,tx);
+        tx = Math.min(this.stageW-this.myFighter.width,tx);
+        this.myFighter.x = tx;
+    }
+}
+
+```
+
+现在运行项目，可以看见满天飞的飞机和子弹了，是不是有点小激动了？
 
 检测碰撞:
 ----------------------------
