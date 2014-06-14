@@ -7,14 +7,20 @@ Egret框架入门教程 - 使用Egret创建一个打飞机的游戏
 
 ![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret/images/fighter_01.jpg "打飞机")
 
-[点击这里查看演示(未做压缩，加载较慢，请耐心等候)](http://www.tech-mx.com/egret/fighter/launcher/)
+[点击这里查看演示](http://www.tech-mx.com/egret/fighter/launcher/)
 
 下面是制作过程：
 
 创建项目:
 ----------------------------
 
-编写中...
+使用Egret命令行，创建一个新项目"Fighter":
+```
+cd {workspace}
+egret create Fighter
+```
+
+Egret会根据内置模板创建项目的基本目录结构，我们要编写的代码将放置在src下面，而素材将放置在resources下面。要运行和测试项目，需要打开launcher目录下的index.html，不过绝对不能双击打开，[需要用一个HTTP服务器（您自配的或者Egret自带的）来运行](https://github.com/NeoGuo/html5-documents/blob/master/egret/01-hello-world.md)。目前我们还未对项目进行修改，运行项目会看到默认的Egret界面。
 
 准备素材:
 ----------------------------
@@ -50,6 +56,9 @@ Egret框架入门教程 - 使用Egret创建一个打飞机的游戏
 ----------------------------
 
 编写中...
+
+发布和压缩:
+----------------------------
 
 - - -
 
