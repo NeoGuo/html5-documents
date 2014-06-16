@@ -8,7 +8,7 @@ Egret框架入门第一步
 
 1. [Hello World](https://github.com/NeoGuo/html5-documents/blob/master/egret/01-hello-world.md)
 2. [纹理和位图](https://github.com/NeoGuo/html5-documents/blob/master/egret/02-bitmap.md)
-3. [电影剪辑](https://github.com/NeoGuo/html5-documents/blob/master/egret/03-movieclip.md)
+3. [影片剪辑](https://github.com/NeoGuo/html5-documents/blob/master/egret/03-movieclip.md)
 4. [文本](https://github.com/NeoGuo/html5-documents/blob/master/egret/04-text.md)
 5. [~~按钮~~](https://github.com/NeoGuo/html5-documents/blob/master/egret/05-button.md)
 6. [声音](https://github.com/NeoGuo/html5-documents/blob/master/egret/06-sound.md)
