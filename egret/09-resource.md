@@ -41,6 +41,8 @@ RES.loadGroup("preload");//加载某个资源group
 }
 ```
 
+您可以手工编辑这个配置文件，也可以使用egret推出的Res Tool，这是一个强大的专门管理resource.json的工具，而且是免费的哦，有了它，您就可以在可视化界面中修改resource.json了。[点击这里下载Res Tool](http://www.egret-labs.org/download/restool-download.html)。
+
 然后来看一下如何设置屏幕适配的策略，首先，先获取所在环境的容器：
 
 ```

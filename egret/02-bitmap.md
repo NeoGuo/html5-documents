@@ -17,7 +17,6 @@ workspace    // 您的工作目录
   |-- your_project  // 您的项目
         |-- src // 源码放在这里
              |--egret.d.ts // egret库的描述文件
-             |--game_file_list.js // 包含您为项目编写的TypeScript文件编译所得的js文件，对项目的类文件进行增删改时，记得更新这个文件。
              |--GameApp.ts // 作为游戏的入口类，实现游戏逻辑
              |--LoadingUI.ts // 实现Loading效果
         |-- resources // 这里放资源，比如图片声音之类的
@@ -43,13 +42,9 @@ class Demo2 extends egret.DisplayObjectContainer {
 }
 ```
 
-然后打开game_file_list.js，将"GameApp"修改为"Demo2"，并修改"GameApp.js"为"Demo2.js";这样就可以将我们自己的类作为入口类。
+然后打开egret_loader.js，将"GameApp"修改为"Demo2"，这样就可以将我们自己的类作为入口类。
 
 ```
-var game_file_list = [
-    "Demo2.js",
-    "LoadingUI.js"
-]
 var document_class = "Demo2";
 ```
 
