@@ -238,6 +238,12 @@ this.addChild(bitmap);
 RES.getResAsync("icons",this.iconsLoadedComplete,this)
 ```
 
+已经有第三方开发者提供了支持egret格式的精灵表单制作工具，点击这里下载：
+
+* SpriteSheet工具
+    * [Texture Packer for Egret plug-in](https://github.com/ping-chen/egret-tool) , 由社区贡献者[ping-chen](https://github.com/ping-chen/)提供
+    * [ShoeBox for Egret plug-in](https://github.com/runinspring/egretTools)，由社区贡献者[runinspring](https://github.com/runinspring)提供
+
 九宫格:
 ----------------------------
 
