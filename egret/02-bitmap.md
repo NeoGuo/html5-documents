@@ -16,13 +16,15 @@ Egret框架入门第一步 - 纹理和位图
 workspace    // 您的工作目录
   |-- your_project  // 您的项目
         |-- src // 源码放在这里
-             |--egret.d.ts // egret库的描述文件
              |--GameApp.ts // 作为游戏的入口类，实现游戏逻辑
              |--LoadingUI.ts // 实现Loading效果
         |-- resources // 这里放资源，比如图片声音之类的
+        |-- libs // egret库文件，也可以放其它的库
         |-- launcher // 入口
               |-- index.html 启动文件
+              |-- release.html 使用publish命令后，用这个启动
         |-- bin-debug // 编译后的代码目录
+        |-- egretProperties.json //文档类的配置
 
 ```
 
@@ -42,10 +44,10 @@ class Demo2 extends egret.DisplayObjectContainer {
 }
 ```
 
-然后打开egret_loader.js，将"GameApp"修改为"Demo2"，这样就可以将我们自己的类作为入口类。
+然后打开egretProperties.json，将"GameApp"修改为"Demo2"，这样就可以将我们自己的类作为入口类。
 
 ```
-var document_class = "Demo2";
+"document_class" : "Demo2"
 ```
 
 使用命令行编译项目：

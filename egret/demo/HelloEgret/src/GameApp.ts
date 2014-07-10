@@ -25,9 +25,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-///<reference path="egret.d.ts"/>
-///<reference path="LoadingUI.ts"/>
-
 class GameApp extends egret.DisplayObjectContainer{
 
     /**
@@ -46,9 +43,16 @@ class GameApp extends egret.DisplayObjectContainer{
         this.stage.addChild(this.loadingView);
 
         //初始化Resource资源加载库
+        RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE,this.onConfigComplete,this);
+        RES.loadConfig("resource/resource.json","resource/");
+    }
+    /**
+     * 配置文件加载完成,开始预加载preload资源组。
+     */
+    private onConfigComplete(event:RES.ResourceEvent):void{
+        RES.removeEventListener(RES.ResourceEvent.CONFIG_COMPLETE,this.onConfigComplete,this);
         RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE,this.onResourceLoadComplete,this);
         RES.addEventListener(RES.ResourceEvent.GROUP_PROGRESS,this.onResourceProgress,this);
-        RES.loadConfig("resources/resource.json","resources/");
         RES.loadGroup("preload");
     }
     /**
@@ -57,6 +61,8 @@ class GameApp extends egret.DisplayObjectContainer{
     private onResourceLoadComplete(event:RES.ResourceEvent):void {
         if(event.groupName=="preload"){
             this.stage.removeChild(this.loadingView);
+            RES.removeEventListener(RES.ResourceEvent.GROUP_COMPLETE,this.onResourceLoadComplete,this);
+            RES.removeEventListener(RES.ResourceEvent.GROUP_PROGRESS,this.onResourceProgress,this);
             this.createGameScene();
         }
     }

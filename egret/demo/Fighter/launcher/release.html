@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>打飞机PUB</title>
+    <title>打飞机Release</title>
     <meta name="viewport"
           content="width=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no,target-densitydpi=device-dpi"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
@@ -33,7 +33,7 @@
      id="gameDiv">
     <canvas id="gameCanvas" width="480" height="800" style="background-color: #000000"></canvas>
 </div>
-<script> document_class = "GameApp";</script>
+<script>var document_class = "GameApp";</script><!--这部分内容在编译时会被替换，要修改文档类，请到工程目录下的egretProperties.json内编辑。-->
 <script src="launcher/egret_loader.js"></script>
 <script src="launcher/game-min.js"></script>
 <script>
@@ -41,7 +41,3 @@
 </script>
 </body>
 </html>
-
-
-
-

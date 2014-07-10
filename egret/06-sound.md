@@ -39,7 +39,7 @@ private onResourceLoadComplete():void {
     //3秒后音乐播放结束
     egret.Ticker.getInstance().setTimeout(function () {
         //音乐播放结束
-        sound.stop();
+        sound.pause();
     }, this, 3000);//间隔时间为3秒钟
 }
 

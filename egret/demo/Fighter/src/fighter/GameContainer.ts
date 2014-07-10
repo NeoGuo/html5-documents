@@ -1,6 +1,3 @@
-///<reference path="../utils/GameUtil.ts"/>
-///<reference path="BgMap.ts"/>
-
 module fighter
 {
     /**

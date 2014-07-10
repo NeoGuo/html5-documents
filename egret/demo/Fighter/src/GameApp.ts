@@ -1,7 +1,3 @@
-///<reference path="egret.d.ts"/>
-///<reference path="LoadingUI.ts"/>
-///<reference path="fighter/GameContainer.ts"/>
-
 class GameApp extends egret.DisplayObjectContainer{
 
     /**
