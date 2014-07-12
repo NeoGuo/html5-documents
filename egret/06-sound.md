@@ -23,7 +23,7 @@ Egret框架入门第一步 - 声音
 public loadResource():void {
     //使用资源管理器加载资源
     RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceLoadComplete, this);
-    RES.loadConfig("resources/resource.json", "resources/");
+    RES.loadConfig("resource/resource.json", "resource/");
     RES.loadGroup("demo6");
 }
 ```

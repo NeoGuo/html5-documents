@@ -11,7 +11,7 @@ Egret框架入门第一步 - 资源管理和屏幕适配
 //使用RES模块，侦听GROUP_COMPLETE事件和GROUP_PROGRESS事件，可以同步显示加载进度，并继续执行加载完成后的逻辑
 RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE,this.onResourceLoadComplete,this);
 RES.addEventListener(RES.ResourceEvent.GROUP_PROGRESS,this.onResourceProgress,this);
-RES.loadConfig("resources/resource.json","resources/");//加载资源配置文件
+RES.loadConfig("resource/resource.json","resource/");//加载资源配置文件
 RES.loadGroup("preload");//加载某个资源group
 ```
 
@@ -101,7 +101,7 @@ class Demo9 extends egret.DisplayObjectContainer{
         RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE,this.onResourceLoadComplete,this);
         RES.addEventListener(RES.ResourceEvent.GROUP_PROGRESS,this.onResourceProgress,this);
         //如果存在多套不同分辨率的资源，您可以使用assets/480/,assets/640/这样的方式来设计素材目录结构加以区分，
-        RES.loadConfig("resources/resource.json","resources/");//加载资源配置文件
+        RES.loadConfig("resource/resource.json","resource/");//加载资源配置文件
         RES.loadGroup("preload");//加载某个资源group
 
         //-------------------设置加载进度界面

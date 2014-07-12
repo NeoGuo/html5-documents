@@ -15,7 +15,7 @@ class Demo4 extends egret.DisplayObjectContainer {
     private loadResource():void {
         //使用资源管理器加载资源
         RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE,this.onResourceLoadComplete,this);
-        RES.loadConfig("resources/resource.json","resources/");
+        RES.loadConfig("resource/resource.json","resource/");
         RES.loadGroup("demo4");
     }
     /**加载完毕后即可使用*/

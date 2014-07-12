@@ -21,7 +21,7 @@ cd {workspace}
 egret create Fighter
 ```
 
-Egret会根据内置模板创建项目的基本目录结构，我们要编写的代码将放置在src下面，而素材将放置在resources下面。要运行和测试项目，需要打开launcher目录下的index.html，不过绝对不能双击打开，[需要用一个HTTP服务器（您自配的或者Egret自带的）来运行](https://github.com/NeoGuo/html5-documents/blob/master/egret/01-hello-world.md)。目前我们还未对项目进行修改，运行项目会看到默认的Egret界面。
+Egret会根据内置模板创建项目的基本目录结构，我们要编写的代码将放置在src下面，而素材将放置在resource下面。要运行和测试项目，需要打开launcher目录下的index.html，不过绝对不能双击打开，[需要用一个HTTP服务器（您自配的或者Egret自带的）来运行](https://github.com/NeoGuo/html5-documents/blob/master/egret/01-hello-world.md)。目前我们还未对项目进行修改，运行项目会看到默认的Egret界面。
 
 准备素材:
 ----------------------------
@@ -30,9 +30,9 @@ Egret会根据内置模板创建项目的基本目录结构，我们要编写的
 
 ![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret/images/fighter_02.jpg "打飞机")
 
-您可以从本教程配套的源码目录中，resources目录下找到这些素材。
+您可以从本教程配套的源码目录中，resource目录下找到这些素材。
 
-将这些素材放到resources/assets目录下面，然后修改resource.json文件，将素材配置好，方便在代码中引用：
+将这些素材放到resource/assets目录下面，然后修改resource.json文件，将素材配置好，方便在代码中引用：
 
 ```
 {

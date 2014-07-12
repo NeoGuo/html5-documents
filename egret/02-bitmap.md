@@ -18,7 +18,7 @@ workspace    // 您的工作目录
         |-- src // 源码放在这里
              |--GameApp.ts // 作为游戏的入口类，实现游戏逻辑
              |--LoadingUI.ts // 实现Loading效果
-        |-- resources // 这里放资源，比如图片声音之类的
+        |-- resource // 这里放资源，比如图片声音之类的
         |-- libs // egret库文件，也可以放其它的库
         |-- launcher // 入口
               |-- index.html 启动文件
@@ -75,7 +75,7 @@ private logo:egret.Bitmap;
 
 要使用外部资源，就要引入加载机制。想想我们在Flash里是怎么做的？没错，用Loader或URLLoader。Egret中也提供了Loader的类似实现，即：RES.ResourceLoader。(注意ResourceLoader的命名空间是RES，而不是egret)。但Egret的封装更“上层”一些，您甚至都无需直接接触ResourceLoader这个类，而是直接使用Egret提供的，结合外部配置文件的资源管理和加载方式。
 
-首先打开项目目录下的resources/resource.json文件，这个您可以认为就是资源的配置文件，里面定义了resources目录下资源的名称和对应的url，甚至可以把资源划分成若干个group，这样来实现分批加载。
+首先打开项目目录下的resource/resource.json文件，这个您可以认为就是资源的配置文件，里面定义了resource目录下资源的名称和对应的url，甚至可以把资源划分成若干个group，这样来实现分批加载。
 
 ```
 {
@@ -103,7 +103,7 @@ private logo:egret.Bitmap;
 ```
 //使用资源管理器加载资源
 RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE,this.onResourceLoadComplete,this);
-RES.loadConfig("resources/resource.json","resources/");
+RES.loadConfig("resource/resource.json","resource/");
 RES.loadGroup("demo2");
 ```
 > loadConfig的第二个参数用于指定资源根目录。
@@ -140,7 +140,7 @@ class Demo2 extends egret.DisplayObjectContainer {
     private loadResource():void {
         //使用资源管理器加载资源
         RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE,this.onResourceLoadComplete,this);
-        RES.loadConfig("resources/resource.json","resources/");
+        RES.loadConfig("resource/resource.json","resource/");
         RES.loadGroup("demo2");
     }
     /**加载完毕后即可使用*/
@@ -198,7 +198,7 @@ this.logo.anchorY = 0.5;//同上
 
 说到位图，还有一种很常用的情况就是利用“精灵表单”，即spritesheet，这种方式可以让我们把若干张小图集合到一张大图上，这样对资源加载，控制，减少请求数等方面都很有益处。制作spritesheet的工具也有很多，比如知名度很高的TexturePacker，Flash CS6也增加了对spritesheet的支持，工具上萝卜青菜，各有所爱，您可以选择适合自己的工具。在Egret框架中当然也可以使用spritesheet，让我们来看一下使用方式：
 
-首先拷贝[官网实例资源目录](https://github.com/egret-team/egret-examples/tree/master/CoreExample/resources/assets/480)下的两个文件：icons.json和icons.png，将这两个文件复制到HelloEgret项目的resources/assets目录下面。
+首先拷贝[官网实例资源目录](https://github.com/egret-team/egret-examples/tree/master/CoreExample/resource/assets/480)下的两个文件：icons.json和icons.png，将这两个文件复制到HelloEgret项目的resource/assets目录下面。
 
 打开icons.json，可以看到对内部图片分割的描述：
 ```

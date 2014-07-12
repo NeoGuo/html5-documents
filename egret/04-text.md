@@ -39,7 +39,7 @@ this.addChild(label1);//添加到显示列表
 
 如果希望文字在所有平台保持显示一致，可以使用位图字体。这种方式在很多平台或框架中都得到了应用，比如cocos2d-x等。所谓位图字体，就是将所需的字符全都集中到一张或多张位图上，然后根据描述文件来知道某个字符在位图上的对应区域。当设置文本的时候，就可以逐个字符判断，将获取到的字符图片数据整合显示，来达到显示文本的效果。
 
-Egret中也有对位图字体的支持，我们还是用官方实例中的素材来展示如何使用位图字体。拷贝官网实例资源目录下的两个文件：font.fnt和font.png，将这两个文件复制到HelloEgret项目的resources/assets目录下面。打开font.fnt看一下，里面其实就是对每个字符在位图对应关系的描述：
+Egret中也有对位图字体的支持，我们还是用官方实例中的素材来展示如何使用位图字体。拷贝官网实例资源目录下的两个文件：font.fnt和font.png，将这两个文件复制到HelloEgret项目的resource/assets目录下面。打开font.fnt看一下，里面其实就是对每个字符在位图对应关系的描述：
 
 ```
 info face="ArialMT" size=64 bold=0 italic=0 charset="" unicode=0 stretchH=100 smooth=1 aa=1 padding=0,0,0,0 spacing=2,2

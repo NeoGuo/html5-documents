@@ -16,7 +16,7 @@ class GameApp extends egret.DisplayObjectContainer{
         this.stage.addChild(this.loadingView);
         //初始化Resource资源加载库
         RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE,this.onConfigComplete,this);
-        RES.loadConfig("resources/resource.json","resources/");
+        RES.loadConfig("resource/resource.json","resource/");
     }
     /**配置文件加载完成,开始预加载preload资源组。*/
     private onConfigComplete(event:RES.ResourceEvent):void{

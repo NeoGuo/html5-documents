@@ -3,7 +3,7 @@ Egret框架入门第一步 - 影片剪辑
 
 影片剪辑(MovieClip)是Flash程序员非常熟悉的东西了，历史悠久，虽然Flash历经多次版本变更，但影片剪辑迄今为止一直被广泛的使用着。Egret框架也支持MovieClip，在未来，您可以用Flash Pro软件去制作MovieClip，然后使用Egret的扩展工具，导出Egret可识别的格式（类似spritesheet，包括图片和描述文件）。目前官方已经推出了这个工具，[工具的说明信息和下载地址点击这里查看](http://bbs.egret-labs.org/thread-127-1-1.html)。
 
-这里我们还是先使用samples里自带的资源，拷贝资源目录下的两个文件：monkey.json和monkey.png，将这两个文件复制到HelloEgret项目的resources/assets目录下面。
+这里我们还是先使用samples里自带的资源，拷贝资源目录下的两个文件：monkey.json和monkey.png，将这两个文件复制到HelloEgret项目的resource/assets目录下面。
 
 先分析一下monkey.json这个描述文件，是如下的结构：
 
@@ -33,7 +33,7 @@ Egret框架入门第一步 - 影片剪辑
 ```
 //使用资源管理器加载资源
 RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE,this.onResourceLoadComplete,this);
-RES.loadConfig("resources/resource.json","resources/");
+RES.loadConfig("resource/resource.json","resource/");
 RES.loadGroup("demo3");
 ```
 
@@ -67,7 +67,7 @@ class Demo3 extends egret.DisplayObjectContainer {
     public loadResource():void {
         //使用资源管理器加载资源
         RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE,this.onResourceLoadComplete,this);
-        RES.loadConfig("resources/resource.json","resources/");
+        RES.loadConfig("resource/resource.json","resource/");
         RES.loadGroup("demo3");
     }
     /**加载完毕后即可使用*/
