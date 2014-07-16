@@ -25,7 +25,7 @@ class Demo3 extends egret.DisplayObjectContainer {
         var texture = RES.getRes("monkey_png");//获取大图
         var monkey = new egret.MovieClip(new DefaultMovieClipDelegate(texture,data));//创建电影剪辑
         this.addChild(monkey);//添加到显示列表
-        monkey.setInterval(1);//设置动画每帧的时间间隔，单位是毫秒，数值越小，动作越快
+        monkey.frameRate = 60;//设置动画的帧频
         monkey.gotoAndPlay("stand");
     }
 }
