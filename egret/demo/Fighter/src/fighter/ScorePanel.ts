@@ -24,6 +24,8 @@ module fighter
             this.txt.size = 24;
             this.txt.y = 60;
             this.addChild(this.txt);
+            this.touchChildren = false;
+            this.touchEnabled = false;
         }
 
         public showScore(value:number):void {

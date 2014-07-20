@@ -27,9 +27,12 @@ module fighter
         private scorePanel:fighter.ScorePanel;
         /**我的成绩*/
         private myScore:number = 0;
+        /**@private*/
+        private _lastTime:number;
 
         public constructor() {
             super();
+            this._lastTime = egret.getTimer();
             this.addEventListener(egret.Event.ADDED_TO_STAGE,this.onAddToStage,this);
         }
         /**初始化*/
@@ -116,6 +119,11 @@ module fighter
         }
         /**游戏画面更新*/
         private gameViewUpdate(evt:egret.Event):void{
+            //为了防止FPS下降造成回收慢，生成快，进而导致DRAW数量失控，需要计算一个系数，当FPS下降的时候，让运动速度加快
+            var nowTime:number = egret.getTimer();
+            var fps:number = 1000/(nowTime-this._lastTime);
+            this._lastTime = nowTime;
+            var speedOffset:number = 60/fps;
             //我的子弹运动
             var i:number = 0;
             var bullet:fighter.Bullet;
@@ -123,7 +131,7 @@ module fighter
             var delArr:any[] = [];
             for(;i<myBulletsCount;i++) {
                 bullet = this.myBullets[i];
-                bullet.y -= 12;
+                bullet.y -= 12*speedOffset;
                 if(bullet.y<-bullet.height)
                     delArr.push(bullet);
             }
@@ -139,7 +147,7 @@ module fighter
             var enemyFighterCount:number = this.enemyFighters.length;
             for(i=0;i<enemyFighterCount;i++) {
                 theFighter = this.enemyFighters[i];
-                theFighter.y += 4;
+                theFighter.y += 4*speedOffset;
                 if(theFighter.y>this.stageH)
                     delArr.push(theFighter);
             }
@@ -156,7 +164,7 @@ module fighter
             var enemyBulletsCount:number = this.enemyBullets.length;
             for(i=0;i<enemyBulletsCount;i++) {
                 bullet = this.enemyBullets[i];
-                bullet.y += 8;
+                bullet.y += 8*speedOffset;
                 if(bullet.y>this.stageH)
                     delArr.push(bullet);
             }
