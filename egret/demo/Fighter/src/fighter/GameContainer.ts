@@ -59,6 +59,23 @@ module fighter
             this.myFighter.y = this.stageH-this.myFighter.height-50;
             this.addChild(this.myFighter);
             this.scorePanel = new fighter.ScorePanel();
+            //预创建
+            this.preCreatedInstance();
+        }
+        /**预创建一些对象，减少游戏时的创建消耗*/
+        private preCreatedInstance():void {
+            for(var i:number=0;i<20;i++) {
+                var bullet = fighter.Bullet.produce("b1");
+                fighter.Bullet.reclaim(bullet,"b1");
+            }
+            for(var i:number=0;i<20;i++) {
+                var bullet = fighter.Bullet.produce("b2");
+                fighter.Bullet.reclaim(bullet,"b2");
+            }
+            for(var i:number=0;i<20;i++) {
+                var enemyFighter:fighter.Airplane = fighter.Airplane.produce("f2",1000);
+                fighter.Airplane.reclaim(enemyFighter,"f2");
+            }
         }
         /**游戏开始*/
         private gameStart():void{
