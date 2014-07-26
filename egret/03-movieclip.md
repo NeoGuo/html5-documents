@@ -42,7 +42,7 @@ RES.loadGroup("demo3");
 ```
 var data = RES.getRes("monkey_json");//获取描述
 var texture = RES.getRes("monkey_png");//获取大图
-var monkey = new egret.MovieClip(new DefaultMovieClipDelegate(texture,data));//创建电影剪辑
+var monkey = new egret.MovieClip(new egret.DefaultMovieClipDelegate(texture,data));//创建电影剪辑
 this.addChild(monkey);//添加到显示列表
 monkey.frameRate = 60;//设置动画的帧频
 monkey.gotoAndPlay("stand");
@@ -74,7 +74,7 @@ class Demo3 extends egret.DisplayObjectContainer {
     private onResourceLoadComplete():void {
         var data = RES.getRes("monkey_json");//获取描述
         var texture = RES.getRes("monkey_png");//获取大图
-        var monkey = new egret.MovieClip(new DefaultMovieClipDelegate(texture,data));//创建电影剪辑
+        var monkey = new egret.MovieClip(new egret.DefaultMovieClipDelegate(texture,data));//创建电影剪辑
         this.addChild(monkey);//添加到显示列表
         monkey.frameRate = 60;//设置动画的帧频
         monkey.gotoAndPlay("stand");
