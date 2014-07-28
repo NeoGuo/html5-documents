@@ -27,6 +27,8 @@ Egret框架很重要的一个特性就是，允许开发者使用[TypeScript](ht
 
 关于Node.js，npm，TypeScript的安装参见[WIKI](https://github.com/egret-team/egret/wiki/Configure-Development-Environment)，这一步非常关键，请遵循步骤正确完成安装。
 
+> Egret 1.0 RC2的版本，集成了TypeScriptCompliler，开发者可以直接安装Egret，无需单独安装TypeScript
+
 目前基于Egret框架的应用调试，必须基于一个HTTP服务器来进行，简言之，就是您需要在浏览器中用http://localhost/demo这样的形式来运行。那如何来配置一个HTTP服务器呢？会不会很麻烦？不必担心，Egret已经为大家考虑到了这一点，为了方便大家使用和调试，Egret内置了一个简单的HTTP服务器，使用方式会在下文中提及。不过为了获得更好的开发体验，Egret还是建议大家尽量使用成熟的HTTP服务器，比如Apache这样的。即使是自己配置服务器，也不必太顾虑，配置过程相对还是简单的。不同的操作系统有不同的选择，如果您是Windows系统，可以用系统自带的IIS([配置教程](http://jingyan.baidu.com/article/b907e627e6abe646e7891c01.html))，或者在网上找一个AppServ的安装包。如果您是Mac OS X系统，就更简单了，Mac OS X自带了Apache，可以参考[这篇教程](http://www.cnblogs.com/snandy/archive/2012/11/13/2765381.html)设置一下虚拟站点。
 
 至于IDE，您可以根据自己的系统和个人喜好自由选择，本文将使用WebStorm 8.0来完成演示，这个工具在前端开发界有很高的声誉。
