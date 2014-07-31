@@ -680,6 +680,28 @@ egret publish Fighter
 
 publish的好处是，将使用Google压缩工具，将Egret框架和您自身项目分散的js文件集中编译到一个game_min.js中，而且是做了压缩混淆的。这样一方面可以大大加快游戏启动速度，一方面让代码失去了可读性，有利于版权的保护。如果您的游戏要上线，记得使用这个命令哦。
 
+WEBGL测试:
+----------------------------
+
+在Egret 1.0 RC2的版本中，已经增加了对WebGL的支持，所以我就改了一下打飞机的代码，感受一下性能方面的差异
+
+* [普通Canvas渲染](http://www.tech-mx.com/egret/fighter/crazy/)
+* [WebGL渲染](http://www.tech-mx.com/egret/fighter/crazy/?m=webgl)
+
+请使用支持WebGL的浏览器观看，比如Chrome
+
+'想在您的项目中开启WebGL?'
+
+因为对WebGL的支持还处于测试阶段，所以WebGL是默认关闭的，您可以打开launcher/egret_loader.js，找到第78行
+
+```
+//WebGL是egret的Beta特性，默认关闭
+if(false){// egret.WebGLUtils.checkCanUseWebGL()) {
+```
+
+改成'''if(egret.WebGLUtils.checkCanUseWebGL()) {'''即可
+这样如果浏览器支持，就会自动开启WebGL渲染机制。
+
 - - -
 
 作者:NeoGuo
