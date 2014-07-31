@@ -690,7 +690,7 @@ WEBGL测试:
 
 请使用支持WebGL的浏览器观看，比如Chrome
 
-'想在您的项目中开启WebGL?'
+*想在您的项目中开启WebGL?*
 
 因为对WebGL的支持还处于测试阶段，所以WebGL是默认关闭的，您可以打开launcher/egret_loader.js，找到第78行
 
@@ -699,7 +699,7 @@ WEBGL测试:
 if(false){// egret.WebGLUtils.checkCanUseWebGL()) {
 ```
 
-改成'''if(egret.WebGLUtils.checkCanUseWebGL()) {'''即可
+改成```if(egret.WebGLUtils.checkCanUseWebGL()) {```即可
 这样如果浏览器支持，就会自动开启WebGL渲染机制。
 
 - - -
