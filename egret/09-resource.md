@@ -123,6 +123,9 @@ class Demo9 extends egret.DisplayObjectContainer{
 }
 ```
 
+> 更新：目前如果您创建一个新项目，会发现屏幕适配相关的代码，是放在launcher/egret_loader.js中的，
+> 您可以直接修改egret_loader.js中的适配代码，来改变缩放策略。如果在TS中编写，也是可以实现同样的效果的。
+
 - - -
 
 [上一篇:事件](https://github.com/NeoGuo/html5-documents/blob/master/egret/08-event.md)

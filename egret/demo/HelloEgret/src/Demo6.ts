@@ -37,7 +37,7 @@ class Demo6 extends egret.DisplayObjectContainer {
         //播放音乐文件
         sound.play();
         //3秒后音乐播放结束
-        egret.Ticker.getInstance().setTimeout(function () {
+        egret.setTimeout(function () {
             //音乐播放结束
             sound.pause();
         }, this, 3000);
