@@ -12,7 +12,11 @@ tw.to({x:360,y:600},1000,egret.Ease.sineIn);
 
 为了便于您理解各种Ease函数的实现效果，这里有一个Ease效果实时预览：
 
-<iframe src="http://www.tech-mx.com/egret/tween/launcher/" width="480" height="800"></iframe>
+<iframe src="http://www.tech-mx.com/egret/tween/launcher/" width="480px" height="800px"></iframe>
+
+* [点击这里查看Ease效果实时预览](http://www.tech-mx.com/egret/tween/launcher/)
+
+
 
 - - -
 
