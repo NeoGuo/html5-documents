@@ -25,7 +25,6 @@ GUI教程：
 ----------------------------
 
 1. 了解Egret的GUI库
-
 2. 控件的使用
 	- 文本
 	- 按钮
@@ -35,13 +34,11 @@ GUI教程：
 	- 滑动选择器
 	- 进度条
 	- Alert
-
 3.容器
 	- Group
 	- 可定义皮肤的容器
 	- Panel
 	- 滚动控制
-
 4.数据集合
 	- ArrayCollection
 	- DataGroup
@@ -49,22 +46,17 @@ GUI教程：
 	- 下拉列表
 	- ItemRenderer
 	- Tree
-
 5. 窗体
 	- TitleWindow
 	- 自定义弹出容器
-
 6. 导航
 	- ViewStack
 	- TabBar
-
 7. 布局和定位
 	- 内置的布局方式
 	- 自定义布局
 	- Spacer
-
 8. 状态的使用
-
 9. 皮肤机制
 	- 皮肤适配
 	- 自定义皮肤
