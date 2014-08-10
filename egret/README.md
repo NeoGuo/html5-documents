@@ -34,11 +34,13 @@ GUI教程：
 	- 滑动选择器
 	- 进度条
 	- Alert
+
 3.容器
 	- Group
 	- 可定义皮肤的容器
 	- Panel
 	- 滚动控制
+
 4.数据集合
 	- ArrayCollection
 	- DataGroup
