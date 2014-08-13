@@ -21,46 +21,6 @@ Egret框架入门第一步
 
 > 这里可以查看教程的配套源码：[HelloEgret](https://github.com/NeoGuo/html5-documents/tree/master/egret/demo/HelloEgret/src)
 
-GUI教程：
-----------------------------
-
-	1. 了解Egret的GUI库
-	2. 控件的使用
-		1. 文本
-		2. 按钮
-		3. 状态按钮
-		4. 复选框
-		5. 单选框
-		6. 滑动选择器
-		7. 进度条
-		8. Alert
-	3.容器
-		1. Group
-		2. 可定义皮肤的容器
-		3. Panel
-		4. 滚动控制
-	4.数据集合
-		1. ArrayCollection
-		2. DataGroup
-		3. 列表组件
-		4. 下拉列表
-		5. ItemRenderer
-		6. Tree
-	5. 窗体
-		1. TitleWindow
-		2. 自定义弹出容器
-	6. 导航
-		1. ViewStack
-		2. TabBar
-	7. 布局和定位
-		1. 内置的布局方式
-		2. 自定义布局
-		3. Spacer
-	8. 状态的使用
-	9. 皮肤机制
-		1. 皮肤适配
-		2. 自定义皮肤
-
 实例分析：
 ----------------------------
 
