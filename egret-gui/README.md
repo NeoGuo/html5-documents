@@ -41,7 +41,7 @@ GUI教程：
 	* [自定义布局](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/7-2-customlayout.md)
 	* [Spacer](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/7-3-spacer.md)
 8. [状态的使用](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/8-state.md)
-9. [皮肤机制](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/4-skin.md)
+9. [皮肤机制](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/9-skin.md)
 	* [皮肤适配](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/9-1-skinadapter.md)
 	* [自定义皮肤](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/9-2-customskin.md)
 
