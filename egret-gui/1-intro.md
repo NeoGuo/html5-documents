@@ -19,6 +19,11 @@ Egret框架GUI教程 - 了解Egret的GUI库
 
 ![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret-gui/images/gui-core.png "Egret")
 
+但这并不意味着您就可以直接使用，因为不同于核心库中普通的显示对象，GUI库中的组件大部分是需要配置皮肤的，而皮肤并没有包含在src/extension/gui目录下(这和GUI的设计理念有关，核心代码和皮肤是分离的)。没有皮肤的组件是显示不出来的，如果您不做配置，直接new一个RadioButton，放在stage上，是什么也看不到的。那么如何把皮肤引入进来呢？两种方式：
+
+1. 如果您是新建一个项目，并且需要GUI，可以在新建项目的时候，追加一个```-useGUI```的参数，比如```egret create Demo -useGUI```，这样项目创建完毕后，会比普通项目多一些文件，如下图所示。这些多出来的文件，就是默认的GUI皮肤和相关依赖。
+2. 如果是之前已经创建好的项目，现在想要引入GUI，那您需要做一些手工拷贝动作。
+
 参考资料
 -------------------------
 
