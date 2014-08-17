@@ -61,3 +61,5 @@ label.paddingRight = 40;
 label.paddingTop = 20;
 label.paddingBottom = 40;
 ```
+
+Label不具备输入功能，如果要输入文本，请使用[egret.TextInput](https://github.com/egret-labs/egret-core/blob/master/src/egret/text/TextInput.ts)。
