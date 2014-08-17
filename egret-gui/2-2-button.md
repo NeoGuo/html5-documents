@@ -41,3 +41,5 @@ this.addElement(btn2);
 ```
 
 ![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret-gui/images/button3.png "Egret")
+
+您可能还记得上一节的Label设定中，可以使用诸如```textAlign```等属性来设置样式，但在Button上，您无法找到类似的设定。那应该如何修改按钮上的文字样式(颜色，字号，加粗等等)呢？答案是修改皮肤。请牢记这一点：Egret GUI的组件和皮肤是分离的，所以当您打算为组件实现不同的外观的时候，实现的方式就是自定义一个皮肤。关于皮肤的制作方式，在后面的皮肤那个章节中我们会详细讲述。
