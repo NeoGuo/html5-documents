@@ -14,7 +14,7 @@ GUI教程：
 	* [按钮](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/2-2-button.md)
 	* [状态按钮](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/2-3-toglebutton.md)
 	* [复选框](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/2-4-checkbox.md)
-	* [单选框](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/2-5-radiobutton.md)
+	* [单选按钮](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/2-5-radiobutton.md)
 	* [滑动选择器](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/2-6-slider.md)
 	* [进度条](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/2-7-progressbar.md)
 	* [Alert](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/2-8-alert.md)
