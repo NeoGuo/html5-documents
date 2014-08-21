@@ -13,7 +13,7 @@ this.addChild(label);
 得到的效果：
 ![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret-gui/images/label1.png "Egret")
 
-如上所示，Egret GUI与普通的Egret显示对象容器相兼容，您可以把一个GUI组件，添加到Sprite上面，这样是没问题的，可以显示。但是，除非有特殊需求，我们还是建议您将GUI组件放置在egret.gui.UIStage上面。修改上面的例子：
+如上所示，Egret GUI与普通的Egret显示对象容器相兼容，您可以把一个GUI组件，添加到Sprite里面，这样是没问题的，可以显示。但是，除非有特殊需求，我们还是建议您将GUI组件放置在egret.gui.UIStage里面。修改上面的例子：
 
 ```
 this.uiStage = new egret.gui.UIStage();
@@ -23,7 +23,7 @@ label.text = "我是地球人";
 this.uiStage.addElement(label);
 ```
 
-UIStage的作用，类似于原先Flex中的SystemManager，我们称之为系统管理器，它是应用程序的顶级容器，通常情况下，应保证它的唯一性，即只使用一个UIStage的实例，其它组件都包含在它的内部。放在UIStage里面，组件就处于托管之下，可以使用居中等布局特性，这个在后面的教程正我们会涉及。目前您只需要记住，尽量把UIStage作为您的根容器就可以了，它的特性您在后面的使用过程中就会慢慢了解。
+UIStage的作用，类似于原先Flex中的SystemManager，我们称之为系统管理器，它是应用程序的顶级容器，通常情况下，应保证它的唯一性，即只使用一个UIStage的实例，其它组件都包含在它的内部。放在UIStage里面，组件就处于托管之下，可以使用居中等布局特性，这个在后面的教程我们会涉及。目前您只需要记住，尽量把UIStage作为您的根容器就可以了，它的特性您在后面的使用过程中就会慢慢了解。
 
 回到文本的这个例子，上面这是设置了它的显示文字，您还可以修改样式，实现不同的显示效果：
 

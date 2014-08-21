@@ -7,16 +7,16 @@ ToggleButton，顾名思义就是一个具备状态的按钮，这个状态就�
 var btn:egret.gui.ToggleButton = new egret.gui.ToggleButton();
 btn.x = btn.y = 20;
 btn.label = "我是ToggleButton";
-btn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.btnTouchHandler,this);
+btn.addEventListener(egret.Event.CHANGE,this.changeHandler,this);
 this.addElement(btn);
-private btnTouchHandler(evt:egret.TouchEvent):void {
+private changeHandler(evt:egret.Event):void {
     console.log(evt.target.selected);
 }
 ```
 
 ![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret-gui/images/togglebutton.png "Egret")
 
-ToggleButton一般不会单独使用(当然单独使用也是允许的)，因为我们在界面上，如果要放置一个实现"yes/no"这样的控件，一般的选择是CheckBox，这个后面就会讲到。如果结合若干个ToggleButton，就可以实现类似TabBar这样的效果，如图所示：
+在下面的例子中，我们结合若干个ToggleButton，就可以实现类似TabBar这样的效果，如图所示：
 
 ![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret-gui/images/toggle_bar.png "Egret")
 
@@ -44,12 +44,12 @@ module uidemo
                 btn.y = 100;
                 btn.width = 80;
                 btn.x = 20+i*80;
-                btn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.toggleTouchHandler,this);
+                btn.addEventListener(egret.Event.CHANGE,this.toggleChangeHandler,this);
                 this.toggleBtns.push(btn);
                 this.addElement(btn);
             }
         }
-        private toggleTouchHandler(evt:egret.TouchEvent):void {
+        private toggleChangeHandler(evt:egret.Event):void {
             for(var i:number=0;i<this.toggleBtns.length;i++) {
                 var btn:egret.gui.ToggleButton = this.toggleBtns[i];
                 btn.selected = (btn == evt.target);

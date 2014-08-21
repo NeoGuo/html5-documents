@@ -62,3 +62,16 @@ this.addElement(this.vBar);
 实现效果：
 
 ![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret-gui/images/pbar2.png "Egret")
+
+您还可以通过labelFunction属性，设置进度条上显示的文字内容。参考下面的例子：
+
+```
+this.pBar.labelFunction = this.barLabelFunction;
+private barLabelFunction(value:number,maximum:number):string {
+    return "加载中... "+Math.ceil(value/maximum*100)+"%";
+}
+```
+
+效果如下：
+
+![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret-gui/images/pbar3.png "Egret")

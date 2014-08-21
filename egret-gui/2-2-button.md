@@ -29,7 +29,7 @@ private btnTouchHandler(evt:egret.TouchEvent):void {
     console.log("button touched");
 }
 ```
-> console.log属于浏览器自身API，我们通常用这个实现类似原先Flash中的trace功能，请使用Chrome进行调试，并打开开发者工具，在Console面板中就能看到这些输出信息。
+> console.log属于浏览器自身API，我们通常用这个实现类似原先Flash中的trace功能，请使用Chrome进行调试，并打开开发者工具(快捷键ctrl+shift+i)，在Console面板中就能看到这些输出信息。
 
 您可以在按钮上设置宽度和高度，按钮上的文本会自动居中，以适应不同的按钮尺寸：
 
