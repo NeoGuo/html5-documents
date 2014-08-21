@@ -18,7 +18,7 @@ private btnTouchHandler(evt:egret.TouchEvent):void {
 
 ToggleButton一般不会单独使用(当然单独使用也是允许的)，因为我们在界面上，如果要放置一个实现"yes/no"这样的控件，一般的选择是CheckBox，这个后面就会讲到。如果结合若干个ToggleButton，就可以实现类似TabBar这样的效果，如图所示：
 
-![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret-gui/images/togglebar.png "Egret")
+![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret-gui/images/toggle_bar.png "Egret")
 
 源码：
 
