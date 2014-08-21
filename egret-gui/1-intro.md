@@ -23,13 +23,6 @@ Egret框架GUI教程 - 了解Egret的GUI库
 
 但这并不意味着您就可以直接使用，因为不同于核心库中普通的显示对象，GUI库中的组件大部分是需要配置皮肤的，而皮肤并没有包含在src/extension/gui目录下(这和GUI的设计理念有关，核心代码和皮肤是分离的)。没有皮肤的组件是显示不出来的，如果您不做配置，直接new一个RadioButton，放在stage上，是什么也看不到的。那么如何把皮肤引入进来呢？
 
-<div style="display:none">
-两种方式：
-
-1. 如果您是新建一个项目，并且需要GUI，可以在新建项目的时候，追加一个```-useGUI```的参数，比如```egret create Demo -useGUI```，这样项目创建完毕后，会比普通项目多一些文件，如下图所示。这些多出来的文件，就是默认的GUI皮肤和相关依赖。
-2. 如果是之前已经创建好的项目，现在想要引入GUI，那您需要做一些手工拷贝动作。
-</div>
-
 在目前的Egret 1.0.4的版本中，尚未在模板中包含默认皮肤，所以您需要进入[egret-examples](https://github.com/egret-labs/egret-examples)这个项目，下载下来，然后把下列所需的文件，拷贝到您自己的项目里：
 
 1. 进入[GUIExample的资源目录](https://github.com/egret-labs/egret-examples/tree/master/GUIExample/resource)，把newAsset目录和resource.json，都拷贝您自己项目的resource目录下。如果您已经定义了自己的resource.json，那可以把GUIExample的那个resource.json改名，比如叫做resourcegui.json，然后在您的项目中，用RES再加载一遍。
