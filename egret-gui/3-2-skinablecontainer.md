@@ -97,3 +97,5 @@ module uidemo
 实现效果：
 
 ![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret-gui/images/skinnable2.png "Egret")
+
+这个例子里面，只是放了个背景图片，实际上您可以根据自己的需要，实现任意的效果，这也体现了GUI的皮肤设计理念的强大之处。
