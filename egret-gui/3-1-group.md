@@ -48,7 +48,63 @@ module uidemo
 }
 ```
 
+Egret GUI中的容器的一个显著特点是，可以配置一个layout对象，来实现不同的布局方式。这对我们的开发工作是非常有好处的，我们可以使用默认的几个布局类，来节省大量的编码工作。在下面的例子中，我们在Group里面放了4个按钮，点击按钮，可以切换4种布局模式：绝对定位，横向布局，垂直布局，格子布局。
 
+```
+module uidemo
+{
+    export class GroupDemo extends egret.gui.Group
+    {
+        private myGroup:egret.gui.Group;
+        public constructor() {
+            super();
+        }
+        public createChildren(): void {
+            super.createChildren();
+            //创建Group
+            this.myGroup = new egret.gui.Group();
+            this.addElement(this.myGroup);
+            //内部对象
+            for(var i:number=0;i<4;i++) {
+                var btn:egret.gui.Button = new egret.gui.Button();
+                btn.label = "Button"+i;
+                btn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.btnTouchHandler,this);
+                this.myGroup.addElement(btn);
+            }
+            this.btnTouchHandler(null);
+        }
+        private layoutIndex:number = 0;
+        /**点击按钮，可以切换4种布局模式：绝对定位，横向布局，垂直布局，格子布局*/
+        private btnTouchHandler(evt:egret.TouchEvent):void {
+            if(this.layoutIndex==0) {
+                this.myGroup.layout = new egret.gui.BasicLayout();//用绝对定位，控制xy坐标
+                for(var i:number=0;i<4;i++) {
+                    var btn:egret.gui.Button = <egret.gui.Button>this.myGroup.getElementAt(i);
+                    btn.x = i*50;
+                    btn.y = 40+i*100;
+                }
+            } else if(this.layoutIndex==1) {
+                this.myGroup.layout = new egret.gui.HorizontalLayout();//横向布局
+            } else if(this.layoutIndex==2) {
+                this.myGroup.layout = new egret.gui.VerticalLayout();//垂直布局
+            } else if(this.layoutIndex==3) {
+                var tileLayout:egret.gui.TileLayout = new egret.gui.TileLayout();//格子布局
+                tileLayout.requestedColumnCount = 2;//设置两列显示
+                this.myGroup.layout = tileLayout;
+            }
+            this.layoutIndex++;
+            if(this.layoutIndex==4) {
+                this.layoutIndex = 0;
+            }
+        }
+    }
+}
+```
+
+实现效果：
+
+![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret-gui/images/group1.png "Egret")
+> 关于布局类的使用，我们会在后面布局的章节中继续探讨
 
 一些使用技巧：
 
