@@ -20,7 +20,7 @@ GUI教程：
 	* [Alert](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/2-8-alert.md) (done)
 3. [容器](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/3-container.md)
 	* [Group](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/3-1-group.md) (done)
-	* [可定义皮肤的容器](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/3-2-skinablecontainer.md)
+	* [可定义皮肤的容器](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/3-2-skinablecontainer.md) (done)
 	* [Panel](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/3-3-panel.md)
 	* [滚动控制](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/3-4-scroller.md)
 4. [数据集合](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/4-data.md)
