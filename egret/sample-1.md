@@ -10,6 +10,11 @@ Egret框架入门教程 - 使用Egret创建一个打飞机的游戏
 * [点击这里查看演示](http://www.tech-mx.com/egret/fighter/launcher/)
 * [本教程的源码下载](https://github.com/NeoGuo/html5-documents/tree/master/egret/demo/Fighter/)
 
+注意事项：
+
+1. 本教程假设您已经掌握了Egret的基本用法，包括：显示列表，显示对象(位图，容器等等)，事件处理，素材配置，项目的创建，编译，发布等等，这些知识您可以从[文档中心](http://docs.egret-labs.org/)学到，为了避免在学习教程的过程中"卡壳"，请务必先学好基础知识。
+2. 教程中一些变量可能没写全，源码中是有的，发现问题请先对比源码，回头我再改改教程，对不住了
+
 下面是制作过程：
 
 创建项目:
