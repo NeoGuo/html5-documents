@@ -23,26 +23,64 @@ Egret框架GUI教程 - 了解Egret的GUI库
 
 但这并不意味着您就可以直接使用，因为不同于核心库中普通的显示对象，GUI库中的组件大部分是需要配置皮肤的，而皮肤并没有包含在src/extension/gui目录下(这和GUI的设计理念有关，核心代码和皮肤是分离的)。没有皮肤的组件是显示不出来的，如果您不做配置，直接new一个RadioButton，放在stage上，是什么也看不到的。那么如何把皮肤引入进来呢？
 
-在目前的Egret 1.0.4的版本中，尚未在模板中包含默认皮肤，所以您需要进入[egret-examples](https://github.com/egret-labs/egret-examples)这个项目，下载下来，然后把下列所需的文件，拷贝到您自己的项目里：
+在目前的Egret 1.0.5的版本中，尚未在模板中包含默认皮肤，所以您需要进入[egret-examples](https://github.com/egret-labs/egret-examples)这个项目，下载下来，然后把下列所需的文件，拷贝到您自己的项目里：
 
-1. 进入[GUIExample的资源目录](https://github.com/egret-labs/egret-examples/tree/master/GUIExample/resource)，把newAsset目录和resource.json，都拷贝您自己项目的resource目录下。如果您已经定义了自己的resource.json，那可以把GUIExample的那个resource.json改名，比如叫做resourcegui.json，然后在您的项目中，用RES再加载一遍。
+1. 进入[GUIExample的资源目录](https://github.com/egret-labs/egret-examples/tree/master/GUIExample/resource)，把asset,config,theme这三个目录，都拷贝您自己项目的resource目录下。
 
-2. 然后进入[GUIExample/src](https://github.com/egret-labs/egret-examples/tree/master/GUIExample/src)，把skins目录，和AssetAdapter.ts，SkinAdapter.ts两个文件一起，都拷贝到您自己项目的src目录下面。
+2. 然后进入[GUIExample/src](https://github.com/egret-labs/egret-examples/tree/master/GUIExample/src)，把skins目录，和AssetAdapter.ts一起，都拷贝到您自己项目的src目录下面。
 
-3. 在您的入口类，比如默认的GameApp.ts中，注入解析器，可以把注入代码放置在onAddToStage方法中，比如(注意其中的mapClass语句)：
+3. 在您的入口类，比如默认的GameApp.ts中，注入解析器，可以把注入代码放置在onAddToStage方法中，并设置要加载的皮肤(GUI示例中提供了两套皮肤，一套是simple，一套是ocean)，整个教程中我们将使用simple皮肤来讲解：
 
 ```
-private onAddToStage(event:egret.Event){
+private onAddToStage(evt:egret.Event){
     //设置加载进度界面
     this.loadingView  = new LoadingUI();
     this.stage.addChild(this.loadingView);
     //注入自定义的素材解析器
     egret.Injector.mapClass("egret.gui.IAssetAdapter",AssetAdapter);
-    //注入自定义的皮肤解析器
-    egret.Injector.mapClass("egret.gui.ISkinAdapter",SkinAdapter);
-    //初始化Resource资源加载库
-    RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE,this.onConfigComplete,this);
-    RES.loadConfig("resource/resource.json","resource/");
+    //设置默认皮肤
+    this.setSkinType("simple");
+}
+/*
+ * 设置皮肤类型
+ * */
+private setSkinType(type:string):void
+{
+    var path:string;
+    switch (type)
+    {
+        case "ocean":
+            egret.gui.Theme.load("resource/theme/theme_ocean.thm");
+            path="resource/config/resource_ocean.json";
+            break;
+        case "simple":
+            egret.gui.Theme.load("resource/theme/theme_simple.thm");
+            path="resource/config/resource_simple.json";
+            break;
+    }
+    RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE,this.onGroupComp,this);
+    RES.addEventListener(RES.ResourceEvent.GROUP_PROGRESS,this.onResourceProgress,this);
+    RES.loadConfig(path);
+    RES.loadGroup("global");
+}
+public onGroupComp(event:RES.ResourceEvent):void {
+    switch(event.groupName)
+    {
+        case "global":
+            RES.loadGroup("skin");
+            break;
+        case "skin":
+            RES.removeEventListener(RES.ResourceEvent.GROUP_COMPLETE,this.onGroupComp,this);
+            RES.removeEventListener(RES.ResourceEvent.GROUP_PROGRESS,this.onResourceProgress,this);
+            this.createGameScene();
+            break;
+    }
+}
+/**
+ * preload资源组加载进度
+ */
+private onResourceProgress(event:RES.ResourceEvent):void {
+    this.loadingView.setProgress(event.itemsLoaded,event.itemsTotal);
 }
 ```
 
