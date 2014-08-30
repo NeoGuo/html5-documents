@@ -1,15 +1,9 @@
 Egret框架GUI教程 - 进度条
 ===============
 
-进度条，我们一般用在加载某个或某组资源的时候，显示加载进程，帮助用户消磨加载过程这段无聊的时间。在创建进度条之前，我们先修改一下SkinAdapter.ts，在其中加入ProgressBar的默认皮肤：
+进度条，我们一般用在加载某个或某组资源的时候，显示加载进程，帮助用户消磨加载过程这段无聊的时间。
 
-```
-case "egret.gui.ProgressBar":
-    skin =  "skins.HProgressBarSkin";
-    break;
-```
-
-然后我们再来看一段代码，了解进度条的创建和使用方式：
+然后我们再来看一段代码，了解进度条的创建和使用方式。注意其中的hostComponentKey设置，这个是和主题中的配置相对应的，如果对于一个组件，需要根据情况设置不同的皮肤，那使用hostComponentKey将是非常理想的方式。
 
 ```
 module uidemo
@@ -24,7 +18,10 @@ module uidemo
         public createChildren(): void {
             super.createChildren();
             this.pBar = new egret.gui.ProgressBar();
+            this.pBar.hostComponentKey = "HProgressBar";
+            this.pBar.y = 20;
             this.pBar.width = 200;
+            this.pBar.height = 40;
             this.pBar.value = 0;//取值范围是0-100
             this.addElement(this.pBar);
             //用timer来模拟一下加载进度吧
@@ -51,13 +48,13 @@ module uidemo
 //垂直进度条
 this.vBar = new egret.gui.ProgressBar();
 this.vBar.direction = "bottomToTop";
-this.vBar.skinName="skins.VProgressBarSkin";
+this.vBar.hostComponentKey = "VProgressBar";
 this.vBar.y = 60;
 this.vBar.height = 200;
 this.vBar.value = 0;//取值范围是0-100
 this.addElement(this.vBar);
 ```
-> 通过skinName属性，来设置组件的默认皮肤，您可以自定义一个皮肤，来代替默认提供的皮肤，实现您自己想要的效果，关于皮肤的部分，我们会在后面的章节中详述
+> 除了设置hostComponentKey，您还可以直接通过skinName属性，来设置组件的默认皮肤，您可以自定义一个皮肤，来代替默认提供的皮肤，实现您自己想要的效果，关于皮肤的部分，我们会在后面的章节中详述
 
 实现效果：
 

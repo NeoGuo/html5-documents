@@ -46,7 +46,7 @@ module uiskins
 
 在上面的皮肤实现中，有几个需要注意的地方：
 
-1.对于可定义皮肤的容器，它的皮肤中必须包含contentGroup属性，并且应该为这个属性指定一个egret.gui.Group的实例。这是因为，对于SkinnableContainer来说，您调用addElement添加的对象，都会被添加到名字是contentGroup的那个容器中。同理，关键词包含"Element"的那组方法，也全部被覆盖，关联到这个contentGroup上，防止混淆和错误。
+1.对于可定义皮肤的容器，它的皮肤中[必须包含contentGroup属性](http://bbs.egret-labs.org/thread-43-1-1.html)，并且应该为这个属性指定一个egret.gui.Group的实例。这是因为，对于SkinnableContainer来说，您调用addElement添加的对象，都会被添加到名字是contentGroup的那个容器中。同理，关键词包含"Element"的那组方法，也全部被覆盖，关联到这个contentGroup上，防止混淆和错误。
 
 比如，您在创建SkinnableContainer之后，为它添加一个按钮：
 
@@ -60,7 +60,7 @@ this.myContainer.addElement(btn);
 
 ![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret-gui/images/skinnable1.png "Egret")
 
-2.contentGroup必须包含在一个名为skinParts的数组中，这样才能让容器(这里是SkinnableContainer)知道皮肤有哪些部件
+2.contentGroup必须包含在一个名为skinParts的数组中，这样才能让容器(这里是SkinnableContainer)知道皮肤有哪些部件。如果使用EXML文件来编写皮肤，是不用手动写这个属性的。EXML格式将会在后续教程中介绍。
 
 3.容器中的对象，可以用percentWidth,percentHeight来实现类似于HTML中百分比的尺寸设置方式。这样无论组件尺寸是多大，对象都可以根据组件的尺寸来改变自身的尺寸。
 
