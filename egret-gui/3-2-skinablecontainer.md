@@ -31,7 +31,7 @@ module uiskins
         }
         public createChildren(): void {
             super.createChildren();
-            var bmp:egret.Bitmap = new egret.Bitmap(RES.getRes("egret_labs"));
+            var bmp:egret.Bitmap = new egret.Bitmap(RES.getRes("app_egret_labs_jpg"));
             this.bg = new egret.gui.UIAsset(bmp);
             this.bg.percentWidth = 100;//这个相当于HTML中的百分比，设置100就是100%的意思
             this.bg.percentHeight = 100;//宽和高都是100%，也就是充满整个空间咯(根据皮肤的尺寸)
