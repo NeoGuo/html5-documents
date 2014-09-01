@@ -1,7 +1,7 @@
 Egret框架入门第一步
 ===============
 
-本教程基于Egret 1.0 Final版本编写。同时本教程亦被收录在[Egert开发者论坛](http://bbs.egret-labs.org/thread-260-1-1.html)，如果GitHub访问不便，您可以进入论坛观看，论坛中的内容，将和这里同步更新。
+本教程基于Egret 1.0 Final版本编写。同时本教程亦被收录在[Egret开发者论坛](http://bbs.egret-labs.org/thread-260-1-1.html)，如果GitHub访问不便，您可以进入论坛观看，论坛中的内容，将和这里同步更新。
 
 目录：
 
