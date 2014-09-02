@@ -145,6 +145,8 @@ module uiskins
 ```
 > 如果您不需要状态，也可以删除状态相关的部分(关于状态的更多信息将在后面的章节中涉及)
 
+> 制作皮肤，除了使用代码方式创建，还可以使用exml，在多数情况下，使用exml将是更简洁和清晰的创建模式。上面的代码，如何换成exml来实现，可以[参考这里](https://github.com/egret-labs/egret-examples/blob/master/GUIExample/src/skins/simple/DataGroupItemRenderSkin.exml)。在后面的皮肤章节，我们将着重介绍exml的使用方法。
+
 同样需要把这个ItemRenderer的皮肤设置到DataGroup上面：
 
 ```
