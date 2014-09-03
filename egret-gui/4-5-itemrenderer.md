@@ -1,3 +1,4 @@
-Egret框架GUI教程 - 了解Egret的GUI库
+Egret框架GUI教程 - ItemRenderer
 ===============
 
+(ItemRenderer的内容已经分散在其他章节中，不再单独编写)
