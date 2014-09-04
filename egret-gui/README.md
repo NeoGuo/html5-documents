@@ -27,7 +27,6 @@ GUI教程：
 	* [ArrayCollection](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/4-1-arraycollection.md) (done)
 	* [DataGroup](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/4-2-datagroup.md) (done)
 	* [列表组件](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/4-3-list.md) (done)
-	* [下拉列表](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/4-4-dropdownlist.md) (done)
 	* [Tree](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/4-6-tree.md) (done)
 5. [窗体](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/5-window.md)
 	* [TitleWindow](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/5-1-titlewindow.md)

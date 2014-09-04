@@ -51,8 +51,6 @@ module uiskins
 {
     export class LabelRenderer extends egret.gui.ItemRenderer
     {
-        public labelDisplay:egret.gui.Label;
-
         public constructor(){
             super();
             this.touchChildren = true;
@@ -67,7 +65,7 @@ module uiskins
 注意两点：
 
 * 您自定义的ItemRenderer，应该继承egret.gui.ItemRenderer，然后在内部添加您自定义的功能
-* 将数据对应到显示的语句，应该放在dataChanged方法中，当数据改变并且皮肤已经创建完毕的情况下这个方法会被执行
+* 将数据对应到显示的语句，应该放在dataChanged方法中，当数据改变并且皮肤已经创建完毕的情况下这个方法会被执行。这样的好处是，保证您调用的皮肤部件一定是实例化完成的。如果同样的逻辑，您放在data的setter中实现，就可能会遇到部件是null的情况，因为皮肤部件可能还未实例化完毕。
 
 然后我们将自定义的ItemRenderer设置到DataGroup上：
 
@@ -104,10 +102,7 @@ module uiskins
             //在皮肤中，要使用哪些状态，您必须自己创建这些状态，并添加到states数组中，并且状态需要和组件相对应：
             //如果组件定义了某种状态，皮肤中未包含这个状态，则该组件进入该状态时，皮肤不会做相应的变化
             //如果皮肤声明了一个状态，组件未包含该状态，那实际上也毫无意义
-            this.states = [];
-            this.states.push(new egret.gui.State("up",[]));
-            this.states.push(new egret.gui.State("down",[]));
-            this.states.push(new egret.gui.State("disabled",[]));
+            this.states = ["up","down","disabled"];
             //创建背景
             this.bg = new egret.gui.UIAsset();
             this.bg.percentWidth = 100;
@@ -145,7 +140,28 @@ module uiskins
 ```
 > 如果您不需要状态，也可以删除状态相关的部分(关于状态的更多信息将在后面的章节中涉及)
 
-> 制作皮肤，除了使用代码方式创建，还可以使用exml，在多数情况下，使用exml将是更简洁和清晰的创建模式。上面的代码，如何换成exml来实现，可以[参考这里](https://github.com/egret-labs/egret-examples/blob/master/GUIExample/src/skins/simple/DataGroupItemRenderSkin.exml)。在后面的皮肤章节，我们将着重介绍exml的使用方法。
+制作皮肤，除了使用代码方式创建，还可以使用exml，在多数情况下，使用exml将是更简洁和清晰的创建模式。上面的代码，如何换成exml来实现，是这样的：
+
+```
+//LabelRendererSkin.exml
+<e:Skin xmlns:e="http://ns.egret-labs.org/egret" xmlns:w="http://ns.egret-labs.org/wing"
+    height="60" minWidth="140">
+    <w:HostComponent name="egret.Button" />
+    <e:states>
+        <e:State name="up" />
+        <e:State name="down" />
+        <e:State name="disabled" />
+    </e:states>
+    <e:UIAsset width="100%" height="100%" source.up="button_normal_png"
+        source.down="button_down_png" source.disabled="button_disabled_png" />
+    <e:Label id="labelDisplay" size="20" verticalAlign="middle"
+        textAlign="center" textColor.up="0x111111"
+        textColor.down="0x222222" textColor.disabled="0xcccccc" width="100%"
+        height="100%" />
+</e:Skin>
+```
+
+在后面的皮肤章节，我们将着重介绍exml的使用方法。
 
 同样需要把这个ItemRenderer的皮肤设置到DataGroup上面：
 
@@ -162,7 +178,7 @@ dataGroup.itemRendererSkinName = uiskins.LabelRendererSkin;
 ```
 var vLayout:egret.gui.VerticalLayout = new egret.gui.VerticalLayout();
 vLayout.horizontalAlign = egret.HorizontalAlign.CONTENT_JUSTIFY;
-vLayout.paddingTop = 20;
+vLayout.gap = 5;
 dataGroup.layout = vLayout;
 ```
 
@@ -180,4 +196,6 @@ dataGroup.layout = gridLayout;
 
 ![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret-gui/images/datagroup3.png "Egret")
 
-可以看出，通过ItemRenderer和布局类，DataGroup可以实现各种效果，功能灵活强大。实际上，GUI中的List, DropDownList等组件，内部也是使用了DataGroup来实现的。一般情况下，如果List, DropDownList等组件已经满足需求，我们直接使用即可，不一定非要直接使用DataGroup。但做自定义列表的时候，DataGroup就显得非常有用了。
+可以看出，通过ItemRenderer和布局类，DataGroup可以实现各种效果，功能灵活强大。实际上，GUI中的List, DropDownList等组件，内部也是使用了DataGroup来实现的。那么何时使用List，何时使用DataGroup？实际上，DataGroup和List的区别，就好比Goup和SkinnableContainer的区别，DataGroup是不能定制皮肤的，而List可以定制皮肤。如果不需要定制皮肤的时候，您可以选择使用DataGroup。另外，List提供了DataGroup不具备的一些功能，比如选中项，change事件等等。
+
+一般情况下，如果List, DropDownList等组件已经满足需求，我们直接使用即可，不一定非要直接使用DataGroup。但做自定义列表的时候，DataGroup就显得非常有用了。

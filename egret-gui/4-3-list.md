@@ -57,18 +57,17 @@ dataList.selectedItem = myCollection.getItemAt(2);//索引从0开始计算，所
 
 ![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret-gui/images/list3.png "Egret")
 
-> 列表默认是单选模式，您可以设置```allowMultipleSelection=true```进入多选模式，多选模式下对应的属性是selectedIndices和selectedItems
-
 事件
 --------------------------
 
 在列表中，您可以侦听change事件，了解选项的变化：
 
 ```
-dataList.addEventListener(egret.Event.CHANGE,this.listChangeHandler,this);
+dataList.addEventListener(egret.gui.IndexChangeEvent.CHANGE,this.listChangeHandler,this);
 /**事件侦听*/
 private listChangeHandler(evt:egret.Event):void {
     var dataList:egret.gui.List = evt.currentTarget;
+    console.log(evt.oldIndex+","+evt.newIndex);
     console.log(dataList.selectedItem.name);
 }
 ```
@@ -83,6 +82,18 @@ dataList.addEventListener(egret.gui.ListEvent.ITEM_CLICK,this.listClickhandler,t
 private listClickhandler(evt:egret.gui.ListEvent):void {
     var dataList:egret.gui.List = evt.currentTarget;
     console.log(evt.item.name+" clicked");
+}
+```
+
+另外您还可以侦听IndexChangeEvent.CHANGING事件，这个事件派发在选项即将改变之前，如果您想阻止选项的发生，可以这样做：
+
+```
+dataList.addEventListener(egret.gui.IndexChangeEvent.CHANGING,this.listChangingHandler,this);
+/**事件侦听*/
+private listChangingHandler(evt:egret.gui.IndexChangeEvent):void {
+    if(evt.newIndex==2) {
+        evt.preventDefault();
+    }
 }
 ```
 
@@ -323,11 +334,14 @@ module uiskins
 
 ```
 dataList.itemRendererFunction = this.myItemRendererFunction;
+
+private fact1:egret.gui.ClassFactory = new egret.gui.ClassFactory(ItemRendererClass1);
+private fact2:egret.gui.ClassFactory = new egret.gui.ClassFactory(ItemRendererClass2);
 private myItemRendererFunction(item:any):IFactory {
 	if(item.type==1) {
-		return new egret.gui.ClassFactory(ItemRendererClass1);
+		return this.fact1;
 	} else {
-		return new egret.gui.ClassFactory(ItemRendererClass2);
+		return this.fact2;
 	}
 }
 ```
