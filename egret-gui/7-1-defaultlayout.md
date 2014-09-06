@@ -141,7 +141,7 @@ tileLayout.horizontalGap = 10;
 tileLayout.verticalGap = 10;
 tileLayout.columnAlign = egret.gui.ColumnAlign.JUSTIFY_USING_WIDTH;
 tileLayout.rowAlign = egret.gui.RowAlign.JUSTIFY_USING_HEIGHT;
-tileLayout.padding = 0;
+tileLayout.padding = 10;
 //tileLayout.requestedColumnCount = 2;//设置两列显示
 this.myGroup.layout = tileLayout;
 ```
