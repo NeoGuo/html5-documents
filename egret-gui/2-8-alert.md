@@ -35,3 +35,5 @@ private confirmHandler(evt:egret.gui.CloseEvent):void {
 ![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret-gui/images/alert3.png "Egret")
 
 ![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret-gui/images/alert4.png "Egret")
+
+> 如果需要为Alert指定皮肤，需要通过Alert.show()方法返回一个实例，然后设置实例的skinName

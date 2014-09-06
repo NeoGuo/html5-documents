@@ -1,3 +1,4 @@
-Egret框架GUI教程 - 了解Egret的GUI库
+Egret框架GUI教程 - 窗体
 ===============
 
+本章节讲解窗体的用法和PopUp机制。
