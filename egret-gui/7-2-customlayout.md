@@ -1,3 +1,3 @@
-Egret框架GUI教程 - 了解Egret的GUI库
+Egret框架GUI教程 - 自定义布局类
 ===============
 
