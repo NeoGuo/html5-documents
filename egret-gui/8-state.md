@@ -9,7 +9,7 @@ Egret框架GUI教程 - 状态
 
 ![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret-gui/images/state2.png "Egret")
 
-如上图所示，在exml文件中，状态是用<e:State>节点表示的。name属性代表状态名称。states则是Skin的属性，这是一个数组，皮肤中创建的状态实例需要放在这个数组中。
+如上图所示，在exml文件中，状态是用```<e:State>```节点表示的。name属性代表状态名称。states则是Skin的属性，这是一个数组，皮肤中创建的状态实例需要放在这个数组中。
 
 如果只是在皮肤中定义几个状态，而不使用的话，那么状态也就没有什么意义。我们可以根据状态，改变皮肤的显示，比如当按钮进入禁用状态的时候，把文字变灰。要实现这一点，在exml中是非常方便的，请看这样的设置：
 
