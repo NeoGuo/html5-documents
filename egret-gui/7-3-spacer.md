@@ -29,6 +29,6 @@ module uidemo
     }
 }
 ```
-> Spacer放中间，自动即开空间
+> Spacer放中间，自动挤开空间
 
 ![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret-gui/images/spacer1.png "Egret")
