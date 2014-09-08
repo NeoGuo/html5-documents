@@ -43,4 +43,4 @@ GUI教程：
 	* [主题和皮肤适配](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/9-1-skinadapter.md) (done)
 	* [自定义皮肤](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/9-2-customskin.md) (done)
 
-> 这里可以查看教程的配套源码：[HelloGUI](https://github.com/NeoGuo/html5-documents/tree/master/egret-gui/demo/HelloGUI/src)
+> 这里可以查看教程的配套源码：[HelloGUI](https://github.com/NeoGuo/html5-documents/tree/master/egret-gui/demo)
