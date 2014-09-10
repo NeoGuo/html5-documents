@@ -34,7 +34,7 @@ module uidemo
             //皮肤
             //ddl.skinName = uiskins.DropDownListSkin;
             ddl.itemRenderer = new egret.gui.ClassFactory(uiskins.ToggleRenderer);
-            ddl.itemRendererSkinName = uiskins.ToggleRendererSkin;
+            ddl.itemRendererSkinName = "uiskins.ToggleRendererSkin";
             //add
             this.addElement(ddl);
         }

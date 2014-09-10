@@ -13,7 +13,7 @@ module uidemo
             super.createChildren();
             //创建Group
             this.myPanel = new egret.gui.Panel();
-            this.myPanel.skinName = uiskins.PanelSkin;
+            this.myPanel.skinName = "uiskins.PanelSkin";
             this.myPanel.title = "My Panel";
             this.myPanel.x = 40;
             this.myPanel.y = 40;

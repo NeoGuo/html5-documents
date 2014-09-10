@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin xmlns:e="http://ns.egret-labs.org/egret" xmlns:w="http://ns.egret-labs.org/wing"
+        minHeight="230" minWidth="470" maxWidth="710">
+    <e:UIAsset width="100%" height="100%" source="panel_back_png" />
+    <e:Label id="titleDisplay" fontFamily="Tahoma" size="26"
+             textColor="0x727070" maxDisplayedLines="1" left="20" right="20" top="16"
+             minHeight="28" textAlign="center" />
+    <e:Group width="100%" bottom="0"  top="64" id="contentGroup" />
+</e:Skin>

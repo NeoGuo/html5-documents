@@ -24,7 +24,7 @@ module uidemo
             var dataGroup:egret.gui.DataGroup = new egret.gui.DataGroup();
             dataGroup.dataProvider = myCollection;
             dataGroup.itemRenderer = new egret.gui.ClassFactory(uiskins.LabelRenderer);
-            dataGroup.itemRendererSkinName = uiskins.LabelRendererSkin;
+            dataGroup.itemRendererSkinName = "uiskins.LabelRendererSkin";
             dataGroup.percentWidth = 100;
             dataGroup.percentHeight = 100;
             //DataGroup应该设置layout

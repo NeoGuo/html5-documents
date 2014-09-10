@@ -3,7 +3,7 @@
  */
 module uiskins
 {
-    export class PanelSkin extends egret.gui.Skin
+    export class PanelSkinT extends egret.gui.Skin
     {
         /**背景图片*/
         private bg:egret.gui.UIAsset;

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin xmlns:e="http://ns.egret-labs.org/egret" xmlns:w="http://ns.egret-labs.org/wing">
+    <e:states>
+        <e:State name="normal" />
+        <e:State name="highlight" />
+    </e:states>
+    <e:UIAsset id="bg" width="100%" height="100%"
+               source="app_egret_labs_jpg"
+               source.highlight="panel_back_png" />
+    <e:Group id="contentGroup" width="100%" height="100%" />
+</e:Skin>

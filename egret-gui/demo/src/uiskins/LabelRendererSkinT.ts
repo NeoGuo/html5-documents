@@ -3,7 +3,7 @@
  */
 module uiskins
 {
-    export class LabelRendererSkin extends egret.gui.Skin
+    export class LabelRendererSkinT extends egret.gui.Skin
     {
         /**和组件中的定义相对应，确定皮肤应该具备哪些部件*/
         public skinParts:Array<string> = ["labelDisplay"];

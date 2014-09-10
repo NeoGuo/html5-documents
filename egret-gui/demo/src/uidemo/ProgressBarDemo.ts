@@ -26,7 +26,7 @@ module uidemo
             this.vBar = new egret.gui.ProgressBar();
             this.vBar.hostComponentKey = "VProgressBar";
             this.vBar.direction = "bottomToTop";
-            this.vBar.y = 60;
+            this.vBar.y = 100;
             this.vBar.height = 200;
             this.vBar.value = 0;//取值范围是0-100
             this.addElement(this.vBar);

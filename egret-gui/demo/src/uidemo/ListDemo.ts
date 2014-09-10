@@ -41,7 +41,7 @@ module uidemo
             //皮肤
             dataList.skinName = uiskins.BgListSkin;
             dataList.itemRenderer = new egret.gui.ClassFactory(uiskins.ToggleRenderer);
-            dataList.itemRendererSkinName = uiskins.ToggleRendererSkin;
+            dataList.itemRendererSkinName = "uiskins.ToggleRendererSkin";
             //可以设置不同的layout
             //var gridLayout:egret.gui.TileLayout = new egret.gui.TileLayout();
             //gridLayout.columnWidth = 240;

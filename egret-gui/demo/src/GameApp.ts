@@ -102,7 +102,7 @@ class GameApp extends egret.DisplayObjectContainer{
         //state
         //this.uiStage.addElement(new uidemo.StateDemo());
         //skin
-        this.uiStage.addElement(new uidemo.StateButtonDemo());
+        //this.uiStage.addElement(new uidemo.StateButtonDemo());
 
         //test
         //var texture:egret.Texture = new egret.Texture();

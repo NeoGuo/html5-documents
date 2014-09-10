@@ -3,7 +3,7 @@
  */
 module uiskins
 {
-    export class ToggleRendererSkin extends egret.gui.Skin
+    export class ToggleRendererSkinT extends egret.gui.Skin
     {
         /**和组件中的定义相对应，确定皮肤应该具备哪些部件*/
         public skinParts:Array<string> = ["labelDisplay","toggleButton"];

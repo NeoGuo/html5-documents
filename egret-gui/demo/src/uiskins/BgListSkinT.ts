@@ -3,7 +3,7 @@
  */
 module uiskins
 {
-    export class BgListSkin extends egret.gui.Skin
+    export class BgListSkinT extends egret.gui.Skin
     {
         private bg:egret.gui.UIAsset;
         /**和组件中的定义相对应，确定皮肤应该具备哪些部件*/
