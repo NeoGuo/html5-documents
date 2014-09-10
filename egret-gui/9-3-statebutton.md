@@ -254,3 +254,29 @@ private changeSkinHandler(evt:egret.Event):void {
 效果：
 
 ![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret-gui/images/statebtn2.png "Egret") -> ![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret-gui/images/statebtn3.png "Egret")
+
+假如您要在其他组件的EXML皮肤中，使用自定义的StateButton，那也是很简单的，只要注意下命名空间的处理就可以了：
+
+```
+<e:Skin xmlns:e="http://ns.egret-labs.org/egret"
+        xmlns:w="http://ns.egret-labs.org/wing"
+        xmlns:comps="uicomp.*">
+    <w:HostComponent name="egret.gui.Panel" />
+    <e:states>
+        <e:State name="normal" />
+        <e:State name="disabled" />
+    </e:states>
+    <comps:StateButton upSkinName="button_up" downSkinName="button_down" disabledSkinName="button_disabled"/>
+</e:Skin>
+```
+
+在EXML中，您的自定义组件需要使用自定义的命名空间，规则是URI要使用"模块名称+点+星号"，比如我们上面编写的StateButton的类定义是uicomp.StateButton，则命名空间定义为：
+
+```
+xmlns:comps="uicomp.*"
+```
+> 注意comps是命名空间前缀，您可以自己决定用什么字符串，比如叫MySpace什么的都行，但要和下文的使用相对应
+
+```
+<comps:StateButton ...
+```
