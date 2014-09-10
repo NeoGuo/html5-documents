@@ -25,7 +25,7 @@ EXML皮肤
     <e:List />
 </e:Skin>
 ```
-> 这里面用到了命名空间，Egret GUI为自己单独定义了命名空间，它的前缀是e，URI是"http://ns.egret-labs.org/egret"。在使用Egret GUI内置组件对应的标签时，都需要加上e这个前缀。
+> 这里面用到了命名空间，Egret GUI为自己单独定义了命名空间，它的前缀是e，URI是```http://ns.egret-labs.org/egret```。在使用Egret GUI内置组件对应的标签时，都需要加上e这个前缀。
 
 使用EXML添加一个标签，并且设置标签的属性，在编译的时候，就会把这些属性设置到生成的组件上，比如：
 
@@ -40,9 +40,10 @@ EXML皮肤
 var loc1:egret.gui.UIAsset = new egret.gui.UIAsset();
 loc1.percentWidth = 100;
 loc1.percentHeight = 100;
-loc1.source = RES.getRes("button_normal_png");
+loc1.source = "button_normal_png";
 this.addElement(loc1);
 ```
+> 在EXML中，width和height可以用定值，也可以用百分比，这个会在编译的时候做区分。如果您设置的是```width="100"```，那么对应的设置的属性就是部件的width，如果设置的是```width="100%"```，那么对应的设置的属性就是percentWidth。
 
 那么都有哪些标签可以使用呢？您可以通过下面的方式，逐步了解常见标签的用法：
 
@@ -59,14 +60,14 @@ this.addElement(loc1);
 TypeScript皮肤
 ---------------------
 
-虽然EXML非常好用，但是不排除在一些特殊情况下，您还是会选择使用TypeScript来编写皮肤。比如皮肤中还需要处理一些逻辑关系，是标签这样的语言无法解决的，只能求助于TypeScript了。
+虽然EXML非常好用，但是不排除在一些特殊情况下，您还是会选择使用TypeScript来编写皮肤。比如皮肤中还需要处理一些跟显示相关的逻辑(举例：需要graphics绘制一些复杂图形)，是标签这样的语言无法解决的，只能求助于TypeScript了。
 
 使用TypeScript编写皮肤，需要注意以下几个方面：
 
 * 您的皮肤需要继承egret.gui.Skin
-* 必须有名称为skinParts的数组定义，public的，包含皮肤应具备的部件
-* 至于皮肤需要实现哪些部件，则跟皮肤对应的组件有关，比如按钮必须有labelDisplay，容器必须有contentGroup等等
-* 部件的创建代码，应该放在覆盖的createChildren方法中执行
+* 必须有名称为skinParts的数组定义，public的，包含皮肤应具备的皮肤部件
+* 至于皮肤需要实现哪些皮肤部件，则跟皮肤对应的组件有关，比如按钮必须有labelDisplay，容器必须有contentGroup等等
+* 皮肤部件的创建代码，建议放在覆盖的createChildren方法中执行
 * 如果皮肤有状态，并且需要根据状态做调整，可以覆盖commitCurrentState方法
 * 如果在显示上还有特殊逻辑，可以覆盖updateDisplayList方法
 
@@ -78,7 +79,7 @@ module uiskins
     export class BackgroundSkin extends egret.gui.Skin
     {
         private bg:egret.gui.UIAsset;
-        /**和组件中的定义相对应，确定皮肤应该具备哪些部件*/
+        /**和组件中的定义相对应，确定皮肤应该具备哪些皮肤部件*/
         public skinParts:Array<string> = ["contentGroup"];
         /**对于SkinnableContainer来说，contentGroup是必须有的*/
         public contentGroup:egret.gui.Group;
@@ -88,8 +89,7 @@ module uiskins
         }
         public createChildren(): void {
             super.createChildren();
-            var bmp:egret.Bitmap = new egret.Bitmap(RES.getRes("app_egret_labs_jpg"));
-            this.bg = new egret.gui.UIAsset(bmp);
+            this.bg = new egret.gui.UIAsset("app_egret_labs_jpg");
             this.bg.percentWidth = 100;//这个相当于HTML中的百分比，设置100就是100%的意思
             this.bg.percentHeight = 100;//宽和高都是100%，也就是充满整个空间咯(根据皮肤的尺寸)
             this.addElement(this.bg);

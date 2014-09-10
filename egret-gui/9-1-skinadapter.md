@@ -51,30 +51,11 @@ egret.gui.Theme.load("resource/theme/theme_simple.thm");//主题配置文件
 RES.loadConfig("resource/config/resource_simple.json");//主题对应的素材配置文件
 ```
 
-在Theme类中，是通过getDefaultSkin方法实现皮肤映射的：
+在Theme类中，是通过getDefaultSkin方法实现皮肤映射的，但对开发者而言基本不用接触这个方法。如果您有特殊的需求需要自己实现皮肤解析规则，可以通过注入一个SkinAdapter来实现。Theme的这个方法只是在SkinAdapter没有返回结果的时候才会被调用。
 
 ```
-public getDefaultSkin(client:SkinnableComponent):any{
-    var skinMap:any = this.skinMap;
-    if(!skinMap){
-        if(this.delyList.indexOf(client)==-1){
-            this.delyList.push(client);
-        }
-        return null;
-    }
-    var skinName:string = skinMap[client.hostComponentKey];
-    if(!skinName){
-        return null;
-    }
-    var skinClass:any = egret.getDefinitionByName(skinName);
-    if(!skinClass){
-        egret.Logger.warning("找不到主题中所配置的皮肤类名: "+skinName);
-        return null;
-    }
-    return new skinClass();
-}
+egret.Injector.mapClass("egret.gui.ISkinAdapter",MySkinAdapter);
 ```
-> 如果有特殊需求，您也可以扩展Theme类并覆盖getDefaultSkin方法
 
 当加载完成，您可以创建组件，并应用配置的皮肤了。
 

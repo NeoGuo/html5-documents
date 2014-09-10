@@ -22,10 +22,10 @@ module uiskins
         public createChildren(): void {
             super.createChildren();
             //设置状态
-            this.states = [];
-            this.states.push(new egret.gui.State("up",[]));
-            this.states.push(new egret.gui.State("down",[]));
-            this.states.push(new egret.gui.State("disabled",[]));
+            this.states = ["up","down","disabled"];
+            //this.states.push(new egret.gui.State("up",[]));
+            //this.states.push(new egret.gui.State("down",[]));
+            //this.states.push(new egret.gui.State("disabled",[]));
             //创建背景
             this.bg = new egret.gui.UIAsset();
             this.bg.percentWidth = 100;
@@ -52,15 +52,15 @@ module uiskins
             super.commitCurrentState();
             switch(this.currentState) {
                 case "up":
-                    this.bg.source = RES.getRes("button_normal_png");
+                    this.bg.source = "button_normal_png";
                     this.labelDisplay.textColor = 0x111111;
                     break;
                 case "down":
-                    this.bg.source = RES.getRes("button_down_png");
+                    this.bg.source = "button_down_png";
                     this.labelDisplay.textColor = 0xffffff;
                     break;
                 case "disabled":
-                    this.bg.source = RES.getRes("button_disabled_png");
+                    this.bg.source = "button_disabled_png";
                     this.labelDisplay.textColor = 0xcccccc;
                     break;
             }

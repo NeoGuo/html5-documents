@@ -83,6 +83,7 @@ private onResourceProgress(event:RES.ResourceEvent):void {
     this.loadingView.setProgress(event.itemsLoaded,event.itemsTotal);
 }
 ```
+> 由于我们已经注入了AssetAdapter，在GUI中取资源就不需要使用RES了，比如用```UIAsset("key")```来代替```UIAsset(RES.getRes("key"))```，这一点需要我们在学习GUI教程的时候稍加注意。
 
 通过上面的操作，您就可以在项目中使用GUI的组件了。欢迎您开始Egret GUI之旅！
 

@@ -31,8 +31,7 @@ module uidemo
             //创建容器
             var group:egret.gui.Group = new egret.gui.Group();
             //创建一个大图添加到容器上
-            var bmp:egret.Bitmap = new egret.Bitmap(RES.getRes("egret_labs"));
-            var bmpAsset:egret.gui.UIAsset = new egret.gui.UIAsset(bmp);
+            var bmpAsset:egret.gui.UIAsset = new egret.gui.UIAsset("egret_labs");
             group.addElement(bmpAsset);
             //设置viewport
             myController.viewport = group;

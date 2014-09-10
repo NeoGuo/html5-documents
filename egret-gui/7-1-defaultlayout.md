@@ -39,7 +39,7 @@ btn.horizontalCenter = 0;
 btn.verticalCenter = 0;
 ```
 
-![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret-gui/images/layout1.png "Egret")
+![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret-gui/images/layout2.png "Egret")
 
 假如需求更复杂一些，我们需要按钮不仅仅是居中，还始终和容器边界保持20像素的差值，那您可以设置的属性是：
 
@@ -65,7 +65,7 @@ btn.right = 20;
 btn.percentWidth = 100;
 btn.percentHeight = 100;
 ```
-> 这个设置效果上等同于将top,bottom,left,right都设置为0
+> 这个设置效果上等同于将top,bottom,left,right都设置为0。您可以根据自己的需要，决定使用percentWidth,percentHeight还是top,bottom,left,right。percentWidth,percentHeight只能约束宽高，而top,bottom,left,right则同时约束了尺寸和位置(x,y)。
 
 这些属性您可以综合利用(相矛盾的设置除外)，比如尺寸是容器的一半，并且居中，应该这样设置：
 

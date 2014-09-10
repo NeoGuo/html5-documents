@@ -185,8 +185,7 @@ module uiskins
         }
         public createChildren(): void {
             super.createChildren();
-            var bmp:egret.Bitmap = new egret.Bitmap(RES.getRes("app_egret_labs_jpg"));
-            this.bg = new egret.gui.UIAsset(bmp);
+            this.bg = new egret.gui.UIAsset("app_egret_labs_jpg");
             this.bg.percentWidth = 100;
             this.bg.percentHeight = 100;
             this.addElement(this.bg);
@@ -309,15 +308,15 @@ module uiskins
             super.commitCurrentState();
             switch(this.currentState) {
                 case "up":
-                    this.bg.source = RES.getRes("button_normal_png");
+                    this.bg.source = "button_normal_png";
                     this.labelDisplay.textColor = 0x111111;
                     break;
                 case "down":
-                    this.bg.source = RES.getRes("button_down_png");
+                    this.bg.source = "button_down_png";
                     this.labelDisplay.textColor = 0xffffff;
                     break;
                 case "disabled":
-                    this.bg.source = RES.getRes("button_disabled_png");
+                    this.bg.source = "button_disabled_png";
                     this.labelDisplay.textColor = 0xcccccc;
                     break;
             }

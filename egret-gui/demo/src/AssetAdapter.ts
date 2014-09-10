@@ -43,7 +43,13 @@ class AssetAdapter implements egret.gui.IAssetAdapter{
         function onGetRes(data:any):void{
             compFunc.call(thisObject,data,source);
         }
-
+        function getHostComponent(obj:any):any{
+            if(obj instanceof egret.gui.Skin) {
+                return obj["hostComponent"];
+            } else {
+                return obj.parent;
+            }
+        }
         var content:any = source;
         if(source.prototype){
             content = new source();
@@ -52,14 +58,18 @@ class AssetAdapter implements egret.gui.IAssetAdapter{
             compFunc.call(thisObject,content,source);
         }
         else if(typeof(source)=="string"){
-            if(RES.hasRes(source)){
-                RES.getResAsync(source,onGetRes,this);
+            var sourceStr:string = source;
+            if(sourceStr.charAt(0)=="$") {
+                var keyName:string = sourceStr.replace("$","");
+                var hostComp:any = getHostComponent(thisObject);
+                var keyValue:any = hostComp[keyName];
+                sourceStr = keyValue+"";
             }
-            else{
-               RES.getResByUrl(source,onGetRes,this);
+            if(RES.hasRes(sourceStr)){
+                RES.getResAsync(sourceStr,onGetRes,this);
+            }else{
+                RES.getResByUrl(sourceStr,onGetRes,this);
             }
-
-
         }
         else{
             compFunc.call(thisObject,content,source);

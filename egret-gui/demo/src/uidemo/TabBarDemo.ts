@@ -40,7 +40,6 @@ module uidemo
             this.viewStack.selectedIndex = 0;
             //tabBar
             this.tabBar = new egret.gui.TabBar();
-            this.tabBar.labelField = "name";
             this.tabBar.dataProvider = this.viewStack;
             //show
             this.addElement(this.viewStack);

@@ -102,7 +102,13 @@ class GameApp extends egret.DisplayObjectContainer{
         //state
         //this.uiStage.addElement(new uidemo.StateDemo());
         //skin
+        this.uiStage.addElement(new uidemo.StateButtonDemo());
 
+        //test
+        //var texture:egret.Texture = new egret.Texture();
+        //texture._setBitmapData(document.getElementById("testImg"));
+        //var bmp:egret.Bitmap = new egret.Bitmap(texture);
+        //this.addChild(bmp);
         //FPS
         //egret.Profiler.getInstance().run();
     }

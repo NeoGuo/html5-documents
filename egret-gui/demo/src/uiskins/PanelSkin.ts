@@ -20,8 +20,7 @@ module uiskins
         public createChildren(): void {
             super.createChildren();
             //这里借用一下Alert的背景先
-            var bmp:egret.Bitmap = new egret.Bitmap(RES.getRes("panel_back_png"));
-            this.bg = new egret.gui.UIAsset(bmp);
+            this.bg = new egret.gui.UIAsset("panel_back_png");
             this.bg.percentWidth = 100;//这个相当于HTML中的百分比，设置100就是100%的意思
             this.bg.percentHeight = 100;//宽和高都是100%，也就是充满整个空间咯(根据皮肤的尺寸)
             this.addElement(this.bg);

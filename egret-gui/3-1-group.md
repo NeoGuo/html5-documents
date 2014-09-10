@@ -21,8 +21,7 @@ Egret框架GUI教程 - Group
 或许您会有疑问，如果是自己写了一个Bitmap之类的，就不能添加到Group里面吗？答案是可以的，但您需要先用UIAsset做一层封装，比如：
 
 ```
-var fileIcon:egret.Bitmap = new egret.Bitmap(RES.getRes("file_icon"));
-var shapeUI:egret.gui.UIAsset = new egret.gui.UIAsset(fileIcon);
+var shapeUI:egret.gui.UIAsset = new egret.gui.UIAsset("file_icon");
 myGroup.addElement(shapeUI);
 ```
 
