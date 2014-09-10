@@ -5,7 +5,7 @@ Egret框架GUI教程 - 可定义皮肤的容器
 
 ```
 this.myContainer = new egret.gui.SkinnableContainer();
-this.myContainer.skinName = uiskins.BackgroundSkin;//设置皮肤
+this.myContainer.skinName = "uiskins.BackgroundSkin";//设置皮肤
 this.myContainer.width = 300;
 this.myContainer.height = 300;
 this.addElement(this.myContainer);
