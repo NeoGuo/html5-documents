@@ -4,6 +4,8 @@ Egret框架GUI教程 - 了解Egret的GUI库
 简介
 -------------------------
 
+适用版本：Egret 1.0.5
+
 本教程系列是Egret GUI的入门教程，假定您已经掌握了Egret的一些基本使用经验，比如显示对象，事件等等，如果您还不具备这些基础知识，建议先从[文档中心的基础教程](http://docs.egret-labs.org/home.html)学起。
 
 很有意思的一点是，Egret无论是核心库，还是GUI库，都和Flash体系有着很相似的地方。如果您曾经做过Flash相关的开发，那么会对Egret提供的API感到非常的亲切。同样，如果您用过Flex框架，也会对Egret GUI体系不会感到陌生(其实Egret GUI的开发者，原先也是Flex开发者，对原Flex UI体系的优缺点非常熟悉，在精简和优化上也很有心得)。如果您没用过Flex框架，也没有关系，本教程系列将尽可能细致的讲解各个UI组件的用法，以及布局，数据整合等各个方面。
@@ -42,7 +44,7 @@ private onAddToStage(evt:egret.Event){
     this.setSkinType("simple");
 }
 /*
- * 设置皮肤类型
+ * 设置主题类型
  * */
 private setSkinType(type:string):void
 {

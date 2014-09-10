@@ -80,93 +80,32 @@ ItemRenderer的皮肤
 和上面的LabelRenderer对应，我们来创建一个显示文本的皮肤：
 
 ```
-module uiskins
-{
-    export class LabelRendererSkin extends egret.gui.Skin
-    {
-        /**和组件中的定义相对应，确定皮肤应该具备哪些部件*/
-        public skinParts:Array<string> = ["labelDisplay"];
-        /**文本标签*/
-        public labelDisplay:egret.gui.Label;
-        /**背景*/
-        private bg:egret.gui.UIAsset;
-
-        public constructor() {
-            super();
-            this.height = 40;
-        }
-        public createChildren(): void {
-            super.createChildren();
-            //设置状态，状态在皮肤中非常有用，不同类型的组件，可以拥有不同的状态
-            //对于ItemRenderer，本质上就是一个按钮，所以它可以具备按钮的3种状态：up,down,disabled
-            //在皮肤中，要使用哪些状态，您必须自己创建这些状态，并添加到states数组中，并且状态需要和组件相对应：
-            //如果组件定义了某种状态，皮肤中未包含这个状态，则该组件进入该状态时，皮肤不会做相应的变化
-            //如果皮肤声明了一个状态，组件未包含该状态，那实际上也毫无意义
-            this.states = ["up","down","disabled"];
-            //创建背景
-            this.bg = new egret.gui.UIAsset();
-            this.bg.percentWidth = 100;
-            this.bg.percentHeight = 100;
-            this.addElement(this.bg);
-            //创建文本
-            this.labelDisplay = new egret.gui.Label();
-            this.labelDisplay.size = 20;
-            this.labelDisplay.verticalAlign = "middle";
-            this.labelDisplay.textAlign = "center";
-            this.labelDisplay.percentWidth=100;
-            this.labelDisplay.percentHeight=100;
-            this.addElement(this.labelDisplay);
-        }
-        /**当状态改变时，背景和文本颜色也做相应的变化*/
-        public commitCurrentState(): void {
-            super.commitCurrentState();
-            switch(this.currentState) {
-                case "up":
-                    this.bg.source = "button_normal_png";
-                    this.labelDisplay.textColor = 0x111111;
-                    break;
-                case "down":
-                    this.bg.source = "button_down_png";
-                    this.labelDisplay.textColor = 0xffffff;
-                    break;
-                case "disabled":
-                    this.bg.source = "button_disabled_png";
-                    this.labelDisplay.textColor = 0xcccccc;
-                    break;
-            }
-        }
-    }
-}
-```
-> 如果您不需要状态，也可以删除状态相关的部分(关于状态的更多信息将在后面的章节中涉及)
-
-制作皮肤，除了使用代码方式创建，还可以使用exml，在多数情况下，使用exml将是更简洁和清晰的创建模式。上面的代码，如何换成exml来实现，是这样的：
-
-```
-//LabelRendererSkin.exml
 <e:Skin xmlns:e="http://ns.egret-labs.org/egret" xmlns:w="http://ns.egret-labs.org/wing"
-    height="60" minWidth="140">
-    <w:HostComponent name="egret.Button" />
+        height="80">
     <e:states>
         <e:State name="up" />
         <e:State name="down" />
         <e:State name="disabled" />
     </e:states>
-    <e:UIAsset width="100%" height="100%" source.up="button_normal_png"
-        source.down="button_down_png" source.disabled="button_disabled_png" />
-    <e:Label id="labelDisplay" size="20" verticalAlign="middle"
-        textAlign="center" textColor.up="0x111111"
-        textColor.down="0x222222" textColor.disabled="0xcccccc" width="100%"
-        height="100%" />
+    <e:UIAsset width="100%" height="100%"
+               source.up="button_normal_png"
+               source.down="button_down_png"
+               source.disabled="button_disabled_png" />
+    <e:Label id="labelDisplay" size="24" fontFamily="Tahoma"
+             width="100%" height="100%"
+             textColor="0x111111" 
+             textColor.down="0xffffff" 
+             textColor.disabled="0xcccccc"
+             textAlign="center" 
+             verticalAlign="middle" />
 </e:Skin>
 ```
-
-在后面的皮肤章节，我们将着重介绍exml的使用方法。
+> 如果您不需要状态，也可以删除状态相关的部分(关于状态的更多信息将在后面的章节中涉及)
 
 同样需要把这个ItemRenderer的皮肤设置到DataGroup上面：
 
 ```
-dataGroup.itemRendererSkinName = uiskins.LabelRendererSkin;
+dataGroup.itemRendererSkinName = "uiskins.LabelRendererSkin";
 ```
 
 现在编译看看，欧耶，终于有显示效果了：

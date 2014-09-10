@@ -46,7 +46,7 @@ private listChangeHandler(evt:egret.Event):void {
 
 ```
 ddl.itemRenderer = new egret.gui.ClassFactory(uiskins.ToggleRenderer);
-ddl.itemRendererSkinName = uiskins.ToggleRendererSkin;
+ddl.itemRendererSkinName = "uiskins.ToggleRendererSkin";
 ```
 
 效果：

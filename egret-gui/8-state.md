@@ -47,6 +47,8 @@ this.states = [
 this.states = ["up","down","disabled"];
 ```
 
+> 注：这段代码只是说明EXML状态标签到TypeScript的编译过程和原理，实际上并不建议您直接使用SetProperty类。如果在自定义皮肤(使用TypeScript编写的)中，需要针对状态进行处理，建议覆盖皮肤的commitCurrentState方法来实现。
+
 还有几个需要注意的点：
 
 * 如果皮肤缺少了视图状态定义，引擎是不会报错的，这个问题需要您自己检查，确保皮肤视图状态都被定义了。
@@ -86,42 +88,18 @@ export class MyContainerDemo extends egret.gui.SkinnableContainer
 然后在自定义皮肤上，也要声明您的自定义状态：
 
 ```
-module uiskins
-{
-    export class BackgroundSkin extends egret.gui.Skin
-    {
-        private bg:egret.gui.UIAsset;
-        /**和组件中的定义相对应，确定皮肤应该具备哪些部件*/
-        public skinParts:Array<string> = ["contentGroup"];
-        /**对于SkinnableContainer来说，contentGroup是必须有的*/
-        public contentGroup:egret.gui.Group;
-        public constructor() {
-            super();
-        }
-        public createChildren(): void {
-            super.createChildren();
-            //var bmp:egret.Bitmap = new egret.Bitmap(RES.getRes("app_egret_labs_jpg"));
-            this.bg = new egret.gui.UIAsset(RES.getRes("app_egret_labs_jpg"));
-            this.bg.percentWidth = 100;//这个相当于HTML中的百分比，设置100就是100%的意思
-            this.bg.percentHeight = 100;//宽和高都是100%，也就是充满整个空间咯(根据皮肤的尺寸)
-            this.addElement(this.bg);
-            //contentGroup必须有，否则你添加到SkinnableContainer的对象是显示不出来的
-            this.contentGroup = new egret.gui.Group();
-            this.addElement(this.contentGroup);
-            //设置状态
-            this.states = [
-                new egret.gui.State("normal", [
-                    new egret.gui.SetProperty("bg", "source", RES.getRes("app_egret_labs_jpg"))
-                ]),
-                new egret.gui.State("otherBG", [
-                    new egret.gui.SetProperty("bg", "source", RES.getRes("panel_back_png"))
-                ])
-            ];
-        }
-    }
-}
+<e:Skin xmlns:e="http://ns.egret-labs.org/egret" xmlns:w="http://ns.egret-labs.org/wing">
+    <e:states>
+        <e:State name="normal" />
+        <e:State name="highlight" />
+    </e:states>
+    <e:UIAsset id="bg" width="100%" height="100%"
+               source="app_egret_labs_jpg"
+               source.highlight="panel_back_png" />
+    <e:Group id="contentGroup" width="100%" height="100%" />
+</e:Skin>
 ```
-> 在上例中，我们定义了两个自定义状态，normal和otherBG
+> 在上例中，我们定义了两个状态，normal和highlight
 
 然后我们重写原先可定义皮肤容器的一个例子，测试状态的切换：
 
@@ -136,7 +114,7 @@ export class SkinnableContainerDemo extends egret.gui.Group
         super.createChildren();
         //创建Group
         this.myContainer = new MyContainerDemo();
-        this.myContainer.skinName = uiskins.BackgroundSkin;
+        this.myContainer.skinName = "uiskins.BackgroundSkin";
         this.myContainer.width = 300;
         this.myContainer.height = 300;
         this.addElement(this.myContainer);

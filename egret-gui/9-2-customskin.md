@@ -1,61 +1,7 @@
 Egret框架GUI教程 - 自定义皮肤
 ===============
 
-自定义皮肤，您可以选择两种方式，一种是通过TypeScript编写，一种是通过EXML编写。使用EXML的方式，结构清晰，易于理解，代码量小，是推荐您优先选择的方式。
-
-EXML皮肤
----------------------
-
-您是否有写过HTML的经历？HTML是典型的文本标记语言，这种语言用在描述用户界面的领域，有得天独厚的优势。从组成结构的角度来说，这种语言的一个重要组成部分就是Tag，可以译为"标签"。想想HTML中都有什么标签？
-
-```
-<body>
-<p>
-<a>
-<img>
-```
-
-很熟悉的标签吧。跟HTML类似，EXML也是一种遵循XML语法的标记语言(严格来说，HTML并不遵循严谨的XML语法，它允许一些不闭合的标签，而EXML则必须严格遵循XML语法)。EXML要描述一个界面，也是由若干个标签组成，只是这些标签是Egret框架特有的：
-
-```
-<e:Skin xmlns:e="http://ns.egret-labs.org/egret">
-    <e:UIAsset />
-    <e:Label />
-    <e:Button />
-    <e:List />
-</e:Skin>
-```
-> 这里面用到了命名空间，Egret GUI为自己单独定义了命名空间，它的前缀是e，URI是```http://ns.egret-labs.org/egret```。在使用Egret GUI内置组件对应的标签时，都需要加上e这个前缀。
-
-使用EXML添加一个标签，并且设置标签的属性，在编译的时候，就会把这些属性设置到生成的组件上，比如：
-
-```
-<e:UIAsset width="100%" height="100%" source="button_normal_png" />
-```
-> 这些属性必须跟组件的可定义属性相一致哦
-
-上面的设置，等同于：
-
-```
-var loc1:egret.gui.UIAsset = new egret.gui.UIAsset();
-loc1.percentWidth = 100;
-loc1.percentHeight = 100;
-loc1.source = "button_normal_png";
-this.addElement(loc1);
-```
-> 在EXML中，width和height可以用定值，也可以用百分比，这个会在编译的时候做区分。如果您设置的是```width="100"```，那么对应的设置的属性就是部件的width，如果设置的是```width="100%"```，那么对应的设置的属性就是percentWidth。
-
-那么都有哪些标签可以使用呢？您可以通过下面的方式，逐步了解常见标签的用法：
-
-* 查看默认皮肤的源码，从这些默认皮肤的EXML代码中，您可以学习到很多用法和技巧。
-* 使用EXML，可以借助.xsd文件来实现WebStorm的语法提示，这样写起来真是事半功倍。配置过程[参见这里](http://bbs.egret-labs.org/thread-155-1-1.html)，配置好以后，您在编写的时候就可以得到IDE的实时提示，有哪些标签和属性可用，自然也就一目了然了。
-
-您或许还是感到一丝神秘，EXML最终是如何被使用的呢？是像JSON配置一样，运行时加载然后解析吗？答案是，EXML并不是在运行时使用的，它和TypeScript一样，只是作为开发语言，最终是需要编译为JS文件使用的。JS文件？是的，您没看错。EXML会被Egret内置的编译工具，转换为JS文件哦，就像把TypeScript文件转换为JS一样。
-
-比如默认的按钮皮肤，```skins.simple.ButtonSkin.exml```，当项目被编译后，您进入bin-debug目录，就能找到src/skins/simple/ButtonSkin.js，这个js就是从ButtonSkin.exml转换过来的哦。神奇的编译器，把EXML的标签转换成了等效的JavaScript代码。
-
-至于转换的细节，您可以对比两个文件，应该就明白了。
-
+自定义皮肤，您可以选择两种方式，一种是通过EXML编写，一种是通过TypeScript编写。使用EXML的方式，结构清晰，易于理解，代码量小，是推荐您优先选择的方式。由于在前面的章节中一直采取EXML的皮肤定义方式，这里我们重点讲解一下，如果需要使用TypeScript定制皮肤，应该怎么做。
 
 TypeScript皮肤
 ---------------------
@@ -76,19 +22,20 @@ TypeScript皮肤
 ```
 module uiskins
 {
-    export class BackgroundSkin extends egret.gui.Skin
+    export class BackgroundSkinT extends egret.gui.Skin
     {
         private bg:egret.gui.UIAsset;
-        /**和组件中的定义相对应，确定皮肤应该具备哪些皮肤部件*/
+        /**和组件中的定义相对应，确定皮肤应该具备哪些部件*/
         public skinParts:Array<string> = ["contentGroup"];
         /**对于SkinnableContainer来说，contentGroup是必须有的*/
         public contentGroup:egret.gui.Group;
-        /**构造函数*/
+        //
         public constructor() {
             super();
         }
         public createChildren(): void {
             super.createChildren();
+            this.states = ["normal","highlight"];
             this.bg = new egret.gui.UIAsset("app_egret_labs_jpg");
             this.bg.percentWidth = 100;//这个相当于HTML中的百分比，设置100就是100%的意思
             this.bg.percentHeight = 100;//宽和高都是100%，也就是充满整个空间咯(根据皮肤的尺寸)
@@ -97,11 +44,23 @@ module uiskins
             this.contentGroup = new egret.gui.Group();
             this.addElement(this.contentGroup);
         }
+        /**当状态改变时，背景和文本颜色也做相应的变化*/
+        public commitCurrentState(): void {
+            super.commitCurrentState();
+            switch(this.currentState) {
+                case "normal":
+                    this.bg.source = "app_egret_labs_jpg";
+                    break;
+                case "highlight":
+                    this.bg.source = "panel_back_png";
+                    break;
+            }
+        }
     }
 }
 ```
 
-其中的细节，在之前的章节中我们已经做了说明，这里就不再细述了。
+上面只是一个例子，不同组件的皮肤所需的皮肤部件各不相同，但基本步骤是差不多的，您可以举一反三，实现自己的TypeScript编写的皮肤。
 
 工具
 ---------------------

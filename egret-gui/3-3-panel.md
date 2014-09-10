@@ -12,45 +12,15 @@ Egret框架GUI教程 - 面板
 下面来看一下，如何为Panel制作一个皮肤。和上节的SkinnableContainer类似，Panel的皮肤也必须包含两个部件：titleDisplay和contentGroup，其中titleDisplay的类型是egret.gui.Label，作用是显示标题，contentGroup的作用则是承载添加到Panel的对象。
 
 ```
-module uiskins
-{
-    export class PanelSkin extends egret.gui.Skin
-    {
-        /**背景图片*/
-        private bg:egret.gui.UIAsset;
-        /**和组件中的定义相对应，确定皮肤应该具备哪些部件*/
-        public skinParts:Array<string> = ["titleDisplay","contentGroup"];
-        /**用于显示标题*/
-        public titleDisplay:egret.gui.Label;
-        /**对于SkinnableContainer来说，contentGroup是必须有的*/
-        public contentGroup:egret.gui.Group;
-
-        public constructor() {
-            super();
-        }
-        public createChildren(): void {
-            super.createChildren();
-            //这里借用一下Alert的背景先
-            this.bg = new egret.gui.UIAsset("alert-background");
-            this.bg.percentWidth = 100;//这个相当于HTML中的百分比，设置100就是100%的意思
-            this.bg.percentHeight = 100;//宽和高都是100%，也就是充满整个空间咯(根据皮肤的尺寸)
-            this.addElement(this.bg);
-            //标题栏
-            this.titleDisplay = new egret.gui.Label();
-            this.titleDisplay.x = 20;
-            this.titleDisplay.y = 16;
-            this.titleDisplay.textColor = 0x000000;
-            this.addElement(this.titleDisplay);
-            //contentGroup必须有，否则你添加到Panel的对象是显示不出来的
-            this.contentGroup = new egret.gui.Group();
-            this.contentGroup.top = 64;
-            this.contentGroup.bottom = 0;
-            this.contentGroup.left = 0;
-            this.contentGroup.right = 0;
-            this.addElement(this.contentGroup);
-        }
-    }
-}
+<e:Skin xmlns:e="http://ns.egret-labs.org/egret" xmlns:w="http://ns.egret-labs.org/wing"
+        minHeight="230" minWidth="470" maxWidth="710">
+    <e:UIAsset width="100%" height="100%" source="panel_back_png" />
+    <e:Label id="titleDisplay" fontFamily="Tahoma" size="26"
+             textColor="0x727070" maxDisplayedLines="1" 
+             left="20" right="20" top="16"
+             minHeight="28" textAlign="center" />
+    <e:Group width="100%" bottom="0"  top="64" id="contentGroup" />
+</e:Skin>
 ```
 
 有了皮肤，我们就可以创建一个Panel并把它显示出来了：
@@ -68,7 +38,7 @@ module uidemo
             super.createChildren();
             //创建Group
             this.myPanel = new egret.gui.Panel();
-            this.myPanel.skinName = uiskins.PanelSkin;
+            this.myPanel.skinName = "uiskins.PanelSkin";
             this.myPanel.title = "My Panel";
             this.myPanel.x = 40;
             this.myPanel.y = 40;

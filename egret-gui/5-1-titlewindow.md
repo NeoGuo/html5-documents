@@ -78,7 +78,7 @@ TitleWindows是可以定制皮肤的，如果您设定的主题是simple，那�
 为TitleWindow设置皮肤：
 
 ```
-this.win.skinName = uiskins.TitleWindowSkin;
+this.win.skinName = "uiskins.TitleWindowSkin";
 ```
 
 编译运行，效果会变成这样：

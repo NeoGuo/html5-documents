@@ -165,53 +165,28 @@ module skins.simple
     }
 }
 ```
-> 可以看出exml的描述相当简洁(在功能对等的情况下)，所以在实际的皮肤制作中，我们也应该尽量采取exml。关于exml的更多信息，在后面的皮肤章节中会详述。
+> 可以看出exml的描述相当简洁(在功能对等的情况下)，所以在实际的皮肤制作中，我们也应该尽量采取exml。
 
-我们来扩展一下这个列表皮肤，增加一个背景显示：
+我们来扩展一下这个列表皮肤，增加一个背景显示(BgListSkin.exml)：
 
 ```
-module uiskins
-{
-    export class BgListSkin extends egret.gui.Skin
-    {
-        private bg:egret.gui.UIAsset;
-        /**和组件中的定义相对应，确定皮肤应该具备哪些部件*/
-        public skinParts:Array<string> = ["dataGroup"];
-        /**对于列表组件来说，dataGroup是必须有的*/
-        public dataGroup:egret.gui.DataGroup;
-
-        public constructor() {
-            super();
-        }
-        public createChildren(): void {
-            super.createChildren();
-            this.bg = new egret.gui.UIAsset("app_egret_labs_jpg");
-            this.bg.percentWidth = 100;
-            this.bg.percentHeight = 100;
-            this.addElement(this.bg);
-            //dataGroup必须有
-            var scroller:egret.gui.Scroller = new egret.gui.Scroller();
-            scroller.top = 20;
-            scroller.bottom = 20;
-            scroller.left = 20;
-            scroller.right = 20;
-            this.addElement(scroller);
-            this.dataGroup = new egret.gui.DataGroup();
-            this.dataGroup.itemRendererSkinName = "skins.simple.ItemRendererSkin";
-            var vLayout:egret.gui.VerticalLayout = new egret.gui.VerticalLayout();
-            vLayout.gap = 0;
-            vLayout.horizontalAlign = egret.HorizontalAlign.CONTENT_JUSTIFY;
-            this.dataGroup.layout = vLayout;
-            scroller.viewport = this.dataGroup;
-        }
-    }
-}
+<e:Skin xmlns:e="http://ns.egret-labs.org/egret" xmlns:w="http://ns.egret-labs.org/wing">
+    <e:UIAsset id="bg" width="100%" height="100%"
+               source="app_egret_labs_jpg"/>
+    <e:Scroller top="20" bottom="20" left="20" right="20" horizontalScrollPolicy="off">
+        <e:DataGroup id="dataGroup" itemRendererSkinName="skins.simple.ItemRendererSkin">
+            <e:layout>
+                <e:VerticalLayout gap="0" horizontalAlign="contentJustify" />
+            </e:layout>
+        </e:DataGroup>
+    </e:Scroller>
+</e:Skin>
 ```
 
 然后设置列表的皮肤为我们扩展的这个：
 
 ```
-dataList.skinName = uiskins.BgListSkin;
+dataList.skinName = "uiskins.BgListSkin";
 ```
 
 效果：
@@ -255,74 +230,36 @@ module uiskins
 }
 ```
 
-然后定义这个ItemRenderer的皮肤：
+然后定义这个ItemRenderer的皮肤(ToggleRendererSkin.exml)：
 
 ```
-module uiskins
-{
-    export class ToggleRendererSkin extends egret.gui.Skin
-    {
-        /**和组件中的定义相对应，确定皮肤应该具备哪些部件*/
-        public skinParts:Array<string> = ["labelDisplay","toggleButton"];
-        /**文本标签*/
-        public labelDisplay:egret.gui.Label;
-        /**选择*/
-        public toggleButton:egret.gui.ToggleButton;
-        /**背景*/
-        private bg:egret.gui.UIAsset;
-
-        public constructor() {
-            super();
-            this.height = 80;
-        }
-        public createChildren(): void {
-            super.createChildren();
-            //设置状态
-            this.states = [];
-            this.states.push(new egret.gui.State("up",[]));
-            this.states.push(new egret.gui.State("down",[]));
-            this.states.push(new egret.gui.State("disabled",[]));
-            //创建背景
-            this.bg = new egret.gui.UIAsset();
-            this.bg.percentWidth = 100;
-            this.bg.percentHeight = 100;
-            this.addElement(this.bg);
-            //创建文本
-            this.labelDisplay = new egret.gui.Label();
-            this.labelDisplay.size = 36;
-            this.labelDisplay.verticalAlign = "middle";
-            this.labelDisplay.textAlign = "left";
-            this.labelDisplay.paddingLeft = 20;
-            this.labelDisplay.percentWidth=100;
-            this.labelDisplay.percentHeight=100;
-            this.addElement(this.labelDisplay);
-            //toggle
-            this.toggleButton = new egret.gui.ToggleButton();
-            this.toggleButton.hostComponentKey="ToggleOnOffButton";//默认主题中定义的一个ToggleButton皮肤
-            this.toggleButton.right=30;
-            this.toggleButton.verticalCenter=0;
-            this.addElement(this.toggleButton);
-        }
-        /**当状态改变时，背景和文本颜色也做相应的变化*/
-        public commitCurrentState(): void {
-            super.commitCurrentState();
-            switch(this.currentState) {
-                case "up":
-                    this.bg.source = "button_normal_png";
-                    this.labelDisplay.textColor = 0x111111;
-                    break;
-                case "down":
-                    this.bg.source = "button_down_png";
-                    this.labelDisplay.textColor = 0xffffff;
-                    break;
-                case "disabled":
-                    this.bg.source = "button_disabled_png";
-                    this.labelDisplay.textColor = 0xcccccc;
-                    break;
-            }
-        }
-    }
-}
+<e:Skin xmlns:e="http://ns.egret-labs.org/egret" xmlns:w="http://ns.egret-labs.org/wing"
+        height="80">
+    <e:states>
+        <e:State name="up" />
+        <e:State name="down" />
+        <e:State name="disabled" />
+    </e:states>
+    <e:UIAsset width="100%" height="100%"
+               source.up="button_normal_png"
+               source.down="button_down_png"
+               source.disabled="button_disabled_png" />
+    <e:Label id="labelDisplay" 
+             size="24" 
+             fontFamily="Tahoma"
+             width="100%" 
+             height="100%"
+             textColor="0x111111" 
+             textColor.down="0xffffff" 
+             textColor.disabled="0xcccccc"
+             textAlign="left" 
+             paddingLeft="20" 
+             verticalAlign="middle" />
+    <e:ToggleButton id="toggleButton" 
+                    hostComponentKey="ToggleOnOffButton" 
+                    right="30" 
+                    verticalCenter="0" />
+</e:Skin>
 ```
 
 效果：
