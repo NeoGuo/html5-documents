@@ -42,6 +42,6 @@ GUI教程：
 9. [皮肤机制](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/9-skin.md)
 	* [主题和皮肤适配](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/9-1-skinadapter.md) (done)
 	* [EXML和皮肤定制](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/9-2-customskin.md) (done)
-	* [自定义皮肤举例](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/9-3-statebutton.md) (done)
+	* [自定义组件举例](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/9-3-statebutton.md) (done)
 
 > 这里可以查看教程的配套源码：[HelloGUI](https://github.com/NeoGuo/html5-documents/tree/master/egret-gui/demo)
