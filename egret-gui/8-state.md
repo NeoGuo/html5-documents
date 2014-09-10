@@ -80,7 +80,9 @@ export class MyContainerDemo extends egret.gui.SkinnableContainer
 
     /**重写*/
     public getCurrentSkinState():string {
-        return this._highlight?"otherBG":"normal";
+        if(this._highlight)
+            return "highlight";
+        return  super.getCurrentSkinState();
     }
 }
 ```
