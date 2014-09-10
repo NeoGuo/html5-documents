@@ -11,7 +11,7 @@ this.myContainer.height = 300;
 this.addElement(this.myContainer);
 ```
 
-注意其中的第二行，这是和Group不同的地方，我们把一个自定义皮肤类，赋值给skinName。这样SkinnableContainer就会根据传入的类定义，创建一个皮肤实例，并判断这个实例是否是显示对象，如果是，则把皮肤实例添加到容器的显示列表上，如果不是，则把皮肤所包含的显示对象添加到容器的显示列表上(egret.Skin是继承自EventDispatcher的，也就是说，Skin不一定是显示对象)。
+注意其中的第二行，这是和Group不同的地方，我们把一个自定义皮肤类的类名称，赋值给skinName。这样SkinnableContainer就会根据传入的类名称，创建一个皮肤实例，并判断这个实例是否是显示对象，如果是，则把皮肤实例添加到容器的显示列表上，如果不是，则把皮肤所包含的显示对象添加到容器的显示列表上(egret.Skin是继承自EventDispatcher的，也就是说，Skin不一定是显示对象)。
 
 编写皮肤，您有两个选择：
 
