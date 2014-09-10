@@ -22,7 +22,7 @@ GUI教程：
 	* [Alert](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/2-8-alert.md) (done)
 3. [容器](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/3-container.md)
 	* [Group](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/3-1-group.md) (done)
-	* [可定义皮肤的容器](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/3-2-skinablecontainer.md) (done)
+	* [用EXML为容器定制皮肤](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/3-2-skinablecontainer.md) (done)
 	* [Panel](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/3-3-panel.md) (done)
 	* [滚动控制](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/3-4-scroller.md) (done)
 4. [数据集合](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/4-data.md)
@@ -43,7 +43,7 @@ GUI教程：
 8. [视图状态的使用](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/8-state.md) (done)
 9. [皮肤机制](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/9-skin.md)
 	* [主题和皮肤适配](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/9-1-skinadapter.md) (done)
-	* [EXML和皮肤定制](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/9-2-customskin.md) (done)
+	* [用TypeScript实现皮肤](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/9-2-customskin.md) (done)
 	* [自定义组件举例](https://github.com/NeoGuo/html5-documents/blob/master/egret-gui/9-3-statebutton.md) (done)
 
 > 这里可以查看教程的配套源码：[HelloGUI](https://github.com/NeoGuo/html5-documents/tree/master/egret-gui/demo)
