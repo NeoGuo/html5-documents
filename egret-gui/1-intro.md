@@ -94,6 +94,15 @@ private onResourceProgress(event:RES.ResourceEvent):void {
 > 2. 对当前项目，执行egret upgrade进行升级
 > 3. 执行egret build -e重新编译引擎代码
 
+编译报错的临时解决方案
+------------------------
+
+如果编译的时候，报```找不到CustomItemRenderer```之类的错误，请进入下面的文件，删除框起来的部分：
+
+![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret-gui/images/renderer_error.jpg "Egret")
+
+出错的原因是GUI Example中的个别文件之间互有依赖，并不是纯粹可抽离的主题。后续官方会有创建GUI模板项目的命令。这样就不会有耦合的东西了，也就不会再出现类似的错误。
+
 参考资料
 -------------------------
 
