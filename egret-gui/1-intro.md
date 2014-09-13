@@ -4,7 +4,7 @@ Egret框架GUI教程 - 了解Egret的GUI库
 简介
 -------------------------
 
-适用版本：Egret 1.0.5
+适用版本：Egret 1.0.6
 
 本教程系列是Egret GUI的入门教程，假定您已经掌握了Egret的一些基本使用经验，比如显示对象，事件等等，如果您还不具备这些基础知识，建议先从[文档中心的基础教程](http://docs.egret-labs.org/home.html)学起。
 
@@ -25,83 +25,64 @@ Egret框架GUI教程 - 了解Egret的GUI库
 
 但这并不意味着您就可以直接使用，因为不同于核心库中普通的显示对象，GUI库中的组件大部分是需要配置皮肤的，而皮肤并没有包含在src/extension/gui目录下(这和GUI的设计理念有关，核心代码和皮肤是分离的)。没有皮肤的组件是显示不出来的，如果您不做配置，直接new一个RadioButton，放在stage上，是什么也看不到的。那么如何把皮肤引入进来呢？
 
-在目前的Egret 1.0.5的版本中，尚未在模板中包含默认皮肤，所以您需要进入[egret-examples](https://github.com/egret-labs/egret-examples)这个项目，下载下来，然后把下列所需的文件，拷贝到您自己的项目里：
+新建项目
+-------------------------
 
-1. 进入[GUIExample的资源目录](https://github.com/egret-labs/egret-examples/tree/master/GUIExample/resource)，把asset,config,theme这三个目录，都拷贝您自己项目的resource目录下。
-
-2. 然后进入[GUIExample/src](https://github.com/egret-labs/egret-examples/tree/master/GUIExample/src)，把skins目录，和AssetAdapter.ts一起，都拷贝到您自己项目的src目录下面。
-
-3. 在您的入口类，比如默认的GameApp.ts中，注入解析器，可以把注入代码放置在onAddToStage方法中，并设置要加载的皮肤(GUI示例中提供了两套皮肤，一套是simple，一套是ocean)，整个教程中我们将使用simple皮肤来讲解：
+如果是新建项目，引入GUI是很简单的。只需要在创建项目的时候，追加一个```--type gui```参数就可以了。例如：
 
 ```
-private onAddToStage(evt:egret.Event){
-    //设置加载进度界面
-    this.loadingView  = new LoadingUI();
-    this.stage.addChild(this.loadingView);
-    //注入自定义的素材解析器
-    egret.Injector.mapClass("egret.gui.IAssetAdapter",AssetAdapter);
-    //设置默认皮肤
-    this.setSkinType("simple");
-}
-/*
- * 设置主题类型
- * */
-private setSkinType(type:string):void
-{
-    var path:string;
-    switch (type)
-    {
-        case "ocean":
-            egret.gui.Theme.load("resource/theme/theme_ocean.thm");
-            path="resource/config/resource_ocean.json";
-            break;
-        case "simple":
-            egret.gui.Theme.load("resource/theme/theme_simple.thm");
-            path="resource/config/resource_simple.json";
-            break;
-    }
-    RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE,this.onGroupComp,this);
-    RES.addEventListener(RES.ResourceEvent.GROUP_PROGRESS,this.onResourceProgress,this);
-    RES.loadConfig(path);
-    RES.loadGroup("global");
-}
-public onGroupComp(event:RES.ResourceEvent):void {
-    switch(event.groupName)
-    {
-        case "global":
-            RES.loadGroup("skin");
-            break;
-        case "skin":
-            RES.removeEventListener(RES.ResourceEvent.GROUP_COMPLETE,this.onGroupComp,this);
-            RES.removeEventListener(RES.ResourceEvent.GROUP_PROGRESS,this.onResourceProgress,this);
-            this.createGameScene();
-            break;
-    }
-}
-/**
- * preload资源组加载进度
- */
-private onResourceProgress(event:RES.ResourceEvent):void {
-    this.loadingView.setProgress(event.itemsLoaded,event.itemsTotal);
-}
+egret create HelloGUI --type gui
 ```
+
+然后项目创建完毕后，自动就给您配置好了默认皮肤和资源适配器，如下图所示：
+
+![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret-gui/images/create_type_gui.png "Egret")
+
+同普通项目相比，区别主要在于：
+
+1. 在egretProperties.json中增加了```{"name": "gui"}```
+2. resource中增加了皮肤所需的图片素材，以及主题配置文件theme.thm
+3. src中新增了skins/simple目录，里面是默认皮肤
+4. src中新增了AssetAdapter.ts，这是默认的资源适配器
+
+然后在Main.ts中，新增了加载主题的相关代码：
+
+```
+//注入自定义的素材解析器
+egret.Injector.mapClass("egret.gui.IAssetAdapter",AssetAdapter);
+//加载皮肤主题配置文件,可以手动修改这个文件。替换默认皮肤。
+egret.gui.Theme.load("resource/theme.thm");
+//加载素材配置文件，然后继续完成皮肤所需素材的加载
+RES.loadConfig("resource/resource.json","resource/");
+```
+
 > 由于我们已经注入了AssetAdapter，在GUI中取资源就不需要使用RES了，比如用```UIAsset("key")```来代替```UIAsset(RES.getRes("key"))```，这一点需要我们在学习GUI教程的时候稍加注意。
+
+原有项目
+-------------------------
+
+如果是原有项目，建议您按照如下的步骤，进行手工升级：
+
+1. 参照上面创建新项目的方式，临时创建一个带GUI的项目，配置好旧项目之后，删除临时项目
+2. 回到原有项目，修改egretProperties.json，增加```{"name": "gui"}```
+3. 将临时项目中resource下面的所有资源和文件，拷贝到您原有项目的resource目录下，如果resource.json有冲突，您可以自己处理一下文件合并，或者修改文件名，比如叫"theme_resource.json"，然后在您的主类中，额外增加一下对"theme_resource.json"的加载和处理
+4. 将临时项目src中的skins目录，拷贝到您原有项目的src下面
+5. 将临时项目src中的AssetAdapter.ts文件，拷贝到您原有项目的src下面
+6. 参考临时项目中对主题的加载方式，修改您主类的代码，增加对默认主题的加载
 
 通过上面的操作，您就可以在项目中使用GUI的组件了。欢迎您开始Egret GUI之旅！
 
-> 注意：从Egret 1.0.4版本开始，采用了模块化编译，如果您要使用GUI，请确保项目的egretProperties.json中的modules节点，包含了"name":"gui"。如果发现旧项目有问题，请执行以下步骤：
+> 注意：从Egret 1.0.4版本开始，采用了模块化编译，如果您要使用GUI，请确保项目的egretProperties.json中的modules节点，包含了{"name":"gui"}。如果发现旧项目有问题，请执行以下步骤：
 > 1. 更新Egret核心库，重新执行npm install -g进行安装
 > 2. 对当前项目，执行egret upgrade进行升级
 > 3. 执行egret build -e重新编译引擎代码
 
-编译报错的临时解决方案
+编译报错怎么办
 ------------------------
 
-如果编译的时候，报```找不到CustomItemRenderer```之类的错误，请进入下面的文件，删除框起来的部分：
-
-![github](https://raw.githubusercontent.com/NeoGuo/html5-documents/master/egret-gui/images/renderer_error.jpg "Egret")
-
-出错的原因是GUI Example中的个别文件之间互有依赖，并不是纯粹可抽离的主题。后续官方会有创建GUI模板项目的命令。这样就不会有耦合的东西了，也就不会再出现类似的错误。
+1. 确保您升级了Egret，并upgrade了项目，并通过-e重新编译了引擎
+2. egretProperties.json确保包含了{"name":"gui"}
+3. 确保需要拷贝的资源没有遗漏，没有放错位置
 
 参考资料
 -------------------------
