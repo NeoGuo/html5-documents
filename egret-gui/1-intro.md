@@ -33,6 +33,7 @@ Egret框架GUI教程 - 了解Egret的GUI库
 ```
 egret create HelloGUI --type gui
 ```
+> 这个命令包含在egret core的master分支上，如果您发现找不到这个参数，请确认是从github上更新了最新版本
 
 然后项目创建完毕后，自动就给您配置好了默认皮肤和资源适配器，如下图所示：
 
