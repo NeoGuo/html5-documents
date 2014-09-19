@@ -24,5 +24,5 @@ FunctionImplementation:
 
 ```
 
-第七章 接口
+7 接口
 ====================
