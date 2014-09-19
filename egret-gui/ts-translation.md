@@ -10,7 +10,7 @@ TypeScript扩展了JavaScript的函数，包括：有类型参数，无类型参
 
 ```
 FunctionDeclaration:  ( Modified )
-	FunctionOverloadsopt   FunctionImplementation
+	FunctionOverloads<sub>opt</sub>   FunctionImplementation
 
 FunctionOverloads:
 	FunctionOverload
