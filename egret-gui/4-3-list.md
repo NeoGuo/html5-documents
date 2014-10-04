@@ -65,7 +65,7 @@ dataList.selectedItem = myCollection.getItemAt(2);//索引从0开始计算，所
 ```
 dataList.addEventListener(egret.gui.IndexChangeEvent.CHANGE,this.listChangeHandler,this);
 /**事件侦听*/
-private listChangeHandler(evt:egret.Event):void {
+private listChangeHandler(evt:egret.gui.IndexChangeEvent):void {
     var dataList:egret.gui.List = evt.currentTarget;
     console.log(evt.oldIndex+","+evt.newIndex);
     console.log(dataList.selectedItem.name);
