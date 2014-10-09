@@ -64,16 +64,30 @@ module fighter
         }
         /**预创建一些对象，减少游戏时的创建消耗*/
         private preCreatedInstance():void {
-            for(var i:number=0;i<20;i++) {
+            var i:number = 0;
+            var objArr:any[] = [];
+            for(i=0;i<20;i++) {
                 var bullet = fighter.Bullet.produce("b1");
+                objArr.push(bullet);
+            }
+            for(i=0;i<20;i++) {
+                bullet = objArr.pop();
                 fighter.Bullet.reclaim(bullet,"b1");
             }
-            for(var i:number=0;i<20;i++) {
+            for(i=0;i<20;i++) {
                 var bullet = fighter.Bullet.produce("b2");
+                objArr.push(bullet);
+            }
+            for(i=0;i<20;i++) {
+                bullet = objArr.pop();
                 fighter.Bullet.reclaim(bullet,"b2");
             }
-            for(var i:number=0;i<20;i++) {
+            for(i=0;i<20;i++) {
                 var enemyFighter:fighter.Airplane = fighter.Airplane.produce("f2",1000);
+                objArr.push(enemyFighter);
+            }
+            for(i=0;i<20;i++) {
+                enemyFighter = objArr.pop();
                 fighter.Airplane.reclaim(enemyFighter,"f2");
             }
         }
