@@ -165,7 +165,8 @@ module fighter
                     this.removeChild(bullet);
                     Bullet.reclaim(bullet);
                     this.myBullets.splice(i,1);
-                    break;
+                    i--;
+                    myBulletsCount--;
                 }
                 bullet.y -= 12 * speedOffset;
                   
@@ -181,7 +182,8 @@ module fighter
                     theFighter.removeEventListener("createBullet",this.createEnemyBulletHandler,this);
                     theFighter.stopFire();
                     this.enemyFighters.splice(i,1);
-                    break;
+                    i--;
+                    enemyFighterCount--;
                 }
                 theFighter.y += 4 * speedOffset;
                 
@@ -194,7 +196,8 @@ module fighter
                     this.removeChild(bullet);
                     Bullet.reclaim(bullet);
                     this.enemyBullets.splice(i,1);
-                    break;
+                    i--;
+                    enemyBulletsCount--;//数组长度已经改变
                 }
                 
                 bullet.y += 8 * speedOffset;
