@@ -159,51 +159,46 @@ module fighter
             var i:number = 0;
             var bullet:fighter.Bullet;
             var myBulletsCount:number = this.myBullets.length;
-            var delArr:any[] = [];
-            for(;i<myBulletsCount;i++) {
+            for(;i < myBulletsCount;i++){
                 bullet = this.myBullets[i];
-                bullet.y -= 12*speedOffset;
-                if(bullet.y<-bullet.height)
-                    delArr.push(bullet);
+                if(bullet.y < -bullet.height){
+                    this.removeChild(bullet);
+                    Bullet.reclaim(bullet);
+                    this.myBullets.splice(i,1);
+                    break;
+                }
+                bullet.y -= 12 * speedOffset;
+                  
             }
-            for(i=0;i<delArr.length;i++) {
-                bullet = delArr[i];
-                this.removeChild(bullet);
-                fighter.Bullet.reclaim(bullet,"b1");
-                this.myBullets.splice(this.myBullets.indexOf(bullet),1);
-            }
-            delArr = [];
             //敌人飞机运动
             var theFighter:fighter.Airplane;
             var enemyFighterCount:number = this.enemyFighters.length;
-            for(i=0;i<enemyFighterCount;i++) {
+              for(i = 0;i < enemyFighterCount;i++){
                 theFighter = this.enemyFighters[i];
-                theFighter.y += 4*speedOffset;
-                if(theFighter.y>this.stageH)
-                    delArr.push(theFighter);
+                if(theFighter.y>this.stage.stageHeight){
+                    this.removeChild(theFighter);
+                    Airplane.reclaim(theFighter);
+                    theFighter.removeEventListener("createBullet",this.createEnemyBulletHandler,this);
+                    theFighter.stopFire();
+                    this.enemyFighters.splice(i,1);
+                    break;
+                }
+                theFighter.y += 4 * speedOffset;
+                
             }
-            for(i=0;i<delArr.length;i++) {
-                theFighter = delArr[i];
-                this.removeChild(theFighter);
-                fighter.Airplane.reclaim(theFighter,"f2");
-                theFighter.removeEventListener("createBullet",this.createBulletHandler,this);
-                theFighter.stopFire();
-                this.enemyFighters.splice(this.enemyFighters.indexOf(theFighter),1);
-            }
-            delArr = [];
             //敌人子弹运动
             var enemyBulletsCount:number = this.enemyBullets.length;
-            for(i=0;i<enemyBulletsCount;i++) {
+           for(i = 0;i < enemyBulletsCount;i++){
                 bullet = this.enemyBullets[i];
-                bullet.y += 8*speedOffset;
-                if(bullet.y>this.stageH)
-                    delArr.push(bullet);
-            }
-            for(i=0;i<delArr.length;i++) {
-                bullet = delArr[i];
-                this.removeChild(bullet);
-                fighter.Bullet.reclaim(bullet,"b2");
-                this.enemyBullets.splice(this.enemyBullets.indexOf(bullet),1);
+                 if(bullet.y>this.stage.stageHeight){
+                    this.removeChild(bullet);
+                    Bullet.reclaim(bullet);
+                    this.enemyBullets.splice(i,1);
+                    break;
+                }
+                
+                bullet.y += 8 * speedOffset;
+               
             }
             this.gameHitTest();
         }
@@ -258,7 +253,7 @@ module fighter
                         this.myBullets.splice(this.myBullets.indexOf(bullet),1);
                     else
                         this.enemyBullets.splice(this.enemyBullets.indexOf(bullet),1);
-                    fighter.Bullet.reclaim(bullet,bullet.textureName);
+                    fighter.Bullet.reclaim(bullet);
                 }
                 this.myScore += delFighters.length;
                 while(delFighters.length>0) {
@@ -267,7 +262,7 @@ module fighter
                     theFighter.removeEventListener("createBullet",this.createBulletHandler,this);
                     this.removeChild(theFighter);
                     this.enemyFighters.splice(this.enemyFighters.indexOf(theFighter),1);
-                    fighter.Airplane.reclaim(theFighter,"f2");
+                    fighter.Airplane.reclaim(theFighter);
                 }
             }
         }
@@ -287,12 +282,12 @@ module fighter
             while(this.myBullets.length>0) {
                 bullet = this.myBullets.pop();
                 this.removeChild(bullet);
-                fighter.Bullet.reclaim(bullet,"b1");
+                fighter.Bullet.reclaim(bullet);
             }
             while(this.enemyBullets.length>0) {
                 bullet = this.enemyBullets.pop();
                 this.removeChild(bullet);
-                fighter.Bullet.reclaim(bullet,"b2");
+                fighter.Bullet.reclaim(bullet);
             }
             //清理飞机
             var theFighter:fighter.Airplane;
@@ -301,7 +296,7 @@ module fighter
                 theFighter.stopFire();
                 theFighter.removeEventListener("createBullet",this.createBulletHandler,this);
                 this.removeChild(theFighter);
-                fighter.Airplane.reclaim(theFighter,"f2");
+                fighter.Airplane.reclaim(theFighter);
             }
             //显示成绩
             this.scorePanel.showScore(this.myScore);
