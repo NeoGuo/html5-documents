@@ -19,14 +19,14 @@ module fighter
             if(dict.length>0) {
                 bullet = dict.pop();
             } else {
-                bullet = new fighter.Bullet(RES.getRes(textureName));
+                bullet = new fighter.Bullet(RES.getRes(textureName),textureName);
             }
-            bullet.textureName = textureName;
             return bullet;
         }
         /**回收*/
-        public static reclaim(bullet:fighter.Bullet,textureName:string):void
+        public static reclaim(bullet:fighter.Bullet):void
         {
+             var textureName: string = bullet.textureName;
             if(fighter.Bullet.cacheDict[textureName]==null)
                 fighter.Bullet.cacheDict[textureName] = [];
             var dict:fighter.Bullet[] = fighter.Bullet.cacheDict[textureName];
@@ -34,10 +34,11 @@ module fighter
                 dict.push(bullet);
         }
 
-        public textureName:string;
+        private textureName:string;//可视为子弹类型名
 
-        public constructor(texture:egret.Texture) {
+        public constructor(texture:egret.Texture,textureName: string) {
             super(texture);
-        }
+            this.textureName = textureName;
+		}
     }
 }
