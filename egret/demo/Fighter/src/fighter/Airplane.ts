@@ -19,14 +19,15 @@ module fighter
             if(dict.length>0) {
                 theFighter = dict.pop();
             } else {
-                theFighter = new fighter.Airplane(RES.getRes(textureName),fireDelay);
+                theFighter= new Airplane(RES.getRes(textureName),textureName,fireDelay)
             }
             theFighter.blood = 10;
             return theFighter;
         }
         /**回收*/
-        public static reclaim(theFighter:fighter.Airplane,textureName:string):void
+        public static reclaim(theFighter:fighter.Airplane):void
         {
+            var textureName: string = theFighter.textureName;
             if(fighter.Airplane.cacheDict[textureName]==null)
                 fighter.Airplane.cacheDict[textureName] = [];
             var dict:fighter.Airplane[] = fighter.Airplane.cacheDict[textureName];
@@ -36,6 +37,8 @@ module fighter
 
         /**飞机位图*/
         private bmp:egret.Bitmap;
+        /*类型名（和资源组中同名纹理对应）*/
+        private textureName: string;
         /**创建子弹的时间间隔*/
         private fireDelay:number;
         /**定时射*/
@@ -43,8 +46,9 @@ module fighter
         /**飞机生命值*/
         public blood:number = 10;
 
-        public constructor(texture:egret.Texture,fireDelay:number) {
+        public constructor(texture:egret.Texture,textureName: string,fireDelay:number) {
             super();
+            this.textureName = textureName;
             this.fireDelay = fireDelay;
             this.bmp = new egret.Bitmap(texture);
             this.addChild(this.bmp);
